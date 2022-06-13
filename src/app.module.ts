@@ -36,7 +36,6 @@ import { Pla_Uni_Entity } from './ticket/entities/pla_uni_entity';
     schema: '',
     entities: [Css_Rti_Entity, Pla_Emp_Entity, Pla_Uni_Entity],
     logging: true,
-   
   }),],
   controllers: [AppController],
   providers: [AppService],

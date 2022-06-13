@@ -11,6 +11,5 @@ import { Pla_Uni_Entity } from './entities/pla_uni_entity';
   controllers: [TicketController],
   providers: [TicketService],
   exports: [TicketService]
-
 })
 export class TicketModule { }

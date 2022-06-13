@@ -17,14 +17,12 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-<<<<<<< HEAD
 import { AuthModule } from './auth/auth.module';
 import { Css_Rti_Entity } from './ticket/entities/css_rti_entity';
-=======
-import { Empleados } from './entities/empleado.entity';
->>>>>>> d17b091c94df737a3bcc496bda7ec62502d81cea
 import { TicketModule } from './ticket/ticket.module';
 import { UsersModule } from './users/users.module';
+import { Pla_Emp_Entity } from './ticket/entities/pla_emp_entity';
+import { Pla_Uni_Entity } from './ticket/entities/pla_uni_entity';
 
 @Module({
   imports: [AuthModule,UsersModule,TicketModule,
@@ -36,12 +34,9 @@ import { UsersModule } from './users/users.module';
     password: '4pl1c4c10n3sw3b',
     database: 'desa',
     schema: '',
-<<<<<<< HEAD
-    entities: [Css_Rti_Entity],
-=======
+    entities: [Css_Rti_Entity, Pla_Emp_Entity, Pla_Uni_Entity],
     logging: true,
-    entities: [Empleados],
->>>>>>> d17b091c94df737a3bcc496bda7ec62502d81cea
+   
   }),],
   controllers: [AppController],
   providers: [AppService],

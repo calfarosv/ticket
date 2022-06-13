@@ -16,10 +16,13 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { AuthModule } from './auth/auth.module';
+import { Css_Rti_Entity } from './ticket/entities/css_rti_entity';
 import { TicketModule } from './ticket/ticket.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
-  imports: [TicketModule,
+  imports: [AuthModule,UsersModule,TicketModule,
   TypeOrmModule.forRoot({
     type: 'oracle',
     connectString: '192.168.1.9:1521/OBELIX',
@@ -28,7 +31,7 @@ import { TicketModule } from './ticket/ticket.module';
     password: '4pl1c4c10n3sw3b',
     database: 'desa',
     schema: '',
-    entities: [],
+    entities: [Css_Rti_Entity],
   }),],
   controllers: [AppController],
   providers: [AppService],

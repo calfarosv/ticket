@@ -19,9 +19,10 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { Css_Rti_Entity } from './ticket/entities/css_rti_entity';
-import { Empleados } from './entities/empleado.entity';
 import { TicketModule } from './ticket/ticket.module';
 import { UsersModule } from './users/users.module';
+import { Pla_Emp_Entity } from './ticket/entities/pla_emp_entity';
+import { Pla_Uni_Entity } from './ticket/entities/pla_uni_entity';
 
 @Module({
   imports: [AuthModule,UsersModule,TicketModule,
@@ -33,7 +34,7 @@ import { UsersModule } from './users/users.module';
     password: '4pl1c4c10n3sw3b',
     database: 'desa',
     schema: '',
-    entities: [Css_Rti_Entity, Empleados],
+    entities: [Css_Rti_Entity, Pla_Emp_Entity, Pla_Uni_Entity],
     logging: true,
   }),],
   controllers: [AppController],

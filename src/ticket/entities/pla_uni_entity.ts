@@ -2,16 +2,16 @@
 import { Column, Entity,  PrimaryColumn } from 'typeorm';
 
 @Entity('PLA_UNI_UNIDAD', { schema: 'SISRRH' })
-export class Unidades {
+export class Pla_Uni_Entity {
   @PrimaryColumn({ name: 'UNI_CODCIA', type: 'varchar2', length: 3 })
-  codcia: string;
+  uniCodcia: string;
   @PrimaryColumn({ name: 'UNI_CODIGO' })
-  id: number;
+  uniCodigo: number;
   @Column({ name: 'UNI_NOMBRE', type: 'varchar2', length: 80 })
-  nombre: string;
+  uniNombre: string;
   @Column({ name: 'UNI_CODENTI', type: 'varchar2', length: 5 })
-  codenti: string;
+  uniCodenti: string;
   @Column({ name: 'UNI_ESTADO', type: 'varchar2', length: 1 })
-  estado: string;
+  uniEstado: string;
 
 }

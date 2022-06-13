@@ -15,7 +15,7 @@ export class TicketService {
       })
       async buscaTodosEmpleados(): Promise<Empleados[]> {
         const register = await this.empleadosRepository.find({
-           // where :"UPPER(EMP_ESTADO) IN ("A","V","O")",
+            where :"UPPER(EMP_ESTADO) IN ('A','V')",
             order: {
             codcel: 'ASC',
           },

@@ -21,11 +21,13 @@ import { AuthModule } from './auth/auth.module';
 import { Css_Rti_Entity } from './ticket/entities/css_rti_entity';
 import { TicketModule } from './ticket/ticket.module';
 import { UsersModule } from './users/users.module';
-import { Pla_Emp_Entity } from './ticket/entities/pla_emp_entity';
-import { Pla_Uni_Entity } from './ticket/entities/pla_uni_entity';
+import { Pla_Emp_Entity } from './apoyo/entities/pla_emp_entity';
+import { Pla_Uni_Entity } from './apoyo/entities/pla_uni_entity';
+import { ApoyoModule } from './apoyo/apoyo.module';
+
 
 @Module({
-  imports: [AuthModule,UsersModule,TicketModule,
+  imports: [AuthModule,UsersModule,TicketModule,ApoyoModule,
   TypeOrmModule.forRoot({
     type: 'oracle',
     connectString: '192.168.1.9:1521/OBELIX',
@@ -36,7 +38,8 @@ import { Pla_Uni_Entity } from './ticket/entities/pla_uni_entity';
     schema: '',
     entities: [Css_Rti_Entity, Pla_Emp_Entity, Pla_Uni_Entity],
     logging: true,
-  }),],
+  }),
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

@@ -3,6 +3,7 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TicketModule } from './ticket/ticket.module';
+import { Empleados } from 'src/entities/empleado.entity';
 
 @Module({
   imports: [TicketModule],
@@ -16,6 +17,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { Empleados } from './entities/empleado.entity';
 import { TicketModule } from './ticket/ticket.module';
 
 @Module({
@@ -28,7 +30,8 @@ import { TicketModule } from './ticket/ticket.module';
     password: '4pl1c4c10n3sw3b',
     database: 'desa',
     schema: '',
-    entities: [],
+    logging: true,
+    entities: [Empleados],
   }),],
   controllers: [AppController],
   providers: [AppService],

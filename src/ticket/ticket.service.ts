@@ -76,33 +76,44 @@ export class TicketService {
         console.log('v_rti_fecfin: ', v_rti_fecfin);
         console.log('v_rti_anisol: ', v_rti_anisol);
         console.log('v_rti_codsol: ', v_rti_codsol);
-
+        
+        let v_fecha_sol: Date;
         let v_where = '';
 
-        if (v_rti_caso = '01') {
+        if (v_rti_caso == '01') {
             v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiPrioridad = :par_rti_prioridad';
             //console.log('1', v_where);
         }
-        if (v_rti_caso = '02') {
+        if (v_rti_caso == '02') {
             v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiCoduniResp = :par_rti_coduniresp';
             //console.log('1', v_where);
         }
-        if (v_rti_caso = '03') {
+        if (v_rti_caso == '03') {
             v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiCodemp = :par_rti_codemp';
             //console.log('1', v_where);
         }
-        if (v_rti_caso = '04') {
+        if (v_rti_caso == '04') {
             v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiCodsis = :par_rti_codsis';
             //console.log('1', v_where);
         }
-        /*
-        if (v_rti_caso = '05') {
+        if (v_rti_caso == '05') {
             v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiCodsis = :par_rti_codsis and Css_Rti_Entity.rtiCodmsi = :par_rti_codmsi';
             //console.log('1', v_where);
         }
-*/
+        if (v_rti_caso == '06') {
+            v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiEstado = :par_rti_estado';
+            //console.log('1', v_where);
+        }
+        if (v_rti_caso == '07') {
+            v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiAnisol = :par_rti_anisol and Css_Rti_Entity.rtiCodsol = :par_rti_codsol';
+            //console.log('1', v_where);
+        }
 
-console.log('v_where: ', v_where);
+        //v_fecha_sol = (new Date(v_rti_fecsol.getUTCFullYear(), v_rti_fecsol.getUTCMonth(), v_rti_fecsol.getUTCDate(), 0, 0, 0));
+
+
+        console.log('v_rti_caso: ', v_rti_caso);
+        console.log('v_where: ', v_where);
 
         const register = await this.ticketRepository.createQueryBuilder()
             .select('Css_Rti_Entity.rtiCodcia', 'rtiCodcia')

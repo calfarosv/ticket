@@ -62,9 +62,20 @@ export class TicketService {
         v_rti_fecfin: Date,
         v_rti_anisol: number,
         v_rti_codsol: number) {
-        //console.log('v_codunisol: ', v_codunisol);
-        //console.log('v_codunieje: ', v_codunieje);
-        //console.log('v_codcelres: ', v_codcelres);
+        console.log('v_rti_caso: ', v_rti_caso);
+        console.log('v_rti_codcia: ', v_rti_codcia);
+        console.log('v_rti_codigo: ', v_rti_codigo);
+        console.log('v_rti_prioridad: ', v_rti_prioridad);
+        console.log('v_rti_coduniresp: ', v_rti_coduniresp);
+        console.log('v_rti_codemp: ', v_rti_codemp);
+        console.log('v_rti_codsis: ', v_rti_codsis);
+        console.log('v_rti_codmsi: ', v_rti_codmsi);
+        console.log('v_rti_estado: ', v_rti_estado);
+        console.log('v_rti_feccrea: ', v_rti_feccrea);
+        console.log('v_rti_fecsol: ', v_rti_fecsol);
+        console.log('v_rti_fecfin: ', v_rti_fecfin);
+        console.log('v_rti_anisol: ', v_rti_anisol);
+        console.log('v_rti_codsol: ', v_rti_codsol);
 
         let v_where = '';
 
@@ -76,6 +87,22 @@ export class TicketService {
             v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiCoduniResp = :par_rti_coduniresp';
             //console.log('1', v_where);
         }
+        if (v_rti_caso = '03') {
+            v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiCodemp = :par_rti_codemp';
+            //console.log('1', v_where);
+        }
+        if (v_rti_caso = '04') {
+            v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiCodsis = :par_rti_codsis';
+            //console.log('1', v_where);
+        }
+        /*
+        if (v_rti_caso = '05') {
+            v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiCodsis = :par_rti_codsis and Css_Rti_Entity.rtiCodmsi = :par_rti_codmsi';
+            //console.log('1', v_where);
+        }
+*/
+
+console.log('v_where: ', v_where);
 
         const register = await this.ticketRepository.createQueryBuilder()
             .select('Css_Rti_Entity.rtiCodcia', 'rtiCodcia')

@@ -180,7 +180,210 @@ export class TicketController {
             }
         }
     }
-    //-------------------------------------------------------------------------------------------------------------   
+
+    //-------------------------------------------------------------------------------------------------------------
+
+    @Get('/by_codemp/:rti_codemp')
+    @ApiOperation({ summary: 'Consulta de Tickets por Empleado que solicita' })
+    @ApiResponse({
+        status: HttpStatus.OK,
+        description: 'Consulta de Tickets por Empleado que solicita',
+        type: [Css_Rti_Entity],
+    })
+    async obtiene_ticket_por_codemp(
+        @Param('rti_codemp') v_rti_codemp: string,
+    ) {
+        //
+        let v_rti_caso = '03';
+        //
+        let v_rti_codcia = '001';
+        let v_rti_codigo: number = null;
+        let v_rti_prioridad = '';
+        let v_rti_coduniresp: number = null;
+        //let v_rti_codemp = '';
+        let v_rti_codsis: number = null;
+        let v_rti_codmsi: number = null;
+        let v_rti_estado = '';
+        let v_rti_feccrea: Date;
+        let v_rti_fecsol: Date;
+        let v_rti_fecfin: Date;
+        let v_rti_anisol: number = null;
+        let v_rti_codsol: number = null;
+
+        const data: any[] = await this.ticketService.busca_ticket_dinamico(
+            v_rti_caso,
+            v_rti_codcia,
+            v_rti_codigo,
+            v_rti_prioridad,
+            v_rti_coduniresp,
+            v_rti_codemp,
+            v_rti_codsis,
+            v_rti_codmsi,
+            v_rti_estado,
+            v_rti_feccrea,
+            v_rti_fecsol,
+            v_rti_fecfin,
+            v_rti_anisol,
+            v_rti_codsol);
+        //console.log('data: ', data);
+        // VERIFICO SI LOS DATOS OBTENIDOS SON VARIOS REGISTROS, SOLO UNO O NINGUNO
+        // PRIMERO SE DEFINE SI LOS DATOS SON UN ARREGLO O NO
+        if (Array.isArray(data)) {
+            //console.log('Es un arreglo');
+            //SI ES UN ARREGLO, SE DEVUELVE CADA REGISTRO COMO JASON (LOS CORCHETES SON AUTOMATICOS POR SER ARREGLO)
+            return data
+        }
+        else {
+            //console.log('NO es un arreglo');
+            //SI NO ES UN ARREGLO, VERIFICO SI LOS DATOS VIENEN VACIOS O NO
+            if (!data) {
+                //SI LOS DATOS VIENEN VACIOS, SE DEVUELVEN CORCHETES
+                return []
+            }
+            else {
+                // SI LOS DATOS NO VIENEN VACIOS, ENTONCES ES SOLO 1 REGISTRO
+                // SE DEVUELVE ENTRE CORCHETES
+                return [data];
+            }
+        }
+    }
+
+    //-------------------------------------------------------------------------------------------------------------
+
+    @Get('/by_codsis/:rti_codsis')
+    @ApiOperation({ summary: 'Consulta de Tickets por Sistema' })
+    @ApiResponse({
+        status: HttpStatus.OK,
+        description: 'Consulta de Tickets por Sistema',
+        type: [Css_Rti_Entity],
+    })
+    async obtiene_ticket_por_sistema(
+        @Param('rti_codsis') v_rti_codsis: number,
+    ) {
+        //
+        let v_rti_caso = '04';
+        //
+        let v_rti_codcia = '001';
+        let v_rti_codigo: number = null;
+        let v_rti_prioridad = '';
+        let v_rti_coduniresp: number = null;
+        let v_rti_codemp = '';
+        //let v_rti_codsis: number = null;
+        let v_rti_codmsi: number = null;
+        let v_rti_estado = '';
+        let v_rti_feccrea: Date;
+        let v_rti_fecsol: Date;
+        let v_rti_fecfin: Date;
+        let v_rti_anisol: number = null;
+        let v_rti_codsol: number = null;
+
+        const data: any[] = await this.ticketService.busca_ticket_dinamico(
+            v_rti_caso,
+            v_rti_codcia,
+            v_rti_codigo,
+            v_rti_prioridad,
+            v_rti_coduniresp,
+            v_rti_codemp,
+            v_rti_codsis,
+            v_rti_codmsi,
+            v_rti_estado,
+            v_rti_feccrea,
+            v_rti_fecsol,
+            v_rti_fecfin,
+            v_rti_anisol,
+            v_rti_codsol);
+        //console.log('data: ', data);
+        // VERIFICO SI LOS DATOS OBTENIDOS SON VARIOS REGISTROS, SOLO UNO O NINGUNO
+        // PRIMERO SE DEFINE SI LOS DATOS SON UN ARREGLO O NO
+        if (Array.isArray(data)) {
+            //console.log('Es un arreglo');
+            //SI ES UN ARREGLO, SE DEVUELVE CADA REGISTRO COMO JASON (LOS CORCHETES SON AUTOMATICOS POR SER ARREGLO)
+            return data
+        }
+        else {
+            //console.log('NO es un arreglo');
+            //SI NO ES UN ARREGLO, VERIFICO SI LOS DATOS VIENEN VACIOS O NO
+            if (!data) {
+                //SI LOS DATOS VIENEN VACIOS, SE DEVUELVEN CORCHETES
+                return []
+            }
+            else {
+                // SI LOS DATOS NO VIENEN VACIOS, ENTONCES ES SOLO 1 REGISTRO
+                // SE DEVUELVE ENTRE CORCHETES
+                return [data];
+            }
+        }
+    }
+
+    //-------------------------------------------------------------------------------------------------------------
+/*
+    @Get('/by_sismod/:rti_codsis/rti_codmsi')
+    @ApiOperation({ summary: 'Consulta de Tickets por Sistema y Módulo' })
+    @ApiResponse({
+        status: HttpStatus.OK,
+        description: 'Consulta de Tickets por Sistema y Módulo',
+        type: [Css_Rti_Entity],
+    })
+    async obtiene_ticket_por_sistema_modulo(
+        @Param('rti_codsis') v_rti_codsis: number,
+        @Param('rti_codmsi') v_rti_codmsi: number,
+    ) {
+        //
+        let v_rti_caso = '05';
+        //
+        let v_rti_codcia = '001';
+        let v_rti_codigo: number = null;
+        let v_rti_prioridad = '';
+        let v_rti_coduniresp: number = null;
+        let v_rti_codemp = '';
+        //let v_rti_codsis: number = null;
+        //let v_rti_codmsi: number = null;
+        let v_rti_estado = '';
+        let v_rti_feccrea: Date;
+        let v_rti_fecsol: Date;
+        let v_rti_fecfin: Date;
+        let v_rti_anisol: number = null;
+        let v_rti_codsol: number = null;
+
+        const data: any[] = await this.ticketService.busca_ticket_dinamico(
+            v_rti_caso,
+            v_rti_codcia,
+            v_rti_codigo,
+            v_rti_prioridad,
+            v_rti_coduniresp,
+            v_rti_codemp,
+            v_rti_codsis,
+            v_rti_codmsi,
+            v_rti_estado,
+            v_rti_feccrea,
+            v_rti_fecsol,
+            v_rti_fecfin,
+            v_rti_anisol,
+            v_rti_codsol);
+        //console.log('data: ', data);
+        // VERIFICO SI LOS DATOS OBTENIDOS SON VARIOS REGISTROS, SOLO UNO O NINGUNO
+        // PRIMERO SE DEFINE SI LOS DATOS SON UN ARREGLO O NO
+        if (Array.isArray(data)) {
+            //console.log('Es un arreglo');
+            //SI ES UN ARREGLO, SE DEVUELVE CADA REGISTRO COMO JASON (LOS CORCHETES SON AUTOMATICOS POR SER ARREGLO)
+            return data
+        }
+        else {
+            //console.log('NO es un arreglo');
+            //SI NO ES UN ARREGLO, VERIFICO SI LOS DATOS VIENEN VACIOS O NO
+            if (!data) {
+                //SI LOS DATOS VIENEN VACIOS, SE DEVUELVEN CORCHETES
+                return []
+            }
+            else {
+                // SI LOS DATOS NO VIENEN VACIOS, ENTONCES ES SOLO 1 REGISTRO
+                // SE DEVUELVE ENTRE CORCHETES
+                return [data];
+            }
+        }
+    }
+*/
+    //-------------------------------------------------------------------------------------------------------------  
 
 
 

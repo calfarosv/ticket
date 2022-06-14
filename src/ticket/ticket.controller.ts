@@ -1,5 +1,7 @@
-import { Body, Controller, Get, HttpStatus, Param } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put } from '@nestjs/common';
+import { ApiHeader, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Create_Css_Rti_Dto } from './dto/create_css_rti_dto';
+import { Edit_Css_Rti_Dto } from './dto/edit_css_rti_dto';
 import { Css_Rti_Entity } from './entities/css_rti_entity';
 import { TicketService } from './ticket.service';
 
@@ -23,7 +25,7 @@ export class TicketController {
     }
 
     @Get('/by_pk/')
-    @ApiOperation({ summary: 'Consulta de Tickets por llave primaria' })
+    @ApiOperation({ summary: 'Consulta de Tickets por llave primaria - IMPORTANTE: Los parámetros deben ir en el BODY' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por llave primaria',
@@ -52,7 +54,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_prioridad/')
-    @ApiOperation({ summary: 'Consulta de Tickets por prioridad' })
+    @ApiOperation({ summary: 'Consulta de Tickets por prioridad - IMPORTANTE: Los parámetros deben ir en el BODY' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por prioridad',
@@ -117,7 +119,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_coduniresp/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Código de la Unidad Responsable' })
+    @ApiOperation({ summary: 'Consulta de Tickets por Código de la Unidad Responsable - IMPORTANTE: Los parámetros deben ir en el BODY' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Código de la Unidad Responsable',
@@ -184,7 +186,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_codemp/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Empleado que solicita' })
+    @ApiOperation({ summary: 'Consulta de Tickets por Empleado que solicita - IMPORTANTE: Los parámetros deben ir en el BODY' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Empleado que solicita',
@@ -251,7 +253,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_codsis/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Sistema' })
+    @ApiOperation({ summary: 'Consulta de Tickets por Sistema - IMPORTANTE: Los parámetros deben ir en el BODY' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Sistema',
@@ -318,7 +320,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_sismod/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Sistema y Módulo' })
+    @ApiOperation({ summary: 'Consulta de Tickets por Sistema y Módulo - IMPORTANTE: Los parámetros deben ir en el BODY' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Sistema y Módulo',
@@ -386,7 +388,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_estado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Estado' })
+    @ApiOperation({ summary: 'Consulta de Tickets por Estado - IMPORTANTE: Los parámetros deben ir en el BODY' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Estado',
@@ -453,7 +455,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_aniosol/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Estado' })
+    @ApiOperation({ summary: 'Consulta de Tickets por Estado - IMPORTANTE: Los parámetros deben ir en el BODY' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Estado',
@@ -520,15 +522,15 @@ export class TicketController {
 
     //-------------------------------------------------------------------------------------------------------------
 
-    @Get('/by_estado/:rti_fecsol')
-    @ApiOperation({ summary: 'Consulta de Tickets por Estado' })
+    @Get('/by_fecsol/')
+    @ApiOperation({ summary: 'Consulta de Tickets por Fecha de la solicitud - IMPORTANTE: Los parámetros deben ir en el BODY' })
     @ApiResponse({
         status: HttpStatus.OK,
-        description: 'Consulta de Tickets por Estado',
+        description: 'Consulta de Tickets por Fecha de la solicitud',
         type: [Css_Rti_Entity],
     })
     async obtiene_ticket_por_fecsol(
-        @Param('rti_fecsol') v_rti_fecsol: Date,
+        @Body('rtiFecsol') v_rti_fecsol: Date,
     ) {
         //
         let v_rti_caso = '08';
@@ -586,6 +588,64 @@ export class TicketController {
     }
 
     //-------------------------------------------------------------------------------------------------------------
+    //------------ POST - Crea registro
+    //-------------------------------------------------------------------------------------------------------------
+
+    @Post('/insert/')
+    @ApiOperation({ summary: 'Crea registro a partir del BODY - IMPORTANTE: Se debe enviar rtiCodcia: "001" y rtiCodigo: 99999, para que inserte un nuevo registro con código CORRELATIVO' })
+    @ApiResponse({
+        status: HttpStatus.OK,
+        description: 'Crea registro a partir del BODY',
+        type: [Css_Rti_Entity],
+    })
+    async creaTicket(@Body() datos: Create_Css_Rti_Dto) {
+        const data = await this.ticketService.creaTicket(datos);
+        //return { message: 'Registro creado', data };
+        return data;
+    }
+
+    //-------------------------------------------------------------------------------------------------------------
+    //------------ PUT - Actualiza registro
+    //-------------------------------------------------------------------------------------------------------------
+
+    @Put('/update/')
+    @ApiOperation({ summary: 'Actualiza un registro - IMPORTANTE: Tanto los campos de la LLAVE PRIMARIA, así como los campos a actualizar, deben ir en el BODY' })
+    @ApiResponse({
+        status: HttpStatus.OK,
+        description: 'Actualiza un registro',
+        type: [Css_Rti_Entity],
+    })
+    async modificaTicket(
+        @Body('rtiCodcia') v_rti_codcia: string,
+        @Body('rtiCodigo') v_rti_codigo: number,
+        @Body() dto: Edit_Css_Rti_Dto) {
+        //console.log('v_codcia_@Put: ', v_codcia);
+        //console.log('v_coduni_@Put: ', v_coduni);
+        //console.log('v_codigo_@Put: ', v_codigo);
+        //console.log('dto_@Put: ', dto);
+        const data = await this.ticketService.modificaTicket(v_rti_codcia, v_rti_codigo, dto);
+        //console.log('data_controller: ', register);
+        return { message: 'Registro actualizado', data };
+    }
+    
+        //-------------------------------------------------------------------------------------------------------------
+        //------------ DELETE - Borra registro
+        //-------------------------------------------------------------------------------------------------------------
+    
+        @Delete('/delete/')
+        @ApiOperation({ summary: 'Borra un registro a partir del BODY - IMPORTANTE: Los parámetros deben ir en el BODY' })
+        @ApiResponse({
+            status: HttpStatus.OK,
+            description: 'Crea registro a partir del BODY',
+            type: [Css_Rti_Entity],
+        })
+        async EliminaTicket(
+            @Body('rtiCodcia') v_rti_codcia: string,
+            @Body('rtiCodigo') v_rti_codigo: number,
+        ) {
+            const data = await this.ticketService.EliminaTicket(v_rti_codcia, v_rti_codigo);
+            return { message: 'Registro eliminado', data };
+        }
 
 
 

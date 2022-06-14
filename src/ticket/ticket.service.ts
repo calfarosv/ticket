@@ -1,7 +1,12 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { ApiHeader } from '@nestjs/swagger';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Pla_Emp_Entity } from 'src/apoyo/entities/pla_emp_entity';
+import { Sis_Msi_Entity } from 'src/apoyo/entities/sis_msi_entity';
+import { Sis_Sis_Entity } from 'src/apoyo/entities/sis_sis_entity';
 import { Repository } from 'typeorm';
+import { Create_Css_Rti_Dto } from './dto/create_css_rti_dto';
+import { Edit_Css_Rti_Dto } from './dto/edit_css_rti_dto';
 import { Css_Rti_Entity } from './entities/css_rti_entity';
 
 @Injectable()
@@ -9,6 +14,9 @@ export class TicketService {
 
     constructor(
         @InjectRepository(Css_Rti_Entity) private ticketRepository: Repository<Css_Rti_Entity>,
+        @InjectRepository(Pla_Emp_Entity) private empleadosRepository: Repository<Pla_Emp_Entity>,
+        @InjectRepository(Sis_Sis_Entity) private sistemasRepository: Repository<Sis_Sis_Entity>,
+        @InjectRepository(Sis_Msi_Entity) private modulosRepository: Repository<Sis_Msi_Entity>,
     ) { }
 
     @ApiHeader({
@@ -76,7 +84,7 @@ export class TicketService {
         console.log('v_rti_fecfin: ', v_rti_fecfin);
         console.log('v_rti_anisol: ', v_rti_anisol);
         console.log('v_rti_codsol: ', v_rti_codsol);
-        
+
         let v_fecha_sol: Date;
         let v_where = '';
 
@@ -108,9 +116,15 @@ export class TicketService {
             v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiAnisol = :par_rti_anisol and Css_Rti_Entity.rtiCodsol = :par_rti_codsol';
             //console.log('1', v_where);
         }
-
-        //v_fecha_sol = (new Date(v_rti_fecsol.getUTCFullYear(), v_rti_fecsol.getUTCMonth(), v_rti_fecsol.getUTCDate(), 0, 0, 0));
-
+        /*
+        console.log('v_rti_fecsol: ', v_rti_fecsol);
+        v_fecha_sol = (new Date(v_rti_fecsol.getUTCFullYear(), v_rti_fecsol.getUTCMonth(), v_rti_fecsol.getUTCDate(), 0, 0, 0));
+        console.log('v_fecha_sol: ', v_fecha_sol);
+        */
+        if (v_rti_caso == '08') {
+            v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiFecsol = :par_rti_fecsol';
+            //console.log('1', v_where);
+        }
 
         console.log('v_rti_caso: ', v_rti_caso);
         console.log('v_where: ', v_where);
@@ -138,9 +152,15 @@ export class TicketService {
             .addSelect('Css_Rti_Entity.rtiCoduni', 'rtiCoduni')
             .addSelect('Css_Rti_Entity.rtiCodsol', 'rtiCodsol')
             //
-            //.addSelect('Pla_Uni_Unidad_Entity.uniNombre', 'uniNombre_sol')
-            //.addSelect('Pla_Uni_Unidad_Entity_b.uniNombre', 'uniNombre_eje')
-            //.addSelect('Pri_Emp_Empleado_V_Entity.empNombre', 'empNombre_res')
+            .addSelect('Pla_Emp_Entity.empNombreCip', 'empNombreCip')
+            .addSelect('Pla_Emp_Entity.empEstado', 'empEstado')
+            .addSelect('Pla_Emp_Entity.empCorreo', 'empCorreo')
+            .addSelect('Pla_Emp_Entity.empPlzNombre', 'empPlzNombre')
+            .addSelect('Pla_Emp_Entity.empUniNombre', 'empUniNombre')
+            .addSelect('Pla_Emp_Entity.empCodenti', 'empCodenti')
+            //
+            .addSelect('Sis_Sis_Entity.sisNombre', 'sisNombre')
+            .addSelect('Sis_Msi_Entity.msiNombre', 'msiNombre')
             //
             .where(v_where,
                 {
@@ -158,9 +178,10 @@ export class TicketService {
                     par_rti_anisol: v_rti_anisol,
                     par_rti_codsol: v_rti_codsol
                 })
-            //.leftJoin(Pri_Emp_Empleado_V_Entity, 'Pri_Emp_Empleado_V_Entity', 'Pri_Fic_Ficha_Entity.ficCodcelRes = Pri_Emp_Empleado_V_Entity.empCodcel')
-            //.leftJoin(Pla_Uni_Unidad_Entity, 'Pla_Uni_Unidad_Entity', 'Pri_Fic_Ficha_Entity.ficCoduniSol = Pla_Uni_Unidad_Entity.uniCodigo')
-            //.leftJoin(Pla_Uni_Unidad_Entity, 'Pla_Uni_Unidad_Entity_b', 'Pri_Fic_Ficha_Entity.ficCoduniEje = Pla_Uni_Unidad_Entity_b.uniCodigo')
+            .leftJoin(Pla_Emp_Entity, 'Pla_Emp_Entity', 'Css_Rti_Entity.rtiCodcia = Pla_Emp_Entity.empCodcia and Css_Rti_Entity.rtiCodemp = Pla_Emp_Entity.empCodcel')
+            .leftJoin(Sis_Sis_Entity, 'Sis_Sis_Entity', 'Css_Rti_Entity.rtiCodcia = Sis_Sis_Entity.sisCodcia and Css_Rti_Entity.rtiCodsis = Sis_Sis_Entity.sisCodigo')
+            .leftJoin(Sis_Msi_Entity, 'Sis_Msi_Entity', 'Css_Rti_Entity.rtiCodcia = Sis_Msi_Entity.msiCodcia and Css_Rti_Entity.rtiCodsis = Sis_Msi_Entity.msiCodsis and Css_Rti_Entity.rtiCodmsi = Sis_Msi_Entity.msiCodigo')
+            .orderBy('Css_Rti_Entity.rtiCodigo', 'ASC')
             .getRawMany();
         //console.log('register: ', register);            
         /*
@@ -174,6 +195,82 @@ export class TicketService {
     }
 
     //-------------------------------------------------------------------------------------------------------------
+
+
+
+    //-------------------------------------------------------------------------------------------------------------
+    //------------ CREA TICKET
+    //-------------------------------------------------------------------------------------------------------------
+
+    @ApiHeader({
+        name: 'Servicio: Crea un registro',
+        description: 'Crea un registro',
+    })
+    async creaTicket(dto: Create_Css_Rti_Dto)//: Promise<Pri_Fic_Ficha_Entity> 
+    {
+        // CREACIÓN DE NUEVO CODIGO
+        //if ((dto.ficCodigo == 99999 && dto.ficVersion == 1) || (dto.ficCodigo == 99999 && dto.ficVersion == 99999))
+        if (dto.rtiCodigo == 99999) {
+            // Obtengo el código máximo
+            const register = await this.ticketRepository
+                .createQueryBuilder()
+                .select('MAX(Css_Rti_Entity.rtiCodigo)', 'rtiCodigo')
+                .getRawOne();
+            // Sumo 1 al código obtenido
+            dto.rtiCodigo = register.rtiCodigo + 1
+            // La versión siempre será 1 para un nuevo Código
+            //dto.ficVersion = 1
+            // Guardo el registro
+            const model = this.ticketRepository.create(dto);
+            const newRegister = await this.ticketRepository.save(model);
+            //return newRegister;
+            return { message: 'Registro creado', newRegister };
+        }
+        // CREACIÓN DE NUEVA VERSIÓN
+        else {
+            throw new HttpException('Error al crear Ticket - (creaTicket)', HttpStatus.FORBIDDEN);
+        }
+    }
+
+    //-------------------------------------------------------------------------------------------------------------
+    //------------ ACTUALIZA TICKET
+    //-------------------------------------------------------------------------------------------------------------
+
+    @ApiHeader({
+        name: 'Servicio: Modifica un registro',
+        description: 'Modifica un registro',
+    })
+    async modificaTicket(v_rti_codcia: string, v_rti_codigo: number, dto: Edit_Css_Rti_Dto): Promise<Css_Rti_Entity> {
+        const toUpdate = await this.obtiene_Tickets_byPk(v_rti_codcia, v_rti_codigo);
+        //console.log('Continua');
+        //console.log('toUpdate_editCat: ', toUpdate);        
+        if (!toUpdate)
+            throw new HttpException('NO SE PUEDE ACTUALIZAR - No existe el registro - (modificaTicket)', HttpStatus.FORBIDDEN);
+        const modelToEdit = Object.assign(toUpdate, dto);
+        return await this.ticketRepository.save(modelToEdit);
+    }
+
+
+    //-------------------------------------------------------------------------------------------------------------
+    //------------ ELIMINA TICKET
+    //-------------------------------------------------------------------------------------------------------------
+
+    async EliminaTicket(v_rti_codcia: string, v_rti_codigo: number) {
+        const register = await this.ticketRepository.findOne({
+            rtiCodcia: v_rti_codcia,
+            rtiCodigo: v_rti_codigo
+        });
+        if (register) {
+
+            // ELIMINACIÓN DEL REGISTRO DE ENCABEZADO
+            const toDelete = this.ticketRepository.create(register);
+            this.ticketRepository.remove(toDelete);
+        }
+        else {
+            throw new HttpException('NO SE PUEDE ELIMINAR - No existe el registro - (EliminaTicket)', HttpStatus.FORBIDDEN);
+        }
+    }
+
 
 
 } // export class

@@ -1,5 +1,5 @@
 import { Body, Controller, Get, HttpStatus } from '@nestjs/common';
-import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ApoyoService } from './apoyo.service';
 import { Css_Uni_Entity } from './entities/css_uni_entity';
 import { Pla_Emp_Entity } from './entities/pla_emp_entity';
@@ -7,6 +7,7 @@ import { Pla_Uni_Entity } from './entities/pla_uni_entity';
 import { Sis_Msi_Entity } from './entities/sis_msi_entity';
 import { Sis_Sis_Entity } from './entities/sis_sis_entity';
 
+@ApiTags('Apoyo')
 @Controller('apoyo')
 export class ApoyoController {
 constructor(private ticketService: ApoyoService){}

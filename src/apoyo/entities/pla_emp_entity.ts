@@ -1,24 +1,28 @@
 /* eslint-disable prettier/prettier */
 import { Column, Entity,  PrimaryColumn } from 'typeorm';
 
-@Entity('PLA_EMP_EMPLEADO', { schema: 'SISRRH' })
+@Entity('CSS_EMP_EMPLEADO_V', { schema: 'SISCSS' })
 export class Pla_Emp_Entity {
-  @PrimaryColumn({ name: 'EMP_CODCIA', type: 'varchar2', length: 3 })
+  @PrimaryColumn('varchar2',{ name: 'EMP_CODCIA',  length: 3 })
   empCodcia: string;
-  @PrimaryColumn({ name: 'EMP_CODIGO' })
-  empCodigo: number;
-  @Column({ name: 'EMP_NOMBRE_CIP', type: 'varchar2', length: 60 })
-  empNombreCip: string;
-  @Column({ name: 'EMP_CORREO', type: 'varchar2', length: 25 })
-  empCorreo: string;
-  @Column({ name: 'EMP_CODENTI', type: 'varchar2', length: 3 })
-  empCodenti: string;
-  @Column({ name: 'EMP_CODCEL', type: 'varchar2', length: 8 })
+  @PrimaryColumn('varchar2',{ name: 'EMP_CODCEL',  length: 8 })
   empCodcel: string;
-  @Column({ name: 'EMP_SEXO', type: 'varchar2', length: 1 })
-  empSexo: string;
-  @Column({ name: 'EMP_PROFESION', type: 'varchar2', length: 90 })
-  empProfesion: string;
-  @Column({ name: 'EMP_ESTADO', type: 'varchar2', length: 1 })
+  @Column('varchar2',{ name: 'EMP_NOMBRE_CIP',  length: 60 })
+  empNombreCip: string;
+  @Column('varchar2',{ name: 'EMP_ESTADO',  length: 1 })
   empEstado: string;
+  @Column('varchar2',{ name: 'EMP_CORREO',  length: 25 })
+  empCorreo: string;
+  @Column('varchar2',{ name: 'EMP_PLZ_NOMBRE',  length: 80 })
+  empPlzNombre: string;
+  @Column('number',{ name: 'EMP_UNI_CODIGO',  precision: 5, scale: 0})
+  empUniCodigo: number;
+  @Column('varchar2',{ name: 'EMP_UNI_NOMBRE', length: 80 })
+  empUniNombre: string;
+  @Column('varchar2',{ name: 'EMP_CODENTI', length: 3 })
+  empCodenti: string;
+  @Column('number',{ name: 'EMP_CODPLZ', precision: 8, scale: 0 })
+  empSexo: number;
+
+
 }

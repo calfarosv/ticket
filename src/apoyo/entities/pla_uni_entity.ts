@@ -5,7 +5,7 @@ import { Column, Entity,  PrimaryColumn } from 'typeorm';
 export class Pla_Uni_Entity {
   @PrimaryColumn({ name: 'UNI_CODCIA', type: 'varchar2', length: 3 })
   uniCodcia: string;
-  @PrimaryColumn({ name: 'UNI_CODIGO' })
+  @PrimaryColumn({ name: 'UNI_CODIGO', precision: 3, scale: 0})
   uniCodigo: number;
   @Column({ name: 'UNI_NOMBRE', type: 'varchar2', length: 80 })
   uniNombre: string;
@@ -13,5 +13,4 @@ export class Pla_Uni_Entity {
   uniCodenti: string;
   @Column({ name: 'UNI_ESTADO', type: 'varchar2', length: 1 })
   uniEstado: string;
-
 }

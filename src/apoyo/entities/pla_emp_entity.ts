@@ -22,7 +22,7 @@ export class Pla_Emp_Entity {
   @Column('varchar2',{ name: 'EMP_CODENTI', length: 3 })
   empCodenti: string;
   @Column('number',{ name: 'EMP_CODPLZ', precision: 8, scale: 0 })
-  empSexo: number;
+  empCodplz: number;
 
 
 }

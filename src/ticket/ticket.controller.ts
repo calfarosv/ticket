@@ -32,16 +32,16 @@ export class TicketController {
         return data;
     }
 
-    @Get('/by_pk/')
-    @ApiOperation({ summary: 'Consulta de Tickets por llave primaria - PARÁMETROS: rtiCodcia, rtiCodigo - IMPORTANTE: Los parámetros deben ir en el BODY' })
+    @Get('/by_pk/:rtiCodcia/:rtiCodigo/')
+    @ApiOperation({ summary: 'Consulta de Tickets por llave primaria - PARÁMETROS: rtiCodcia, rtiCodigo' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por llave primaria',
         type: [Css_Rti_Entity],
     })
     async obtieneTickets_byPk(
-        @Body('rtiCodcia') v_rti_codcia: string,
-        @Body('rtiCodigo') v_rti_codigo: number
+        @Param('rtiCodcia') v_rti_codcia: string,
+        @Param('rtiCodigo') v_rti_codigo: number
     ) {
         {
             const data = await this.ticketService.obtiene_Tickets_byPk(v_rti_codcia, v_rti_codigo);
@@ -56,16 +56,16 @@ export class TicketController {
 
     //-------------------------------------------------------------------------------------------------------------
 
-    @Get('/by_coduniresp/')
-    @ApiOperation({ summary: 'Consulta todos los Tickets por Código de la Unidad Responsable - PARÁMETROS: rtiCodcia, rtiCoduniResp - IMPORTANTE: Los parámetros deben ir en el BODY' })
+    @Get('/by_coduniresp/:rtiCodcia/:rtiCoduniResp/')
+    @ApiOperation({ summary: 'Consulta todos los Tickets por Código de la Unidad Responsable - PARÁMETROS: rtiCodcia, rtiCoduniResp' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta todos los Tickets por Código de la Unidad Responsable',
         type: [Css_Rti_Entity],
     })
     async obtiene_ticket_por_coduniResp(
-        @Body('rtiCodcia') v_rti_codcia: string,
-        @Body('rtiCoduniResp') v_rti_coduniresp: number,
+        @Param('rtiCodcia') v_rti_codcia: string,
+        @Param('rtiCoduniResp') v_rti_coduniresp: number,
     ) {
         //++++++++++++++++++++++++//
         let v_rti_caso = '01';
@@ -132,16 +132,16 @@ export class TicketController {
 
     //-------------------------------------------------------------------------------------------------------------
 
-    @Get('/by_prioridad/')
-    @ApiOperation({ summary: 'Consulta de Tickets por prioridad - PARÁMETROS: rtiCodcia, rtiPrioridad - IMPORTANTE: Los parámetros deben ir en el BODY' })
+    @Get('/by_prioridad/:rtiCodcia/:rtiPrioridad/')
+    @ApiOperation({ summary: 'Consulta de Tickets por prioridad - PARÁMETROS: rtiCodcia, rtiPrioridad' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por prioridad',
         type: [Css_Rti_Entity],
     })
     async obtiene_ticket_por_prioridad(
-        @Body('rtiCodcia') v_rti_codcia: string,
-        @Body('rtiPrioridad') v_rti_prioridad: string,
+        @Param('rtiCodcia') v_rti_codcia: string,
+        @Param('rtiPrioridad') v_rti_prioridad: string,
     ) {
         //++++++++++++++++++++++++//
         let v_rti_caso = '02';
@@ -208,17 +208,17 @@ export class TicketController {
 
     //-------------------------------------------------------------------------------------------------------------
 
-    @Get('/by_uni_prioridad/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y prioridad - PARÁMETROS: rtiCodcia, rtiCoduniResp, rtiPrioridad - IMPORTANTE: Los parámetros deben ir en el BODY' })
+    @Get('/by_uni_prioridad/:rtiCodcia/:rtiCoduniResp/:rtiPrioridad/')
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y prioridad - PARÁMETROS: rtiCodcia, rtiCoduniResp, rtiPrioridad' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Unidad Responsable y prioridad',
         type: [Css_Rti_Entity],
     })
     async obtiene_ticket_por_uni_prioridad(
-        @Body('rtiCodcia') v_rti_codcia: string,
-        @Body('rtiCoduniResp') v_rti_coduniresp: number,
-        @Body('rtiPrioridad') v_rti_prioridad: string,
+        @Param('rtiCodcia') v_rti_codcia: string,
+        @Param('rtiCoduniResp') v_rti_coduniresp: number,
+        @Param('rtiPrioridad') v_rti_prioridad: string,
     ) {
         //++++++++++++++++++++++++//
         let v_rti_caso = '03';
@@ -285,16 +285,16 @@ export class TicketController {
 
     //-------------------------------------------------------------------------------------------------------------
 
-    @Get('/by_codemp/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Empleado que solicita - PARÁMETROS: rtiCodcia, rtiCodemp - IMPORTANTE: Los parámetros deben ir en el BODY' })
+    @Get('/by_codemp/:rtiCodcia/:rtiCodemp/')
+    @ApiOperation({ summary: 'Consulta de Tickets por Empleado que solicita - PARÁMETROS: rtiCodcia, rtiCodemp' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Empleado que solicita',
         type: [Css_Rti_Entity],
     })
     async obtiene_ticket_por_codemp(
-        @Body('rtiCodcia') v_rti_codcia: string,
-        @Body('rtiCodemp') v_rti_codemp: string,
+        @Param('rtiCodcia') v_rti_codcia: string,
+        @Param('rtiCodemp') v_rti_codemp: string,
     ) {
         //++++++++++++++++++++++++//
         let v_rti_caso = '04';
@@ -361,17 +361,17 @@ export class TicketController {
 
     //-------------------------------------------------------------------------------------------------------------
 
-    @Get('/by_uni_codemp/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Empleado que solicita - PARÁMETROS: rtiCodcia, v_rti_coduniresp, rtiCodemp - IMPORTANTE: Los parámetros deben ir en el BODY' })
+    @Get('/by_uni_codemp/:rtiCodcia/:rtiCoduniResp/:rtiCodemp/')
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Empleado que solicita - PARÁMETROS: rtiCodcia, v_rti_coduniresp, rtiCodemp' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Unidad Responsable y Empleado que solicita',
         type: [Css_Rti_Entity],
     })
     async obtiene_ticket_por_uni_codemp(
-        @Body('rtiCodcia') v_rti_codcia: string,
-        @Body('rtiCoduniResp') v_rti_coduniresp: number,
-        @Body('rtiCodemp') v_rti_codemp: string,
+        @Param('rtiCodcia') v_rti_codcia: string,
+        @Param('rtiCoduniResp') v_rti_coduniresp: number,
+        @Param('rtiCodemp') v_rti_codemp: string,
     ) {
         //++++++++++++++++++++++++//
         let v_rti_caso = '05';
@@ -438,16 +438,16 @@ export class TicketController {
 
     //-------------------------------------------------------------------------------------------------------------
 
-    @Get('/by_codsis/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Sistema - PARÁMETROS: rtiCodcia, rtiCodsis - IMPORTANTE: Los parámetros deben ir en el BODY' })
+    @Get('/by_codsis/:rtiCodcia/:rtiCodsis/')
+    @ApiOperation({ summary: 'Consulta de Tickets por Sistema - PARÁMETROS: rtiCodcia, rtiCodsis' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Sistema',
         type: [Css_Rti_Entity],
     })
     async obtiene_ticket_por_sistema(
-        @Body('rtiCodcia') v_rti_codcia: string,
-        @Body('rtiCodsis') v_rti_codsis: number,
+        @Param('rtiCodcia') v_rti_codcia: string,
+        @Param('rtiCodsis') v_rti_codsis: number,
     ) {
         //++++++++++++++++++++++++//
         let v_rti_caso = '06';
@@ -514,17 +514,17 @@ export class TicketController {
 
     //-------------------------------------------------------------------------------------------------------------
 
-    @Get('/by_uni_codsis/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Sistema - PARÁMETROS: rtiCodcia, rtiCoduniResp, rtiCodsis - IMPORTANTE: Los parámetros deben ir en el BODY' })
+    @Get('/by_uni_codsis/:rtiCodcia/:rtiCoduniResp/:rtiCodsis/')
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Sistema - PARÁMETROS: rtiCodcia, rtiCoduniResp, rtiCodsis' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Unidad Responsable y Sistema',
         type: [Css_Rti_Entity],
     })
     async obtiene_ticket_por_uni_sistema(
-        @Body('rtiCodcia') v_rti_codcia: string,
-        @Body('rtiCoduniResp') v_rti_coduniresp: number,
-        @Body('rtiCodsis') v_rti_codsis: number,
+        @Param('rtiCodcia') v_rti_codcia: string,
+        @Param('rtiCoduniResp') v_rti_coduniresp: number,
+        @Param('rtiCodsis') v_rti_codsis: number,
     ) {
         //++++++++++++++++++++++++//
         let v_rti_caso = '07';
@@ -591,17 +591,17 @@ export class TicketController {
 
     //-------------------------------------------------------------------------------------------------------------
 
-    @Get('/by_sismod/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Sistema y Módulo - PARÁMETROS: rtiCodcia, rtiCodsis, rtiCodmsi - IMPORTANTE: Los parámetros deben ir en el BODY' })
+    @Get('/by_sismod/:rtiCodcia/:rtiCodsis/:rtiCodmsi/')
+    @ApiOperation({ summary: 'Consulta de Tickets por Sistema y Módulo - PARÁMETROS: rtiCodcia, rtiCodsis, rtiCodmsi' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Sistema y Módulo',
         type: [Css_Rti_Entity],
     })
     async obtiene_ticket_por_sistema_modulo(
-        @Body('rtiCodcia') v_rti_codcia: string,
-        @Body('rtiCodsis') v_rti_codsis: number,
-        @Body('rtiCodmsi') v_rti_codmsi: number,
+        @Param('rtiCodcia') v_rti_codcia: string,
+        @Param('rtiCodsis') v_rti_codsis: number,
+        @Param('rtiCodmsi') v_rti_codmsi: number,
     ) {
         //++++++++++++++++++++++++//
         let v_rti_caso = '08';
@@ -668,18 +668,18 @@ export class TicketController {
 
     //-------------------------------------------------------------------------------------------------------------
 
-    @Get('/by_uni_sismod/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Sistema y Módulo - PARÁMETROS: rtiCodcia, v_rti_coduniresp, rtiCodsis, rtiCodmsi - IMPORTANTE: Los parámetros deben ir en el BODY' })
+    @Get('/by_uni_sismod/:rtiCodcia/:rtiCoduniResp/:rtiCodsis/:rtiCodmsi/')
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Sistema y Módulo - PARÁMETROS: rtiCodcia, v_rti_coduniresp, rtiCodsis, rtiCodmsi' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Unidad Responsable y Sistema y Módulo',
         type: [Css_Rti_Entity],
     })
     async obtiene_ticket_por_uni_sistema_modulo(
-        @Body('rtiCodcia') v_rti_codcia: string,
-        @Body('rtiCoduniResp') v_rti_coduniresp: number,
-        @Body('rtiCodsis') v_rti_codsis: number,
-        @Body('rtiCodmsi') v_rti_codmsi: number,
+        @Param('rtiCodcia') v_rti_codcia: string,
+        @Param('rtiCoduniResp') v_rti_coduniresp: number,
+        @Param('rtiCodsis') v_rti_codsis: number,
+        @Param('rtiCodmsi') v_rti_codmsi: number,
     ) {
         //++++++++++++++++++++++++//
         let v_rti_caso = '09';
@@ -746,16 +746,16 @@ export class TicketController {
 
     //-------------------------------------------------------------------------------------------------------------
 
-    @Get('/by_estado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Estado - PARÁMETROS: rtiCodcia, rtiEstado - IMPORTANTE: Los parámetros deben ir en el BODY' })
+    @Get('/by_estado/:rtiCodcia/:rtiEstado/')
+    @ApiOperation({ summary: 'Consulta de Tickets por Estado - PARÁMETROS: rtiCodcia, rtiEstado' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Estado',
         type: [Css_Rti_Entity],
     })
     async obtiene_ticket_por_estado(
-        @Body('rtiCodcia') v_rti_codcia: string,
-        @Body('rtiEstado') v_rti_estado: string,
+        @Param('rtiCodcia') v_rti_codcia: string,
+        @Param('rtiEstado') v_rti_estado: string,
     ) {
         //++++++++++++++++++++++++//
         let v_rti_caso = '10';
@@ -822,17 +822,17 @@ export class TicketController {
 
     //-------------------------------------------------------------------------------------------------------------
 
-    @Get('/by_uni_estado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Estado - PARÁMETROS: rtiCodcia, rtiCoduniResp, rtiEstado - IMPORTANTE: Los parámetros deben ir en el BODY' })
+    @Get('/by_uni_estado/:rtiCodcia/:rtiCoduniResp/:rtiEstado/')
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Estado - PARÁMETROS: rtiCodcia, rtiCoduniResp, rtiEstado' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Unidad Responsable y Estado',
         type: [Css_Rti_Entity],
     })
     async obtiene_ticket_por_uni_estado(
-        @Body('rtiCodcia') v_rti_codcia: string,
-        @Body('rtiCoduniResp') v_rti_coduniresp: number,
-        @Body('rtiEstado') v_rti_estado: string,
+        @Param('rtiCodcia') v_rti_codcia: string,
+        @Param('rtiCoduniResp') v_rti_coduniresp: number,
+        @Param('rtiEstado') v_rti_estado: string,
     ) {
         //++++++++++++++++++++++++//
         let v_rti_caso = '11';
@@ -899,17 +899,17 @@ export class TicketController {
 
     //-------------------------------------------------------------------------------------------------------------
 
-    @Get('/by_aniosol/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Estado - PARÁMETROS: rtiCodcia, rtiAnisol, rtiCodsol - IMPORTANTE: Los parámetros deben ir en el BODY' })
+    @Get('/by_aniosol/:rtiCodcia/:rtiAnisol/:rtiCodsol/')
+    @ApiOperation({ summary: 'Consulta de Tickets por Estado - PARÁMETROS: rtiCodcia, rtiAnisol, rtiCodsol' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Estado',
         type: [Css_Rti_Entity],
     })
     async obtiene_ticket_por_solicitud(
-        @Body('rtiCodcia') v_rti_codcia: string,
-        @Body('rtiAnisol') v_rti_anisol: number,
-        @Body('rtiCodsol') v_rti_codsol: number,
+        @Param('rtiCodcia') v_rti_codcia: string,
+        @Param('rtiAnisol') v_rti_anisol: number,
+        @Param('rtiCodsol') v_rti_codsol: number,
     ) {
         //++++++++++++++++++++++++//
         let v_rti_caso = '12';
@@ -976,18 +976,18 @@ export class TicketController {
 
     //-------------------------------------------------------------------------------------------------------------
 
-    @Get('/by_uni_aniosol/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Año/Solicitud - PARÁMETROS: rtiCodcia, rtiCoduniResp, rtiAnisol, rtiCodsol - IMPORTANTE: Los parámetros deben ir en el BODY' })
+    @Get('/by_uni_aniosol/:rtiCodcia/:rtiCoduniResp/:rtiAnisol/:rtiCodsol/')
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Año/Solicitud - PARÁMETROS: rtiCodcia, rtiCoduniResp, rtiAnisol, rtiCodsol' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Unidad Responsable y Año/Solicitud',
         type: [Css_Rti_Entity],
     })
     async obtiene_ticket_por_uni_solicitud(
-        @Body('rtiCodcia') v_rti_codcia: string,
-        @Body('rtiCoduniResp') v_rti_coduniresp: number,
-        @Body('rtiAnisol') v_rti_anisol: number,
-        @Body('rtiCodsol') v_rti_codsol: number,
+        @Param('rtiCodcia') v_rti_codcia: string,
+        @Param('rtiCoduniResp') v_rti_coduniresp: number,
+        @Param('rtiAnisol') v_rti_anisol: number,
+        @Param('rtiCodsol') v_rti_codsol: number,
     ) {
         //++++++++++++++++++++++++//
         let v_rti_caso = '13';
@@ -1054,16 +1054,16 @@ export class TicketController {
 
     //-------------------------------------------------------------------------------------------------------------
 
-    @Get('/by_fecelaborado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Fecha de Elaborado - PARÁMETROS: rtiCodcia, rtiFecElaborado - IMPORTANTE: Los parámetros deben ir en el BODY' })
+    @Get('/by_fecelaborado/:rtiCodcia/:/rtiFecElaborado')
+    @ApiOperation({ summary: 'Consulta de Tickets por Fecha de Elaborado - PARÁMETROS: rtiCodcia, rtiFecElaborado' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Fecha de Elaborado',
         type: [Css_Rti_Entity],
     })
     async obtiene_ticket_por_fecela(
-        @Body('rtiCodcia') v_rti_codcia: string,
-        @Body('rtiFecElaborado') v_rti_fec_elaborado: Date,
+        @Param('rtiCodcia') v_rti_codcia: string,
+        @Param('rtiFecElaborado') v_rti_fec_elaborado: Date,
     ) {
         //++++++++++++++++++++++++//
         let v_rti_caso = '14';
@@ -1130,17 +1130,17 @@ export class TicketController {
 
     //-------------------------------------------------------------------------------------------------------------
 
-    @Get('/by_uni_fecelaborado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Fecha de Elaborado - PARÁMETROS: rtiCodcia, rtiCoduniResp, rtiFecElaborado - IMPORTANTE: Los parámetros deben ir en el BODY' })
+    @Get('/by_uni_fecelaborado/:rtiCodcia/:rtiCoduniResp/:rtiFecElaborado/')
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Fecha de Elaborado - PARÁMETROS: rtiCodcia, rtiCoduniResp, rtiFecElaborado' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Unidad Responsable y Fecha de Elaborado',
         type: [Css_Rti_Entity],
     })
     async obtiene_ticket_por_uni_fecela(
-        @Body('rtiCodcia') v_rti_codcia: string,
-        @Body('rtiCoduniResp') v_rti_coduniresp: number,
-        @Body('rtiFecElaborado') v_rti_fec_elaborado: Date,
+        @Param('rtiCodcia') v_rti_codcia: string,
+        @Param('rtiCoduniResp') v_rti_coduniresp: number,
+        @Param('rtiFecElaborado') v_rti_fec_elaborado: Date,
     ) {
         //++++++++++++++++++++++++//
         let v_rti_caso = '15';
@@ -1207,16 +1207,16 @@ export class TicketController {
 
     //-------------------------------------------------------------------------------------------------------------
 
-    @Get('/by_fecenviado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Fecha de Enviado - PARÁMETROS: rtiCodcia, rtiFecEnviado - IMPORTANTE: Los parámetros deben ir en el BODY' })
+    @Get('/by_fecenviado/:rtiCodcia/:rtiFecEnviado/')
+    @ApiOperation({ summary: 'Consulta de Tickets por Fecha de Enviado - PARÁMETROS: rtiCodcia, rtiFecEnviado' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Fecha de Enviado',
         type: [Css_Rti_Entity],
     })
     async obtiene_ticket_por_fecenv(
-        @Body('rtiCodcia') v_rti_codcia: string,
-        @Body('rtiFecEnviado') v_rti_fec_enviado: Date,
+        @Param('rtiCodcia') v_rti_codcia: string,
+        @Param('rtiFecEnviado') v_rti_fec_enviado: Date,
     ) {
         //++++++++++++++++++++++++//
         let v_rti_caso = '16';
@@ -1283,17 +1283,17 @@ export class TicketController {
 
     //-------------------------------------------------------------------------------------------------------------
 
-    @Get('/by_uni_fecenviado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Fecha de Enviado - PARÁMETROS: rtiCodcia, rtiCoduniResp, rtiFecEnviado - IMPORTANTE: Los parámetros deben ir en el BODY' })
+    @Get('/by_uni_fecenviado/:rtiCodcia/:rtiCoduniResp/:rtiFecEnviado/')
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Fecha de Enviado - PARÁMETROS: rtiCodcia, rtiCoduniResp, rtiFecEnviado' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Unidad Responsable y Fecha de Enviado',
         type: [Css_Rti_Entity],
     })
     async obtiene_ticket_por_uni_fecenv(
-        @Body('rtiCodcia') v_rti_codcia: string,
-        @Body('rtiCoduniResp') v_rti_coduniresp: number,
-        @Body('rtiFecEnviado') v_rti_fec_enviado: Date,
+        @Param('rtiCodcia') v_rti_codcia: string,
+        @Param('rtiCoduniResp') v_rti_coduniresp: number,
+        @Param('rtiFecEnviado') v_rti_fec_enviado: Date,
     ) {
         //++++++++++++++++++++++++//
         let v_rti_caso = '17';
@@ -1360,16 +1360,16 @@ export class TicketController {
 
     //-------------------------------------------------------------------------------------------------------------
 
-    @Get('/by_fecaprobado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Fecha de Enviado - PARÁMETROS: rtiCodcia, rtiFecAprobado - IMPORTANTE: Los parámetros deben ir en el BODY' })
+    @Get('/by_fecaprobado/:rtiCodcia/:rtiFecAprobado/')
+    @ApiOperation({ summary: 'Consulta de Tickets por Fecha de Enviado - PARÁMETROS: rtiCodcia, rtiFecAprobado' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Fecha de Enviado',
         type: [Css_Rti_Entity],
     })
     async obtiene_ticket_por_fecapr(
-        @Body('rtiCodcia') v_rti_codcia: string,
-        @Body('rtiFecAprobado') v_rti_fec_aprobado: Date,
+        @Param('rtiCodcia') v_rti_codcia: string,
+        @Param('rtiFecAprobado') v_rti_fec_aprobado: Date,
     ) {
         //++++++++++++++++++++++++//
         let v_rti_caso = '18';
@@ -1436,17 +1436,17 @@ export class TicketController {
 
     //-------------------------------------------------------------------------------------------------------------
 
-    @Get('/by_uni_fecaprobado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Fecha de Enviado - PARÁMETROS: rtiCodcia, rtiCoduniResp, rtiFecAprobado - IMPORTANTE: Los parámetros deben ir en el BODY' })
+    @Get('/by_uni_fecaprobado/:rtiCodcia/:rtiCoduniResp/:rtiFecAprobado/')
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Fecha de Enviado - PARÁMETROS: rtiCodcia, rtiCoduniResp, rtiFecAprobado' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Unidad Responsable y Fecha de Enviado',
         type: [Css_Rti_Entity],
     })
     async obtiene_ticket_por_uni_fecapr(
-        @Body('rtiCodcia') v_rti_codcia: string,
-        @Body('rtiCoduniResp') v_rti_coduniresp: number,
-        @Body('rtiFecAprobado') v_rti_fec_aprobado: Date,
+        @Param('rtiCodcia') v_rti_codcia: string,
+        @Param('rtiCoduniResp') v_rti_coduniresp: number,
+        @Param('rtiFecAprobado') v_rti_fec_aprobado: Date,
     ) {
         //++++++++++++++++++++++++//
         let v_rti_caso = '19';
@@ -1513,16 +1513,16 @@ export class TicketController {
 
     //-------------------------------------------------------------------------------------------------------------
 
-    @Get('/by_fecdevuelto/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Fecha de devuelto - PARÁMETROS: rtiCodcia, rtiFecDevuelto - IMPORTANTE: Los parámetros deben ir en el BODY' })
+    @Get('/by_fecdevuelto/:rtiCodcia/:rtiFecDevuelto/')
+    @ApiOperation({ summary: 'Consulta de Tickets por Fecha de devuelto - PARÁMETROS: rtiCodcia, rtiFecDevuelto' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Fecha de devuelto',
         type: [Css_Rti_Entity],
     })
     async obtiene_ticket_por_fecdev(
-        @Body('rtiCodcia') v_rti_codcia: string,
-        @Body('rtiFecDevuelto') v_rti_fec_devuelto: Date,
+        @Param('rtiCodcia') v_rti_codcia: string,
+        @Param('rtiFecDevuelto') v_rti_fec_devuelto: Date,
     ) {
         //++++++++++++++++++++++++//
         let v_rti_caso = '20';
@@ -1589,17 +1589,17 @@ export class TicketController {
 
     //-------------------------------------------------------------------------------------------------------------
 
-    @Get('/by_uni_fecdevuelto/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Fecha de devuelto - PARÁMETROS: rtiCodcia, rtiCoduniResp, rtiFecDevuelto - IMPORTANTE: Los parámetros deben ir en el BODY' })
+    @Get('/by_uni_fecdevuelto/:rtiCodcia/:rtiCoduniResp/:rtiFecDevuelto/')
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Fecha de devuelto - PARÁMETROS: rtiCodcia, rtiCoduniResp, rtiFecDevuelto' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Unidad Responsable y Fecha de devuelto',
         type: [Css_Rti_Entity],
     })
     async obtiene_ticket_por_uni_fecdev(
-        @Body('rtiCodcia') v_rti_codcia: string,
-        @Body('rtiCoduniResp') v_rti_coduniresp: number,
-        @Body('rtiFecDevuelto') v_rti_fec_devuelto: Date,
+        @Param('rtiCodcia') v_rti_codcia: string,
+        @Param('rtiCoduniResp') v_rti_coduniresp: number,
+        @Param('rtiFecDevuelto') v_rti_fec_devuelto: Date,
     ) {
         //++++++++++++++++++++++++//
         let v_rti_caso = '21';
@@ -1666,16 +1666,16 @@ export class TicketController {
 
     //-------------------------------------------------------------------------------------------------------------
 
-    @Get('/by_fecrechazado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Fecha de rechazado - PARÁMETROS: rtiCodcia, rtiFecRechazado - IMPORTANTE: Los parámetros deben ir en el BODY' })
+    @Get('/by_fecrechazado/:rtiCodcia/:rtiFecRechazado/')
+    @ApiOperation({ summary: 'Consulta de Tickets por Fecha de rechazado - PARÁMETROS: rtiCodcia, rtiFecRechazado' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Fecha de rechazado',
         type: [Css_Rti_Entity],
     })
     async obtiene_ticket_por_fecrec(
-        @Body('rtiCodcia') v_rti_codcia: string,
-        @Body('rtiFecRechazado') v_rti_fec_rechazado: Date,
+        @Param('rtiCodcia') v_rti_codcia: string,
+        @Param('rtiFecRechazado') v_rti_fec_rechazado: Date,
     ) {
         //++++++++++++++++++++++++//
         let v_rti_caso = '22';
@@ -1742,17 +1742,17 @@ export class TicketController {
 
     //-------------------------------------------------------------------------------------------------------------
 
-    @Get('/by_uni_fecrechazado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Fecha de rechazado - PARÁMETROS: rtiCodcia, rtiCoduniResp, rtiFecRechazado - IMPORTANTE: Los parámetros deben ir en el BODY' })
+    @Get('/by_uni_fecrechazado/:rtiCodcia/:rtiCoduniResp/:rtiFecRechazado/')
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Fecha de rechazado - PARÁMETROS: rtiCodcia, rtiCoduniResp, rtiFecRechazado' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Unidad Responsable y Fecha de rechazado',
         type: [Css_Rti_Entity],
     })
     async obtiene_ticket_por_uni_fecrec(
-        @Body('rtiCodcia') v_rti_codcia: string,
-        @Body('rtiCoduniResp') v_rti_coduniresp: number,
-        @Body('rtiFecRechazado') v_rti_fec_rechazado: Date,
+        @Param('rtiCodcia') v_rti_codcia: string,
+        @Param('rtiCoduniResp') v_rti_coduniresp: number,
+        @Param('rtiFecRechazado') v_rti_fec_rechazado: Date,
     ) {
         //++++++++++++++++++++++++//
         let v_rti_caso = '23';
@@ -1819,16 +1819,16 @@ export class TicketController {
 
     //-------------------------------------------------------------------------------------------------------------
 
-    @Get('/by_fecfinalizado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Fecha de finalizado - PARÁMETROS: rtiCodcia, rtiFecFinalizado - IMPORTANTE: Los parámetros deben ir en el BODY' })
+    @Get('/by_fecfinalizado/:rtiCodcia/:rtiFecFinalizado/')
+    @ApiOperation({ summary: 'Consulta de Tickets por Fecha de finalizado - PARÁMETROS: rtiCodcia, rtiFecFinalizado' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Fecha de finalizado',
         type: [Css_Rti_Entity],
     })
     async obtiene_ticket_por_fecfin(
-        @Body('rtiCodcia') v_rti_codcia: string,
-        @Body('rtiFecFinalizado') v_rti_fec_finalizado: Date,
+        @Param('rtiCodcia') v_rti_codcia: string,
+        @Param('rtiFecFinalizado') v_rti_fec_finalizado: Date,
     ) {
         //++++++++++++++++++++++++//
         let v_rti_caso = '24';
@@ -1895,17 +1895,17 @@ export class TicketController {
 
     //-------------------------------------------------------------------------------------------------------------
 
-    @Get('/by_uni_fecfinalizado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Fecha de finalizado - PARÁMETROS: rtiCodcia, rtiCoduniResp, rtiFecFinalizado - IMPORTANTE: Los parámetros deben ir en el BODY' })
+    @Get('/by_uni_fecfinalizado/:rtiCodcia/:rtiCoduniResp/:rtiFecFinalizado/')
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Fecha de finalizado - PARÁMETROS: rtiCodcia, rtiCoduniResp, rtiFecFinalizado' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Unidad Responsable y Fecha de finalizado',
         type: [Css_Rti_Entity],
     })
     async obtiene_ticket_por_uni_fecfin(
-        @Body('rtiCodcia') v_rti_codcia: string,
-        @Body('rtiCoduniResp') v_rti_coduniresp: number,
-        @Body('rtiFecFinalizado') v_rti_fec_finalizado: Date,
+        @Param('rtiCodcia') v_rti_codcia: string,
+        @Param('rtiCoduniResp') v_rti_coduniresp: number,
+        @Param('rtiFecFinalizado') v_rti_fec_finalizado: Date,
     ) {
         //++++++++++++++++++++++++//
         let v_rti_caso = '25';
@@ -1972,16 +1972,16 @@ export class TicketController {
 
     //-------------------------------------------------------------------------------------------------------------
 
-    @Get('/by_empelaborado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Empleado que Elabora - PARÁMETROS: rtiCodcia, rtiEmpElaborado - IMPORTANTE: Los parámetros deben ir en el BODY' })
+    @Get('/by_empelaborado/:rtiCodcia/:rtiEmpElaborado/')
+    @ApiOperation({ summary: 'Consulta de Tickets por Empleado que Elabora - PARÁMETROS: rtiCodcia, rtiEmpElaborado' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Empleado que Elabora',
         type: [Css_Rti_Entity],
     })
     async obtiene_ticket_por_empela(
-        @Body('rtiCodcia') v_rti_codcia: string,
-        @Body('rtiEmpElaborado') v_rti_emp_elaborado: string,
+        @Param('rtiCodcia') v_rti_codcia: string,
+        @Param('rtiEmpElaborado') v_rti_emp_elaborado: string,
     ) {
         //++++++++++++++++++++++++//
         let v_rti_caso = '26';
@@ -2048,17 +2048,17 @@ export class TicketController {
 
     //-------------------------------------------------------------------------------------------------------------
 
-    @Get('/by_uni_empelaborado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Empleado que Elabora - PARÁMETROS: rtiCodcia, rtiCoduniResp, rtiEmpElaborado - IMPORTANTE: Los parámetros deben ir en el BODY' })
+    @Get('/by_uni_empelaborado/:rtiCodcia/:rtiCoduniResp/:rtiEmpElaborado/')
+    @ApiOperation({ summary: 'Consulta de Tickets por Empleado que Elabora - PARÁMETROS: rtiCodcia, rtiCoduniResp, rtiEmpElaborado' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Empleado que Elabora',
         type: [Css_Rti_Entity],
     })
     async obtiene_ticket_por_uni_empela(
-        @Body('rtiCodcia') v_rti_codcia: string,
-        @Body('rtiCoduniResp') v_rti_coduniresp: number,
-        @Body('rtiEmpElaborado') v_rti_emp_elaborado: string,
+        @Param('rtiCodcia') v_rti_codcia: string,
+        @Param('rtiCoduniResp') v_rti_coduniresp: number,
+        @Param('rtiEmpElaborado') v_rti_emp_elaborado: string,
     ) {
         //++++++++++++++++++++++++//
         let v_rti_caso = '27';
@@ -2125,16 +2125,16 @@ export class TicketController {
 
     //-------------------------------------------------------------------------------------------------------------
 
-    @Get('/by_empenviado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Empleado que Envia - PARÁMETROS: rtiCodcia, rtiEmpEnviado - IMPORTANTE: Los parámetros deben ir en el BODY' })
+    @Get('/by_empenviado/:rtiCodcia/:rtiEmpEnviado/')
+    @ApiOperation({ summary: 'Consulta de Tickets por Empleado que Envia - PARÁMETROS: rtiCodcia, rtiEmpEnviado' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Empleado que Envia',
         type: [Css_Rti_Entity],
     })
     async obtiene_ticket_por_empenv(
-        @Body('rtiCodcia') v_rti_codcia: string,
-        @Body('rtiEmpEnviado') v_rti_emp_enviado: string,
+        @Param('rtiCodcia') v_rti_codcia: string,
+        @Param('rtiEmpEnviado') v_rti_emp_enviado: string,
     ) {
         //++++++++++++++++++++++++//
         let v_rti_caso = '28';
@@ -2201,17 +2201,17 @@ export class TicketController {
 
     //-------------------------------------------------------------------------------------------------------------
 
-    @Get('/by_uni_empenviado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Empleado que Envia - PARÁMETROS: rtiCodcia, rtiCoduniResp, rtiEmpEnviado - IMPORTANTE: Los parámetros deben ir en el BODY' })
+    @Get('/by_uni_empenviado/:rtiCodcia/:rtiCoduniResp/:rtiEmpEnviado/')
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Empleado que Envia - PARÁMETROS: rtiCodcia, rtiCoduniResp, rtiEmpEnviado' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Unidad Responsable y Empleado que Envia',
         type: [Css_Rti_Entity],
     })
     async obtiene_ticket_por_uni_empenv(
-        @Body('rtiCodcia') v_rti_codcia: string,
-        @Body('rtiCoduniResp') v_rti_coduniresp: number,
-        @Body('rtiEmpEnviado') v_rti_emp_enviado: string,
+        @Param('rtiCodcia') v_rti_codcia: string,
+        @Param('rtiCoduniResp') v_rti_coduniresp: number,
+        @Param('rtiEmpEnviado') v_rti_emp_enviado: string,
     ) {
         //++++++++++++++++++++++++//
         let v_rti_caso = '29';
@@ -2278,16 +2278,16 @@ export class TicketController {
 
     //-------------------------------------------------------------------------------------------------------------
 
-    @Get('/by_empaprobado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Empleado que Aprueba - PARÁMETROS: rtiCodcia, rtiEmpAprobado - IMPORTANTE: Los parámetros deben ir en el BODY' })
+    @Get('/by_empaprobado/:rtiCodcia/:rtiEmpAprobado/')
+    @ApiOperation({ summary: 'Consulta de Tickets por Empleado que Aprueba - PARÁMETROS: rtiCodcia, rtiEmpAprobado' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Empleado que Aprueba',
         type: [Css_Rti_Entity],
     })
     async obtiene_ticket_por_empapr(
-        @Body('rtiCodcia') v_rti_codcia: string,
-        @Body('rtiEmpAprobado') v_rti_emp_aprobado: string,
+        @Param('rtiCodcia') v_rti_codcia: string,
+        @Param('rtiEmpAprobado') v_rti_emp_aprobado: string,
     ) {
         //++++++++++++++++++++++++//
         let v_rti_caso = '30';
@@ -2354,17 +2354,17 @@ export class TicketController {
 
     //-------------------------------------------------------------------------------------------------------------
 
-    @Get('/by_uni_empaprobado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Empleado que Aprueba - PARÁMETROS: rtiCodcia, rtiCoduniResp, rtiEmpAprobado - IMPORTANTE: Los parámetros deben ir en el BODY' })
+    @Get('/by_uni_empaprobado/:rtiCodcia/:rtiCoduniResp/:rtiEmpAprobado/')
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Empleado que Aprueba - PARÁMETROS: rtiCodcia, rtiCoduniResp, rtiEmpAprobado' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Unidad Responsable y Empleado que Aprueba',
         type: [Css_Rti_Entity],
     })
     async obtiene_ticket_por_uni_empapr(
-        @Body('rtiCodcia') v_rti_codcia: string,
-        @Body('rtiCoduniResp') v_rti_coduniresp: number,
-        @Body('rtiEmpAprobado') v_rti_emp_aprobado: string,
+        @Param('rtiCodcia') v_rti_codcia: string,
+        @Param('rtiCoduniResp') v_rti_coduniresp: number,
+        @Param('rtiEmpAprobado') v_rti_emp_aprobado: string,
     ) {
         //++++++++++++++++++++++++//
         let v_rti_caso = '31';
@@ -2431,16 +2431,16 @@ export class TicketController {
 
     //-------------------------------------------------------------------------------------------------------------
 
-    @Get('/by_empdevuelto/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Empleado que Devuelve - PARÁMETROS: rtiCodcia, rtiEmpDevuelto - IMPORTANTE: Los parámetros deben ir en el BODY' })
+    @Get('/by_empdevuelto/:rtiCodcia/:rtiEmpDevuelto/')
+    @ApiOperation({ summary: 'Consulta de Tickets por Empleado que Devuelve - PARÁMETROS: rtiCodcia, rtiEmpDevuelto' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Empleado que Devuelve',
         type: [Css_Rti_Entity],
     })
     async obtiene_ticket_por_empdev(
-        @Body('rtiCodcia') v_rti_codcia: string,
-        @Body('rtiEmpDevuelto') v_rti_emp_devuelto: string,
+        @Param('rtiCodcia') v_rti_codcia: string,
+        @Param('rtiEmpDevuelto') v_rti_emp_devuelto: string,
     ) {
         //++++++++++++++++++++++++//
         let v_rti_caso = '32';
@@ -2507,17 +2507,17 @@ export class TicketController {
 
     //-------------------------------------------------------------------------------------------------------------
 
-    @Get('/by_uni_empdevuelto/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Empleado que Devuelve - PARÁMETROS: rtiCodcia, rtiCoduniResp, rtiEmpDevuelto - IMPORTANTE: Los parámetros deben ir en el BODY' })
+    @Get('/by_uni_empdevuelto/:rtiCodcia/:rtiCoduniResp/:rtiEmpDevuelto/')
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Empleado que Devuelve - PARÁMETROS: rtiCodcia, rtiCoduniResp, rtiEmpDevuelto' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Unidad Responsable y Empleado que Devuelve',
         type: [Css_Rti_Entity],
     })
     async obtiene_ticket_por_uni_empdev(
-        @Body('rtiCodcia') v_rti_codcia: string,
-        @Body('rtiCoduniResp') v_rti_coduniresp: number,
-        @Body('rtiEmpDevuelto') v_rti_emp_devuelto: string,
+        @Param('rtiCodcia') v_rti_codcia: string,
+        @Param('rtiCoduniResp') v_rti_coduniresp: number,
+        @Param('rtiEmpDevuelto') v_rti_emp_devuelto: string,
     ) {
         //++++++++++++++++++++++++//
         let v_rti_caso = '33';
@@ -2584,16 +2584,16 @@ export class TicketController {
 
     //-------------------------------------------------------------------------------------------------------------
 
-    @Get('/by_emprechazado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Empleado que Rechaza - PARÁMETROS: rtiCodcia, rtiEmpRechazado - IMPORTANTE: Los parámetros deben ir en el BODY' })
+    @Get('/by_emprechazado/:rtiCodcia/:rtiEmpRechazado/')
+    @ApiOperation({ summary: 'Consulta de Tickets por Empleado que Rechaza - PARÁMETROS: rtiCodcia, rtiEmpRechazado' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Empleado que Rechaza',
         type: [Css_Rti_Entity],
     })
     async obtiene_ticket_por_emprec(
-        @Body('rtiCodcia') v_rti_codcia: string,
-        @Body('rtiEmpRechazado') v_rti_emp_rechazado: string,
+        @Param('rtiCodcia') v_rti_codcia: string,
+        @Param('rtiEmpRechazado') v_rti_emp_rechazado: string,
     ) {
         //++++++++++++++++++++++++//
         let v_rti_caso = '34';
@@ -2660,17 +2660,17 @@ export class TicketController {
 
     //-------------------------------------------------------------------------------------------------------------
 
-    @Get('/by_uni_emprechazado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Empleado que Rechaza - PARÁMETROS: rtiCodcia, rtiCoduniResp, rtiEmpRechazado - IMPORTANTE: Los parámetros deben ir en el BODY' })
+    @Get('/by_uni_emprechazado/:rtiCodcia/:rtiCoduniResp/:rtiEmpRechazado/')
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Empleado que Rechaza - PARÁMETROS: rtiCodcia, rtiCoduniResp, rtiEmpRechazado' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Unidad Responsable y Empleado que Rechaza',
         type: [Css_Rti_Entity],
     })
     async obtiene_ticket_por_uni_emprec(
-        @Body('rtiCodcia') v_rti_codcia: string,
-        @Body('rtiCoduniResp') v_rti_coduniresp: number,
-        @Body('rtiEmpRechazado') v_rti_emp_rechazado: string,
+        @Param('rtiCodcia') v_rti_codcia: string,
+        @Param('rtiCoduniResp') v_rti_coduniresp: number,
+        @Param('rtiEmpRechazado') v_rti_emp_rechazado: string,
     ) {
         //++++++++++++++++++++++++//
         let v_rti_caso = '35';
@@ -2737,16 +2737,16 @@ export class TicketController {
 
     //-------------------------------------------------------------------------------------------------------------
 
-    @Get('/by_empfinalizado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Empleado que Finaliza - PARÁMETROS: rtiCodcia, rtiEmpFinalizado - IMPORTANTE: Los parámetros deben ir en el BODY' })
+    @Get('/by_empfinalizado/:rtiCodcia/:rtiEmpFinalizado/')
+    @ApiOperation({ summary: 'Consulta de Tickets por Empleado que Finaliza - PARÁMETROS: rtiCodcia, rtiEmpFinalizado' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Empleado que Finaliza',
         type: [Css_Rti_Entity],
     })
     async obtiene_ticket_por_empfin(
-        @Body('rtiCodcia') v_rti_codcia: string,
-        @Body('rtiEmpFinalizado') v_rti_emp_finalizado: string,
+        @Param('rtiCodcia') v_rti_codcia: string,
+        @Param('rtiEmpFinalizado') v_rti_emp_finalizado: string,
     ) {
         //++++++++++++++++++++++++//
         let v_rti_caso = '36';
@@ -2813,17 +2813,17 @@ export class TicketController {
 
     //-------------------------------------------------------------------------------------------------------------
 
-    @Get('/by_uni_empfinalizado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Empleado que Finaliza - PARÁMETROS: rtiCodcia, rtiCoduniResp, rtiEmpFinalizado - IMPORTANTE: Los parámetros deben ir en el BODY' })
+    @Get('/by_uni_empfinalizado/:rtiCodcia/:rtiCoduniResp/:rtiEmpFinalizado/')
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Empleado que Finaliza - PARÁMETROS: rtiCodcia, rtiCoduniResp, rtiEmpFinalizado' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Unidad Responsable y Empleado que Finaliza',
         type: [Css_Rti_Entity],
     })
     async obtiene_ticket_por_uni_empfin(
-        @Body('rtiCodcia') v_rti_codcia: string,
-        @Body('rtiCoduniResp') v_rti_coduniresp: number,
-        @Body('rtiEmpFinalizado') v_rti_emp_finalizado: string,
+        @Param('rtiCodcia') v_rti_codcia: string,
+        @Param('rtiCoduniResp') v_rti_coduniresp: number,
+        @Param('rtiEmpFinalizado') v_rti_emp_finalizado: string,
     ) {
         //++++++++++++++++++++++++//
         let v_rti_caso = '37';
@@ -2889,6 +2889,83 @@ export class TicketController {
     }
 
     //-------------------------------------------------------------------------------------------------------------
+/*
+    @Get('/by_uni_usrred_sn/')
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Usuario de red SI o NO - PARÁMETROS: rtiCodcia, rtiCoduniResp, rtiPrioridad' })
+    @ApiResponse({
+        status: HttpStatus.OK,
+        description: 'Consulta de Tickets por Unidad Responsable y Usuario de red SI o NO',
+        type: [Css_Rti_Entity],
+    })
+    async obtiene_ticket_por_uni_usrred(
+        @Param('rtiCodcia') v_rti_codcia: string,
+        @Param('rtiCoduniResp') v_rti_coduniresp: number,
+        @Param('rtiUsrred') v_rti_usrred: string,
+    ) {
+        //++++++++++++++++++++++++//
+        let v_rti_caso = '38';
+        //++++++++++++++++++++++++//
+        let v_rti_codigo: number = null;
+        //let v_rti_prioridad = '';
+        //let v_rti_coduniresp: number = null;
+        let v_rti_codemp = '';
+        let v_rti_codsis: number = null;
+        let v_rti_codmsi: number = null;
+        let v_rti_estado = '';
+        let v_rti_anisol: number = null;
+        let v_rti_codsol: number = null;
+        let v_rti_fec_elaborado: Date;
+        let v_rti_fec_enviado: Date;
+        let v_rti_fec_aprobado: Date;
+        let v_rti_fec_devuelto: Date;
+        let v_rti_fec_rechazado: Date;
+        let v_rti_fec_finalizado: Date;
+        let v_rti_emp_elaborado = '';
+        let v_rti_emp_enviado = '';
+        let v_rti_emp_aprobado = '';
+        let v_rti_emp_devuelto = '';
+        let v_rti_emp_rechazado = '';
+        let v_rti_emp_finalizado = '';
+
+        const data: any[] = await this.ticketService.busca_ticket_dinamico(
+            v_rti_caso,
+            v_rti_codcia,
+            v_rti_codigo,
+            v_rti_prioridad,
+            v_rti_coduniresp,
+            v_rti_codemp,
+            v_rti_codsis,
+            v_rti_codmsi,
+            v_rti_estado,
+            v_rti_anisol,
+            v_rti_codsol,
+            v_rti_fec_elaborado,
+            v_rti_fec_enviado,
+            v_rti_fec_aprobado,
+            v_rti_fec_devuelto,
+            v_rti_fec_rechazado,
+            v_rti_fec_finalizado,
+            v_rti_emp_elaborado,
+            v_rti_emp_enviado,
+            v_rti_emp_aprobado,
+            v_rti_emp_devuelto,
+            v_rti_emp_rechazado,
+            v_rti_emp_finalizado);
+
+        if (Array.isArray(data)) {
+            return data
+        }
+        else {
+            if (!data) {
+                return []
+            }
+            else {
+                return [data];
+            }
+        }
+    }
+*/
+    //-------------------------------------------------------------------------------------------------------------
 
 
     //-------------------------------------------------------------------------------------------------------------
@@ -2902,7 +2979,7 @@ export class TicketController {
         description: 'Crea registro a partir del BODY',
         type: [Css_Rti_Entity],
     })
-    async creaTicket(@Body() datos: Create_Css_Rti_Dto) {
+    async creaTicket(@Param() datos: Create_Css_Rti_Dto) {
         const data = await this.ticketService.creaTicket(datos);
         //return { message: 'Registro creado', data };
         return data;
@@ -2912,16 +2989,16 @@ export class TicketController {
     //------------ PUT - Actualiza registro
     //-------------------------------------------------------------------------------------------------------------
 
-    @Put('/update/')
-    @ApiOperation({ summary: 'Actualiza un registro - PARÁMETROS LLAVE: rtiCodcia, rtiCodigo - IMPORTANTE: Tanto los campos de la LLAVE PRIMARIA, así como los campos a actualizar, deben ir en el BODY' })
+    @Put('/update/:rtiCodcia/:rtiCodigo/')
+    @ApiOperation({ summary: 'Actualiza un registro - PARÁMETROS LLAVE: rtiCodcia, rtiCodigo - IMPORTANTE: Los campos a actualizar deben ir en el BODY' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Actualiza un registro',
         type: [Css_Rti_Entity],
     })
     async modificaTicket(
-        @Body('rtiCodcia') v_rti_codcia: string,
-        @Body('rtiCodigo') v_rti_codigo: number,
+        @Param('rtiCodcia') v_rti_codcia: string,
+        @Param('rtiCodigo') v_rti_codigo: number,
         @Body() dto: Edit_Css_Rti_Dto) {
         //console.log('v_codcia_@Put: ', v_codcia);
         //console.log('v_coduni_@Put: ', v_coduni);
@@ -2936,16 +3013,16 @@ export class TicketController {
     //------------ DELETE - Borra registro
     //-------------------------------------------------------------------------------------------------------------
 
-    @Delete('/delete/')
-    @ApiOperation({ summary: 'Borra un registro a partir del BODY - PARÁMETROS LLAVE: rtiCodcia, rtiCodigo - IMPORTANTE: Los parámetros deben ir en el BODY' })
+    @Delete('/delete/:rtiCodcia/:rtiCodigo/')
+    @ApiOperation({ summary: 'Borra un registro a partir del BODY - PARÁMETROS LLAVE: rtiCodcia, rtiCodigo' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Crea registro a partir del BODY',
         type: [Css_Rti_Entity],
     })
     async EliminaTicket(
-        @Body('rtiCodcia') v_rti_codcia: string,
-        @Body('rtiCodigo') v_rti_codigo: number,
+        @Param('rtiCodcia') v_rti_codcia: string,
+        @Param('rtiCodigo') v_rti_codigo: number,
     ) {
         const data = await this.ticketService.EliminaTicket(v_rti_codcia, v_rti_codigo);
         return { message: 'Registro eliminado', data };
@@ -2967,17 +3044,17 @@ export class TicketController {
         return data;
     }
 
-    @Get('/respuestas/by_pk/')
-    @ApiOperation({ summary: 'Consulta de Respuestas por llave primaria - PARÁMETROS: retCodcia, retCoduniResp, retCodigo - IMPORTANTE: Los parámetros deben ir en el BODY' })
+    @Get('/respuestas/by_pk/:retCodcia/:retCoduniResp/:retCodigo/')
+    @ApiOperation({ summary: 'Consulta de Respuestas por llave primaria - PARÁMETROS: retCodcia, retCoduniResp, retCodigo' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Respuestas por llave primaria',
         type: [Css_Rti_Entity],
     })
     async obtieneRespuestas_byPk(
-        @Body('retCodcia') v_ret_codcia: string,
-        @Body('retCoduniResp') v_ret_coduni_resp: number,
-        @Body('retCodigo') v_ret_codigo: number
+        @Param('retCodcia') v_ret_codcia: string,
+        @Param('retCoduniResp') v_ret_coduni_resp: number,
+        @Param('retCodigo') v_ret_codigo: number
     ) {
         {
             const data = await this.ticketService.obtiene_Respuestas_byPk(v_ret_codcia, v_ret_coduni_resp, v_ret_codigo);
@@ -2997,16 +3074,16 @@ export class TicketController {
 
     //-------------------------------------------------------------------------------------------------------------
 
-    @Get('/respuestas/by_coduniresp/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable - PARÁMETROS: retCodcia, retCoduniResp - IMPORTANTE: Los parámetros deben ir en el BODY' })
+    @Get('/respuestas/by_coduniresp/:retCodcia/:retCoduniResp/')
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable - PARÁMETROS: retCodcia, retCoduniResp' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Unidad Responsable',
         type: [Css_Rti_Entity],
     })
     async obtiene_respuesta_por_uniresp(
-        @Body('retCodcia') v_ret_codcia: string,
-        @Body('retCoduniResp') v_ret_coduni_resp: number,
+        @Param('retCodcia') v_ret_codcia: string,
+        @Param('retCoduniResp') v_ret_coduni_resp: number,
     ) {
         let v_ret_caso = '01';
         //let v_ret_codcia = '001';
@@ -3047,17 +3124,17 @@ export class TicketController {
 
     //-------------------------------------------------------------------------------------------------------------
 
-    @Get('/respuestas/by_tipo/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Tipo - PARÁMETROS: retCodcia, retCoduniResp, retTipo - IMPORTANTE: Los parámetros deben ir en el BODY' })
+    @Get('/respuestas/by_tipo/:retCodcia/:retCoduniResp/:retTipo/')
+    @ApiOperation({ summary: 'Consulta de Tickets por Tipo - PARÁMETROS: retCodcia, retCoduniResp, retTipo' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Tipo',
         type: [Css_Rti_Entity],
     })
     async obtiene_respuesta_por_tiporesp(
-        @Body('retCodcia') v_ret_codcia: string,
-        @Body('retCoduniResp') v_ret_coduni_resp: number,
-        @Body('retTipo') v_ret_tipo: string,
+        @Param('retCodcia') v_ret_codcia: string,
+        @Param('retCoduniResp') v_ret_coduni_resp: number,
+        @Param('retTipo') v_ret_tipo: string,
     ) {
         let v_ret_caso = '02';
         //let v_ret_codcia = '001';
@@ -3098,17 +3175,17 @@ export class TicketController {
 
     //-------------------------------------------------------------------------------------------------------------
 
-    @Get('/respuestas/by_estado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Estado - PARÁMETROS: retCodcia, retCoduniResp, retEstado - IMPORTANTE: Los parámetros deben ir en el BODY' })
+    @Get('/respuestas/by_estado/:retCodcia/:retCoduniResp/:retEstado/')
+    @ApiOperation({ summary: 'Consulta de Tickets por Estado - PARÁMETROS: retCodcia, retCoduniResp, retEstado' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Estado',
         type: [Css_Rti_Entity],
     })
     async obtiene_respuesta_por_estadoresp(
-        @Body('retCodcia') v_ret_codcia: string,
-        @Body('retCoduniResp') v_ret_coduni_resp: number,
-        @Body('retEstado') v_ret_estado: string,
+        @Param('retCodcia') v_ret_codcia: string,
+        @Param('retCoduniResp') v_ret_coduni_resp: number,
+        @Param('retEstado') v_ret_estado: string,
     ) {
         let v_ret_caso = '03';
         //let v_ret_codcia = '001';
@@ -3160,7 +3237,7 @@ export class TicketController {
         description: 'Crea registro a partir del BODY',
         type: [Css_Ret_Entity],
     })
-    async creaRespuesta(@Body() datos: Create_Css_Ret_Dto) {
+    async creaRespuesta(@Param() datos: Create_Css_Ret_Dto) {
         const data = await this.ticketService.creaRespuesta(datos);
         //return { message: 'Registro creado', data };
         return data;
@@ -3170,17 +3247,17 @@ export class TicketController {
     //------------ PUT - Actualiza RESPUESTA
     //-------------------------------------------------------------------------------------------------------------
 
-    @Put('/respuestas/update/')
-    @ApiOperation({ summary: 'Actualiza un registro - PARÁMETROS LLAVE: retCodcia, retCoduniResp, retCodigo - IMPORTANTE: Tanto los campos de la LLAVE PRIMARIA, así como los campos a actualizar, deben ir en el BODY' })
+    @Put('/respuestas/update/:retCodcia/:retCoduniResp/:retCodigo/')
+    @ApiOperation({ summary: 'Actualiza un registro - PARÁMETROS LLAVE: retCodcia, retCoduniResp, retCodigo - IMPORTANTE: Los campos a actualizar deben ir en el BODY' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Actualiza un registro',
         type: [Css_Ret_Entity],
     })
     async modificaRespuesta(
-        @Body('retCodcia') v_ret_codcia: string,
-        @Body('retCoduniResp') v_ret_coduni_resp: number,
-        @Body('retCodigo') v_ret_codigo: number,
+        @Param('retCodcia') v_ret_codcia: string,
+        @Param('retCoduniResp') v_ret_coduni_resp: number,
+        @Param('retCodigo') v_ret_codigo: number,
         @Body() dto: Edit_Css_Ret_Dto) {
         //console.log('v_codcia_@Put: ', v_codcia);
         //console.log('v_coduni_@Put: ', v_coduni);
@@ -3195,17 +3272,17 @@ export class TicketController {
     //------------ DELETE - Borra RESPUESTA
     //-------------------------------------------------------------------------------------------------------------
 
-    @Delete('/respuestas/delete/')
-    @ApiOperation({ summary: 'Borra un registro a partir del BODY - PARÁMETROS LLAVE: retCodcia, retCoduniResp, retCodigo - IMPORTANTE: Los parámetros deben ir en el BODY' })
+    @Delete('/respuestas/delete/:retCodcia/:retCoduniResp/:retCodigo/')
+    @ApiOperation({ summary: 'Borra un registro a partir del BODY - PARÁMETROS LLAVE: retCodcia, retCoduniResp, retCodigo' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Crea registro a partir del BODY',
         type: [Css_Ret_Entity],
     })
     async EliminaRespuesta(
-        @Body('retCodcia') v_ret_codcia: string,
-        @Body('retCoduniResp') v_ret_coduni_resp: number,
-        @Body('retCodigo') v_ret_codigo: number,
+        @Param('retCodcia') v_ret_codcia: string,
+        @Param('retCoduniResp') v_ret_coduni_resp: number,
+        @Param('retCodigo') v_ret_codigo: number,
     ) {
         const data = await this.ticketService.EliminaRespuesta(v_ret_codcia, v_ret_coduni_resp, v_ret_codigo);
         return { message: 'Registro eliminado', data };

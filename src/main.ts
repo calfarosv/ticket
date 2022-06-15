@@ -8,6 +8,7 @@ import { initSwagger } from './app.swagger';
 //const pkPath = '/opt/nodejscert/server.key';
 const crPath = 'server.cert';
 const pkPath = 'server.key';
+
 let httpsOptions: any = {};
 
 async function bootstrap() {

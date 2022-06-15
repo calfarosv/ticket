@@ -1,12 +1,16 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { ApiHeader } from '@nestjs/swagger';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Css_Uni_Entity } from 'src/apoyo/entities/css_uni_entity';
 import { Pla_Emp_Entity } from 'src/apoyo/entities/pla_emp_entity';
 import { Sis_Msi_Entity } from 'src/apoyo/entities/sis_msi_entity';
 import { Sis_Sis_Entity } from 'src/apoyo/entities/sis_sis_entity';
 import { Repository } from 'typeorm';
+import { Create_Css_Ret_Dto } from './dto/create_css_ret_dto';
 import { Create_Css_Rti_Dto } from './dto/create_css_rti_dto';
+import { Edit_Css_Ret_Dto } from './dto/edit_css_ret_dto';
 import { Edit_Css_Rti_Dto } from './dto/edit_css_rti_dto';
+import { Css_Ret_Entity } from './entities/css_ret_entity';
 import { Css_Rti_Entity } from './entities/css_rti_entity';
 
 @Injectable()
@@ -14,10 +18,13 @@ export class TicketService {
 
     constructor(
         @InjectRepository(Css_Rti_Entity) private ticketRepository: Repository<Css_Rti_Entity>,
-        @InjectRepository(Pla_Emp_Entity) private empleadosRepository: Repository<Pla_Emp_Entity>,
-        @InjectRepository(Sis_Sis_Entity) private sistemasRepository: Repository<Sis_Sis_Entity>,
-        @InjectRepository(Sis_Msi_Entity) private modulosRepository: Repository<Sis_Msi_Entity>,
+        @InjectRepository(Css_Ret_Entity) private respuestasRepository: Repository<Css_Ret_Entity>,
+
     ) { }
+
+    //*************************************************************************** */
+    //********** TICKET */
+    //*************************************************************************** */
 
     @ApiHeader({
         name: 'Servicio: busca Todos los Tickets',
@@ -151,6 +158,7 @@ export class TicketService {
             .addSelect('Css_Rti_Entity.rtiAnisol', 'rtiAnisol')
             .addSelect('Css_Rti_Entity.rtiCoduni', 'rtiCoduni')
             .addSelect('Css_Rti_Entity.rtiCodsol', 'rtiCodsol')
+            .addSelect('Css_Rti_Entity.rtiCodret', 'rtiCodret')
             //
             .addSelect('Pla_Emp_Entity.empNombreCip', 'empNombreCip')
             .addSelect('Pla_Emp_Entity.empEstado', 'empEstado')
@@ -270,6 +278,180 @@ export class TicketService {
             throw new HttpException('NO SE PUEDE ELIMINAR - No existe el registro - (EliminaTicket)', HttpStatus.FORBIDDEN);
         }
     }
+
+    //*************************************************************************** */
+    //********** RESPUESTAS */
+    //*************************************************************************** */
+
+    @ApiHeader({
+        name: 'Servicio: busca Todas las Respuestas',
+        description: 'Maestro de Respuestas',
+    })
+    async buscaTodasRespuestas(): Promise<Css_Ret_Entity[]> {
+        const register = await this.respuestasRepository.find({
+            //where :"UPPER(EMP_ESTADO) IN ('A','V')",
+            order: {
+                retCodcia: 'ASC',
+                retCoduniResp: 'ASC',
+                retCodigo: 'ASC',
+            },
+        });
+        return register;
+    }
+
+
+    @ApiHeader({
+        name: 'Servicio: busca Respuestas por la llave primaria',
+        description: 'Maestro de Respuestas',
+    })
+    async obtiene_Respuestas_byPk(v_ret_codcia: string, v_ret_coduni_resp: number, v_ret_codigo: number): Promise<Css_Ret_Entity> {
+        const register = await this.respuestasRepository.findOne(
+            {
+                retCodcia: v_ret_codcia,
+                retCoduniResp: v_ret_coduni_resp,
+                retCodigo: v_ret_codigo
+            }
+        );
+        return register;
+    }
+
+    //-------------------------------------------------------------------------------------------------------------
+
+    @ApiHeader({
+        name: 'Servicio: Busqueda dinamica de Respuestas',
+        description: 'Maestro de Respuestas',
+    })
+    async busca_respuesta_dinamico(
+        v_ret_caso: string,
+        v_ret_codcia: string,
+        v_ret_coduni_resp: number,
+        v_ret_codigo: number,
+        v_ret_tipo: string,
+        v_ret_estado: string) {
+        console.log('v_ret_caso: ', v_ret_caso);
+        console.log('v_ret_codcia: ', v_ret_codcia);
+        console.log('v_ret_coduniresp: ', v_ret_coduni_resp);
+        console.log('v_ret_codigo: ', v_ret_codigo);
+        console.log('v_ret_tipo: ', v_ret_tipo);
+        console.log('v_ret_estado: ', v_ret_estado);
+
+        let v_fecha_sol: Date;
+        let v_where = '';
+
+        if (v_ret_caso == '01') {
+            v_where = 'Css_Ret_Entity.retCodcia = :par_ret_codcia and Css_Ret_Entity.retCoduniResp = :par_ret_coduni_resp';
+            //console.log('1', v_where);
+        }
+        if (v_ret_caso == '02') {
+            v_where = 'Css_Ret_Entity.retCodcia = :par_ret_codcia and Css_Ret_Entity.retCoduniResp = :par_ret_coduni_resp and Css_Ret_Entity.retTipo = :par_ret_tipo';
+            //console.log('1', v_where);
+        }
+        if (v_ret_caso == '03') {
+            v_where = 'Css_Ret_Entity.retCodcia = :par_ret_codcia and Css_Ret_Entity.retCoduniResp = :par_ret_coduni_resp and Css_Ret_Entity.retEstado = :par_ret_estado';
+            //console.log('1', v_where);
+        }
+
+        console.log('v_rti_caso: ', v_ret_caso);
+        console.log('v_where: ', v_where);
+
+        const register = await this.respuestasRepository.createQueryBuilder()
+            .select('Css_Ret_Entity.retCodcia', 'retCodcia')
+            .addSelect('Css_Ret_Entity.retCoduniResp', 'retCoduniResp')
+            .addSelect('Css_Ret_Entity.retCodigo', 'retCodigo')
+            .addSelect('Css_Ret_Entity.retTipo', 'retTipo')
+            .addSelect('Css_Ret_Entity.retEstado', 'retEstado')
+            .addSelect('Css_Ret_Entity.retDescripcion', 'retDescripcion')
+            .addSelect('Css_Uni_Entity.uniNombre', 'uniNombre')
+            .where(v_where,
+                {
+                    par_ret_codcia: v_ret_codcia,
+                    par_ret_coduni_resp: v_ret_coduni_resp,
+                    par_ret_codigo: v_ret_codigo,
+                    par_ret_tipo: v_ret_tipo,
+                    par_ret_estado: v_ret_estado
+
+                })
+            .leftJoin(Css_Uni_Entity, 'Css_Uni_Entity', 'Css_Ret_Entity.retCodcia = Css_Uni_Entity.uniCodcia and Css_Ret_Entity.retCoduniResp = Css_Uni_Entity.uniCodigo')
+            .orderBy('Css_Ret_Entity.retCodigo', 'ASC')
+            .getRawMany();
+        //console.log('register: ', register);            
+        /*
+        if (!register || register.length === 0) {
+            throw new HttpException('No se encontraron datos - (busca_fichas_dinamica)', HttpStatus.FORBIDDEN);
+        }
+        else
+            return register;
+        */
+        return register;
+    }
+
+    //-------------------------------------------------------------------------------------------------------------
+
+    //-------------------------------------------------------------------------------------------------------------
+    //------------ CREA RESPUESTA
+    //-------------------------------------------------------------------------------------------------------------
+
+    @ApiHeader({
+        name: 'Servicio: Crea un registro',
+        description: 'Crea un registro',
+    })
+    async creaRespuesta(dto: Create_Css_Ret_Dto)//: Promise<Pri_Fic_Ficha_Entity> 
+    {
+        const register = await this.respuestasRepository.findOne({
+            retCodcia: dto.retCodcia,
+            retCoduniResp: dto.retCoduniResp,
+            retCodigo: dto.retCodigo
+        });
+        if (register)
+            throw new HttpException('NO SE PUEDE CREAR - El registro ya existe - (creaRespuesta)', HttpStatus.FORBIDDEN);
+        else {
+            const model = this.respuestasRepository.create(dto);
+            const newRegister = await this.respuestasRepository.save(model);
+            return newRegister;
+        }
+    }
+
+    //-------------------------------------------------------------------------------------------------------------
+    //------------ ACTUALIZA RESPUESTA
+    //-------------------------------------------------------------------------------------------------------------
+
+    @ApiHeader({
+        name: 'Servicio: Modifica un registro',
+        description: 'Modifica un registro',
+    })
+    async modificaRespuesta(v_ret_codcia: string, v_ret_coduni_resp: number, v_ret_codigo: number, dto: Edit_Css_Ret_Dto): Promise<Css_Ret_Entity> {
+        const toUpdate = await this.obtiene_Respuestas_byPk(v_ret_codcia, v_ret_coduni_resp, v_ret_codigo);
+        //console.log('Continua');
+        //console.log('toUpdate_editCat: ', toUpdate);        
+        if (!toUpdate)
+            throw new HttpException('NO SE PUEDE ACTUALIZAR - No existe el registro - (modificaRespuesta)', HttpStatus.FORBIDDEN);
+        const modelToEdit = Object.assign(toUpdate, dto);
+        return await this.respuestasRepository.save(modelToEdit);
+    }
+
+
+    //-------------------------------------------------------------------------------------------------------------
+    //------------ ELIMINA RESPUESTA
+    //-------------------------------------------------------------------------------------------------------------
+
+    async EliminaRespuesta(v_ret_codcia: string, v_ret_coduni_resp: number, v_ret_codigo: number) {
+        const register = await this.respuestasRepository.findOne({
+            retCodcia: v_ret_codcia,
+            retCoduniResp: v_ret_coduni_resp,
+            retCodigo: v_ret_codigo
+        });
+        if (register) {
+
+            // ELIMINACIÓN DEL REGISTRO DE ENCABEZADO
+            const toDelete = this.respuestasRepository.create(register);
+            this.respuestasRepository.remove(toDelete);
+        }
+        else {
+            throw new HttpException('NO SE PUEDE ELIMINAR - No existe el registro - (EliminaRespuesta)', HttpStatus.FORBIDDEN);
+        }
+    }
+
+
 
 
 

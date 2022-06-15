@@ -74,6 +74,9 @@ export class Create_Css_Rti_Dto {
     @ApiProperty({ description: 'CÓDIGO DE MÓDULO DEL SISTEMA', type: Number, })
     rtiCodmsi?: number;
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    @IsString()
+    @IsOptional()
+    @ApiProperty({ description: 'ESTADO DEL TICKET', type: String, })
     rtiEstado?: string;
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     @IsOptional()
@@ -114,6 +117,11 @@ export class Create_Css_Rti_Dto {
     @IsOptional()
     @ApiProperty({ description: 'CODIGO DE LA SOLICITUD', type: Number, })
     rtiCodsol?: number;
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    @IsNumber()
+    @IsOptional()
+    @ApiProperty({ description: 'CÓDIGO DE LA RESPUESTA', type: Number, })
+    rtiCodret?: number;
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 }

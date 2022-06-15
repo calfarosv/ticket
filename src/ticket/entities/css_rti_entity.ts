@@ -1,5 +1,5 @@
 import { Type } from "class-transformer";
-import { Column, Entity, Index, OneToMany, PrimaryColumn } from "typeorm";
+import { Column, Entity, Index, PrimaryColumn } from "typeorm";
 
 @Index("CSS_RTI_PK", ["rtiCodcia", "rtiCodigo"], { unique: true })
 @Entity("CSS_RTI_REG_TICKETSTI")
@@ -80,5 +80,7 @@ export class Css_Rti_Entity {
     @Column("number", { name: "RTI_CODSOL", precision: 9, scale: 0, })
     rtiCodsol?: number;
     //-----------------------------------------------------------------------------------------
+    @Column("number", { name: "RTI_CODRET", precision: 5, scale: 0, })
+    rtiCodret?: number;
 
 }

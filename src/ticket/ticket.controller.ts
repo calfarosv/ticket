@@ -1,7 +1,10 @@
 import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put } from '@nestjs/common';
 import { ApiHeader, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Create_Css_Ret_Dto } from './dto/create_css_ret_dto';
 import { Create_Css_Rti_Dto } from './dto/create_css_rti_dto';
+import { Edit_Css_Ret_Dto } from './dto/edit_css_ret_dto';
 import { Edit_Css_Rti_Dto } from './dto/edit_css_rti_dto';
+import { Css_Ret_Entity } from './entities/css_ret_entity';
 import { Css_Rti_Entity } from './entities/css_rti_entity';
 import { TicketService } from './ticket.service';
 
@@ -12,6 +15,11 @@ export class TicketController {
     constructor(private ticketService: TicketService) { }
 
     //@UseGuards(JwtAuthGuard)
+
+    //*************************************************************************** */
+    //********** TICKET */
+    //*************************************************************************** */
+
     @Get('')
     @ApiOperation({ summary: 'Lista de todos los Tickets' })
     @ApiResponse({
@@ -25,18 +33,18 @@ export class TicketController {
     }
 
     @Get('/by_pk/')
-    @ApiOperation({ summary: 'Consulta de Tickets por llave primaria - IMPORTANTE: Los parámetros deben ir en el BODY' })
+    @ApiOperation({ summary: 'Consulta de Tickets por llave primaria - PARÁMETROS: rtiCodcia, rtiCodigo - IMPORTANTE: Los parámetros deben ir en el BODY' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por llave primaria',
         type: [Css_Rti_Entity],
     })
     async obtieneTickets_byPk(
-        @Body('rtiCodcia') v_codcia: string,
-        @Body('rtiCodigo') v_codigo: number
+        @Body('rtiCodcia') v_rti_codcia: string,
+        @Body('rtiCodigo') v_rti_codigo: number
     ) {
         {
-            const data = await this.ticketService.obtiene_Tickets_byPk(v_codcia, v_codigo);
+            const data = await this.ticketService.obtiene_Tickets_byPk(v_rti_codcia, v_rti_codigo);
             if (!data) {
                 //SI LOS DATOS VIENEN VACIOS, SE DEVUELVEN CORCHETES
                 return []
@@ -54,17 +62,18 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_prioridad/')
-    @ApiOperation({ summary: 'Consulta de Tickets por prioridad - IMPORTANTE: Los parámetros deben ir en el BODY' })
+    @ApiOperation({ summary: 'Consulta de Tickets por prioridad - PARÁMETROS: rtiCodcia, rtiPrioridad - IMPORTANTE: Los parámetros deben ir en el BODY' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por prioridad',
         type: [Css_Rti_Entity],
     })
     async obtiene_ticket_por_prioridad(
+        @Body('rtiCodcia') v_rti_codcia: string,
         @Body('rtiPrioridad') v_rti_prioridad: string,
     ) {
         let v_rti_caso = '01';
-        let v_rti_codcia = '001';
+        //let v_rti_codcia = '001';
         let v_rti_codigo: number = null;
         //let v_rti_prioridad = '';
         let v_rti_coduniresp: number = null;
@@ -119,19 +128,20 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_coduniresp/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Código de la Unidad Responsable - IMPORTANTE: Los parámetros deben ir en el BODY' })
+    @ApiOperation({ summary: 'Consulta de Tickets por Código de la Unidad Responsable - PARÁMETROS: rtiCodcia, rtiCoduniResp - IMPORTANTE: Los parámetros deben ir en el BODY' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Código de la Unidad Responsable',
         type: [Css_Rti_Entity],
     })
     async obtiene_ticket_por_coduniResp(
+        @Body('rtiCodcia') v_rti_codcia: string,
         @Body('rtiCoduniResp') v_rti_coduniresp: number,
     ) {
         //
         let v_rti_caso = '02';
         //
-        let v_rti_codcia = '001';
+        //let v_rti_codcia = '001';
         let v_rti_codigo: number = null;
         let v_rti_prioridad = '';
         //let v_rti_coduniresp: number = null;
@@ -186,19 +196,20 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_codemp/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Empleado que solicita - IMPORTANTE: Los parámetros deben ir en el BODY' })
+    @ApiOperation({ summary: 'Consulta de Tickets por Empleado que solicita - PARÁMETROS: rtiCodcia, rtiCodemp - IMPORTANTE: Los parámetros deben ir en el BODY' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Empleado que solicita',
         type: [Css_Rti_Entity],
     })
     async obtiene_ticket_por_codemp(
+        @Body('rtiCodcia') v_rti_codcia: string,
         @Body('rtiCodemp') v_rti_codemp: string,
     ) {
         //
         let v_rti_caso = '03';
         //
-        let v_rti_codcia = '001';
+        //let v_rti_codcia = '001';
         let v_rti_codigo: number = null;
         let v_rti_prioridad = '';
         let v_rti_coduniresp: number = null;
@@ -253,19 +264,20 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_codsis/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Sistema - IMPORTANTE: Los parámetros deben ir en el BODY' })
+    @ApiOperation({ summary: 'Consulta de Tickets por Sistema - PARÁMETROS: rtiCodcia, rtiCodsis - IMPORTANTE: Los parámetros deben ir en el BODY' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Sistema',
         type: [Css_Rti_Entity],
     })
     async obtiene_ticket_por_sistema(
+        @Body('rtiCodcia') v_rti_codcia: string,
         @Body('rtiCodsis') v_rti_codsis: number,
     ) {
         //
         let v_rti_caso = '04';
         //
-        let v_rti_codcia = '001';
+        //let v_rti_codcia = '001';
         let v_rti_codigo: number = null;
         let v_rti_prioridad = '';
         let v_rti_coduniresp: number = null;
@@ -320,20 +332,21 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_sismod/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Sistema y Módulo - IMPORTANTE: Los parámetros deben ir en el BODY' })
+    @ApiOperation({ summary: 'Consulta de Tickets por Sistema y Módulo - PARÁMETROS: rtiCodcia, rtiCodsis, rtiCodmsi - IMPORTANTE: Los parámetros deben ir en el BODY' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Sistema y Módulo',
         type: [Css_Rti_Entity],
     })
     async obtiene_ticket_por_sistema_modulo(
+        @Body('rtiCodcia') v_rti_codcia: string,
         @Body('rtiCodsis') v_rti_codsis: number,
         @Body('rtiCodmsi') v_rti_codmsi: number,
     ) {
         //
         let v_rti_caso = '05';
         //
-        let v_rti_codcia = '001';
+        //let v_rti_codcia = '001';
         let v_rti_codigo: number = null;
         let v_rti_prioridad = '';
         let v_rti_coduniresp: number = null;
@@ -388,19 +401,20 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_estado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Estado - IMPORTANTE: Los parámetros deben ir en el BODY' })
+    @ApiOperation({ summary: 'Consulta de Tickets por Estado - PARÁMETROS: rtiCodcia, rtiEstado - IMPORTANTE: Los parámetros deben ir en el BODY' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Estado',
         type: [Css_Rti_Entity],
     })
     async obtiene_ticket_por_estado(
+        @Body('rtiCodcia') v_rti_codcia: string,
         @Body('rtiEstado') v_rti_estado: string,
     ) {
         //
         let v_rti_caso = '06';
         //
-        let v_rti_codcia = '001';
+        //let v_rti_codcia = '001';
         let v_rti_codigo: number = null;
         let v_rti_prioridad = '';
         let v_rti_coduniresp: number = null;
@@ -455,20 +469,21 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_aniosol/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Estado - IMPORTANTE: Los parámetros deben ir en el BODY' })
+    @ApiOperation({ summary: 'Consulta de Tickets por Estado - PARÁMETROS: rtiCodcia, rtiAnisol, rtiCodsol - IMPORTANTE: Los parámetros deben ir en el BODY' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Estado',
         type: [Css_Rti_Entity],
     })
     async obtiene_ticket_por_solicitud(
+        @Body('rtiCodcia') v_rti_codcia: string,
         @Body('rtiAnisol') v_rti_anisol: number,
         @Body('rtiCodsol') v_rti_codsol: number,
     ) {
         //
         let v_rti_caso = '07';
         //
-        let v_rti_codcia = '001';
+        //let v_rti_codcia = '001';
         let v_rti_codigo: number = null;
         let v_rti_prioridad = '';
         let v_rti_coduniresp: number = null;
@@ -523,19 +538,20 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_fecsol/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Fecha de la solicitud - IMPORTANTE: Los parámetros deben ir en el BODY' })
+    @ApiOperation({ summary: 'Consulta de Tickets por Fecha de la solicitud - PARÁMETROS: rtiCodcia, rtiFecsol - IMPORTANTE: Los parámetros deben ir en el BODY' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Fecha de la solicitud',
         type: [Css_Rti_Entity],
     })
     async obtiene_ticket_por_fecsol(
+        @Body('rtiCodcia') v_rti_codcia: string,
         @Body('rtiFecsol') v_rti_fecsol: Date,
     ) {
         //
         let v_rti_caso = '08';
         //
-        let v_rti_codcia = '001';
+        //let v_rti_codcia = '001';
         let v_rti_codigo: number = null;
         let v_rti_prioridad = '';
         let v_rti_coduniresp: number = null;
@@ -609,7 +625,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Put('/update/')
-    @ApiOperation({ summary: 'Actualiza un registro - IMPORTANTE: Tanto los campos de la LLAVE PRIMARIA, así como los campos a actualizar, deben ir en el BODY' })
+    @ApiOperation({ summary: 'Actualiza un registro - PARÁMETROS LLAVE: rtiCodcia, rtiCodigo - IMPORTANTE: Tanto los campos de la LLAVE PRIMARIA, así como los campos a actualizar, deben ir en el BODY' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Actualiza un registro',
@@ -627,25 +643,288 @@ export class TicketController {
         //console.log('data_controller: ', register);
         return { message: 'Registro actualizado', data };
     }
-    
-        //-------------------------------------------------------------------------------------------------------------
-        //------------ DELETE - Borra registro
-        //-------------------------------------------------------------------------------------------------------------
-    
-        @Delete('/delete/')
-        @ApiOperation({ summary: 'Borra un registro a partir del BODY - IMPORTANTE: Los parámetros deben ir en el BODY' })
-        @ApiResponse({
-            status: HttpStatus.OK,
-            description: 'Crea registro a partir del BODY',
-            type: [Css_Rti_Entity],
-        })
-        async EliminaTicket(
-            @Body('rtiCodcia') v_rti_codcia: string,
-            @Body('rtiCodigo') v_rti_codigo: number,
-        ) {
-            const data = await this.ticketService.EliminaTicket(v_rti_codcia, v_rti_codigo);
-            return { message: 'Registro eliminado', data };
+
+    //-------------------------------------------------------------------------------------------------------------
+    //------------ DELETE - Borra registro
+    //-------------------------------------------------------------------------------------------------------------
+
+    @Delete('/delete/')
+    @ApiOperation({ summary: 'Borra un registro a partir del BODY - PARÁMETROS LLAVE: rtiCodcia, rtiCodigo - IMPORTANTE: Los parámetros deben ir en el BODY' })
+    @ApiResponse({
+        status: HttpStatus.OK,
+        description: 'Crea registro a partir del BODY',
+        type: [Css_Rti_Entity],
+    })
+    async EliminaTicket(
+        @Body('rtiCodcia') v_rti_codcia: string,
+        @Body('rtiCodigo') v_rti_codigo: number,
+    ) {
+        const data = await this.ticketService.EliminaTicket(v_rti_codcia, v_rti_codigo);
+        return { message: 'Registro eliminado', data };
+    }
+
+    //*************************************************************************** */
+    //********** RESPUESTAS */
+    //*************************************************************************** */
+
+    @Get('/respuestas/')
+    @ApiOperation({ summary: 'Lista de todas las Respuestas' })
+    @ApiResponse({
+        status: HttpStatus.OK,
+        description: 'Lista de todas las Respuestas',
+        type: [Css_Rti_Entity],
+    })
+    async obtieneTodas_Respuestas() {
+        const data = await this.ticketService.buscaTodasRespuestas();
+        return data;
+    }
+
+    @Get('/respuestas/by_pk/')
+    @ApiOperation({ summary: 'Consulta de Respuestas por llave primaria - PARÁMETROS: retCodcia, retCoduniResp, retCodigo - IMPORTANTE: Los parámetros deben ir en el BODY' })
+    @ApiResponse({
+        status: HttpStatus.OK,
+        description: 'Consulta de Respuestas por llave primaria',
+        type: [Css_Rti_Entity],
+    })
+    async obtieneRespuestas_byPk(
+        @Body('retCodcia') v_ret_codcia: string,
+        @Body('retCoduniResp') v_ret_coduni_resp: number,
+        @Body('retCodigo') v_ret_codigo: number
+    ) {
+        {
+            const data = await this.ticketService.obtiene_Respuestas_byPk(v_ret_codcia, v_ret_coduni_resp, v_ret_codigo);
+            if (!data) {
+                //SI LOS DATOS VIENEN VACIOS, SE DEVUELVEN CORCHETES
+                return []
+            }
+            else {
+                // SI LOS DATOS NO VIENEN VACIOS, ENTONCES ES SOLO 1 REGISTRO
+                // POR SER UN REGISTRO CONSULTADO POR LA LLAVE, NO SE DEVUELVE ENTRE CORCHETES
+                return data;
+            }
+            //return data;}
         }
+
+    }
+
+    //-------------------------------------------------------------------------------------------------------------
+
+    @Get('/respuestas/by_coduniresp/')
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable - PARÁMETROS: retCodcia, retCoduniResp - IMPORTANTE: Los parámetros deben ir en el BODY' })
+    @ApiResponse({
+        status: HttpStatus.OK,
+        description: 'Consulta de Tickets por Unidad Responsable',
+        type: [Css_Rti_Entity],
+    })
+    async obtiene_respuesta_por_uniresp(
+        @Body('retCodcia') v_ret_codcia: string,
+        @Body('retCoduniResp') v_ret_coduni_resp: number,
+    ) {
+        let v_ret_caso = '01';
+        //let v_ret_codcia = '001';
+        //let v_ret_coduni_resp: number = null;
+        let v_ret_codigo: number = null;
+        let v_ret_tipo = '';
+        let v_ret_estado = '';
+
+        const data: any[] = await this.ticketService.busca_respuesta_dinamico(
+            v_ret_caso,
+            v_ret_codcia,
+            v_ret_coduni_resp,
+            v_ret_codigo,
+            v_ret_tipo,
+            v_ret_estado);
+        //console.log('data: ', data);
+        // VERIFICO SI LOS DATOS OBTENIDOS SON VARIOS REGISTROS, SOLO UNO O NINGUNO
+        // PRIMERO SE DEFINE SI LOS DATOS SON UN ARREGLO O NO
+        if (Array.isArray(data)) {
+            //console.log('Es un arreglo');
+            //SI ES UN ARREGLO, SE DEVUELVE CADA REGISTRO COMO JASON (LOS CORCHETES SON AUTOMATICOS POR SER ARREGLO)
+            return data
+        }
+        else {
+            //console.log('NO es un arreglo');
+            //SI NO ES UN ARREGLO, VERIFICO SI LOS DATOS VIENEN VACIOS O NO
+            if (!data) {
+                //SI LOS DATOS VIENEN VACIOS, SE DEVUELVEN CORCHETES
+                return []
+            }
+            else {
+                // SI LOS DATOS NO VIENEN VACIOS, ENTONCES ES SOLO 1 REGISTRO
+                // SE DEVUELVE ENTRE CORCHETES
+                return [data];
+            }
+        }
+    }
+
+    //-------------------------------------------------------------------------------------------------------------
+
+    @Get('/respuestas/by_tipo/')
+    @ApiOperation({ summary: 'Consulta de Tickets por Tipo - PARÁMETROS: retCodcia, retCoduniResp, retTipo - IMPORTANTE: Los parámetros deben ir en el BODY' })
+    @ApiResponse({
+        status: HttpStatus.OK,
+        description: 'Consulta de Tickets por Tipo',
+        type: [Css_Rti_Entity],
+    })
+    async obtiene_respuesta_por_tiporesp(
+        @Body('retCodcia') v_ret_codcia: string,
+        @Body('retCoduniResp') v_ret_coduni_resp: number,
+        @Body('retTipo') v_ret_tipo: string,
+    ) {
+        let v_ret_caso = '02';
+        //let v_ret_codcia = '001';
+        //let v_ret_coduni_resp: number = null;
+        let v_ret_codigo: number = null;
+        //let v_ret_tipo = '';
+        let v_ret_estado = '';
+
+        const data: any[] = await this.ticketService.busca_respuesta_dinamico(
+            v_ret_caso,
+            v_ret_codcia,
+            v_ret_coduni_resp,
+            v_ret_codigo,
+            v_ret_tipo,
+            v_ret_estado);
+        //console.log('data: ', data);
+        // VERIFICO SI LOS DATOS OBTENIDOS SON VARIOS REGISTROS, SOLO UNO O NINGUNO
+        // PRIMERO SE DEFINE SI LOS DATOS SON UN ARREGLO O NO
+        if (Array.isArray(data)) {
+            //console.log('Es un arreglo');
+            //SI ES UN ARREGLO, SE DEVUELVE CADA REGISTRO COMO JASON (LOS CORCHETES SON AUTOMATICOS POR SER ARREGLO)
+            return data
+        }
+        else {
+            //console.log('NO es un arreglo');
+            //SI NO ES UN ARREGLO, VERIFICO SI LOS DATOS VIENEN VACIOS O NO
+            if (!data) {
+                //SI LOS DATOS VIENEN VACIOS, SE DEVUELVEN CORCHETES
+                return []
+            }
+            else {
+                // SI LOS DATOS NO VIENEN VACIOS, ENTONCES ES SOLO 1 REGISTRO
+                // SE DEVUELVE ENTRE CORCHETES
+                return [data];
+            }
+        }
+    }
+
+    //-------------------------------------------------------------------------------------------------------------
+
+    @Get('/respuestas/by_estado/')
+    @ApiOperation({ summary: 'Consulta de Tickets por Estado - PARÁMETROS: retCodcia, retCoduniResp, retEstado - IMPORTANTE: Los parámetros deben ir en el BODY' })
+    @ApiResponse({
+        status: HttpStatus.OK,
+        description: 'Consulta de Tickets por Estado',
+        type: [Css_Rti_Entity],
+    })
+    async obtiene_respuesta_por_estadoresp(
+        @Body('retCodcia') v_ret_codcia: string,
+        @Body('retCoduniResp') v_ret_coduni_resp: number,
+        @Body('retEstado') v_ret_estado: string,
+    ) {
+        let v_ret_caso = '03';
+        //let v_ret_codcia = '001';
+        //let v_ret_coduni_resp: number = null;
+        let v_ret_codigo: number = null;
+        let v_ret_tipo = '';
+        //let v_ret_estado = '';
+
+        const data: any[] = await this.ticketService.busca_respuesta_dinamico(
+            v_ret_caso,
+            v_ret_codcia,
+            v_ret_coduni_resp,
+            v_ret_codigo,
+            v_ret_tipo,
+            v_ret_estado);
+        //console.log('data: ', data);
+        // VERIFICO SI LOS DATOS OBTENIDOS SON VARIOS REGISTROS, SOLO UNO O NINGUNO
+        // PRIMERO SE DEFINE SI LOS DATOS SON UN ARREGLO O NO
+        if (Array.isArray(data)) {
+            //console.log('Es un arreglo');
+            //SI ES UN ARREGLO, SE DEVUELVE CADA REGISTRO COMO JASON (LOS CORCHETES SON AUTOMATICOS POR SER ARREGLO)
+            return data
+        }
+        else {
+            //console.log('NO es un arreglo');
+            //SI NO ES UN ARREGLO, VERIFICO SI LOS DATOS VIENEN VACIOS O NO
+            if (!data) {
+                //SI LOS DATOS VIENEN VACIOS, SE DEVUELVEN CORCHETES
+                return []
+            }
+            else {
+                // SI LOS DATOS NO VIENEN VACIOS, ENTONCES ES SOLO 1 REGISTRO
+                // SE DEVUELVE ENTRE CORCHETES
+                return [data];
+            }
+        }
+    }
+
+    //-------------------------------------------------------------------------------------------------------------
+
+    //-------------------------------------------------------------------------------------------------------------
+    //------------ POST - Crea RESPUESTA
+    //-------------------------------------------------------------------------------------------------------------
+
+    @Post('/respuestas/insert/')
+    @ApiOperation({ summary: 'Crea registro a partir del BODY - LLAVE: retCodcia, retCoduniResp, retCodigo' })
+    @ApiResponse({
+        status: HttpStatus.OK,
+        description: 'Crea registro a partir del BODY',
+        type: [Css_Ret_Entity],
+    })
+    async creaRespuesta(@Body() datos: Create_Css_Ret_Dto) {
+        const data = await this.ticketService.creaRespuesta(datos);
+        //return { message: 'Registro creado', data };
+        return data;
+    }
+
+    //-------------------------------------------------------------------------------------------------------------
+    //------------ PUT - Actualiza RESPUESTA
+    //-------------------------------------------------------------------------------------------------------------
+
+    @Put('/respuestas/update/')
+    @ApiOperation({ summary: 'Actualiza un registro - PARÁMETROS LLAVE: retCodcia, retCoduniResp, retCodigo - IMPORTANTE: Tanto los campos de la LLAVE PRIMARIA, así como los campos a actualizar, deben ir en el BODY' })
+    @ApiResponse({
+        status: HttpStatus.OK,
+        description: 'Actualiza un registro',
+        type: [Css_Ret_Entity],
+    })
+    async modificaRespuesta(
+        @Body('retCodcia') v_ret_codcia: string,
+        @Body('retCoduniResp') v_ret_coduni_resp: number,
+        @Body('retCodigo') v_ret_codigo: number,
+        @Body() dto: Edit_Css_Ret_Dto) {
+        //console.log('v_codcia_@Put: ', v_codcia);
+        //console.log('v_coduni_@Put: ', v_coduni);
+        //console.log('v_codigo_@Put: ', v_codigo);
+        //console.log('dto_@Put: ', dto);
+        const data = await this.ticketService.modificaRespuesta(v_ret_codcia, v_ret_coduni_resp, v_ret_codigo, dto);
+        //console.log('data_controller: ', register);
+        return { message: 'Registro actualizado', data };
+    }
+
+    //-------------------------------------------------------------------------------------------------------------
+    //------------ DELETE - Borra RESPUESTA
+    //-------------------------------------------------------------------------------------------------------------
+
+    @Delete('/respuestas/delete/')
+    @ApiOperation({ summary: 'Borra un registro a partir del BODY - PARÁMETROS LLAVE: retCodcia, retCoduniResp, retCodigo - IMPORTANTE: Los parámetros deben ir en el BODY' })
+    @ApiResponse({
+        status: HttpStatus.OK,
+        description: 'Crea registro a partir del BODY',
+        type: [Css_Ret_Entity],
+    })
+    async EliminaRespuesta(
+        @Body('retCodcia') v_ret_codcia: string,
+        @Body('retCoduniResp') v_ret_coduni_resp: number,
+        @Body('retCodigo') v_ret_codigo: number,
+    ) {
+        const data = await this.ticketService.EliminaRespuesta(v_ret_codcia, v_ret_coduni_resp, v_ret_codigo);
+        return { message: 'Registro eliminado', data };
+    }
+
+
+
 
 
 

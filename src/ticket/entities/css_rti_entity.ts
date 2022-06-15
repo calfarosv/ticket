@@ -55,22 +55,6 @@ export class Css_Rti_Entity {
     @Column("varchar2", { name: "RTI_ESTADO", length: 1 })
     rtiEstado?: string;
     //-----------------------------------------------------------------------------------------
-    @Column("timestamp", { name: "RTI_FECCREA" })
-    @Type(() => Date)
-    rtiFeccrea?: Date;
-    //-----------------------------------------------------------------------------------------
-    @Column("timestamp", { name: "RTI_FECANULA" })
-    @Type(() => Date)
-    rtiFecanula?: Date;
-    //-----------------------------------------------------------------------------------------
-    @Column("timestamp", { name: "RTI_FECSOL" })
-    @Type(() => Date)
-    rtiFecsol?: Date;
-    //-----------------------------------------------------------------------------------------
-    @Column("timestamp", { name: "RTI_FECFIN" })
-    @Type(() => Date)
-    rtiFecfin?: Date;
-    //-----------------------------------------------------------------------------------------
     @Column("number", { name: "RTI_ANISOL", precision: 4, scale: 0, })
     rtiAnisol?: number;
     //-----------------------------------------------------------------------------------------
@@ -82,5 +66,49 @@ export class Css_Rti_Entity {
     //-----------------------------------------------------------------------------------------
     @Column("number", { name: "RTI_CODRET", precision: 5, scale: 0, })
     rtiCodret?: number;
-
+    //-----------------------------------------------------------------------------------------
+    //-----------------------------------------------------------------------------------------
+    @Column("timestamp", { name: "RTI_FEC_ELABORADO" })
+    @Type(() => Date)
+    rtiFecElaborado?: Date;
+    //-----------------------------------------------------------------------------------------
+    @Column("timestamp", { name: "RTI_FEC_ENVIADO" })
+    @Type(() => Date)
+    rtiFecEnviado?: Date;
+    //-----------------------------------------------------------------------------------------
+    @Column("timestamp", { name: "RTI_FEC_APROBADO" })
+    @Type(() => Date)
+    rtiFecAprobado?: Date;
+    //-----------------------------------------------------------------------------------------
+    @Column("timestamp", { name: "RTI_FEC_DEVUELTO" })
+    @Type(() => Date)
+    rtiFecDevuelto?: Date;
+    //-----------------------------------------------------------------------------------------
+    @Column("timestamp", { name: "RTI_FEC_RECHAZADO" })
+    @Type(() => Date)
+    rtiFecRechazado?: Date;
+    //-----------------------------------------------------------------------------------------
+    @Column("timestamp", { name: "RTI_FEC_FINALIZADO" })
+    @Type(() => Date)
+    rtiFecFinalizado?: Date;
+    //-----------------------------------------------------------------------------------------
+    //-----------------------------------------------------------------------------------------
+    @Column("varchar2", { name: "RTI_EMP_ELABORADO", length: 8 })
+    rtiEmpElaborado?: string;
+    //-----------------------------------------------------------------------------------------
+    @Column("varchar2", { name: "RTI_EMP_ENVIADO", length: 8 })
+    rtiEmpEnviado?: string;
+    //-----------------------------------------------------------------------------------------
+    @Column("varchar2", { name: "RTI_EMP_APROBADO", length: 8 })
+    rtiEmpAprobado?: string;
+    //-----------------------------------------------------------------------------------------
+    @Column("varchar2", { name: "RTI_EMP_DEVUELTO", length: 8 })
+    rtiEmpDevuelto?: string;
+    //-----------------------------------------------------------------------------------------
+    @Column("varchar2", { name: "RTI_EMP_RECHAZADO", length: 8 })
+    rtiEmpRechazado?: string;
+    //-----------------------------------------------------------------------------------------
+    @Column("varchar2", { name: "RTI_EMP_FINALIZADO", length: 8 })
+    rtiEmpFinalizado?: string;
+    //-----------------------------------------------------------------------------------------
 }

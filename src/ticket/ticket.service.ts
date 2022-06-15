@@ -45,11 +45,11 @@ export class TicketService {
         name: 'Servicio: busca Ticket por la llave primaria',
         description: 'Maestro de Tickets',
     })
-    async obtiene_Tickets_byPk(v_codcia: string, v_codigo: number): Promise<Css_Rti_Entity> {
+    async obtiene_Tickets_byPk(v_rti_codcia: string, v_rti_codigo: number): Promise<Css_Rti_Entity> {
         const register = await this.ticketRepository.findOne(
             {
-                rtiCodcia: v_codcia,
-                rtiCodigo: v_codigo
+                rtiCodcia: v_rti_codcia,
+                rtiCodigo: v_rti_codigo
             }
         );
         return register;
@@ -72,11 +72,20 @@ export class TicketService {
         v_rti_codsis: number,
         v_rti_codmsi: number,
         v_rti_estado: string,
-        v_rti_feccrea: Date,
-        v_rti_fecsol: Date,
-        v_rti_fecfin: Date,
         v_rti_anisol: number,
-        v_rti_codsol: number) {
+        v_rti_codsol: number,
+        v_rti_fec_elaborado: Date,
+        v_rti_fec_enviado: Date,
+        v_rti_fec_aprobado: Date,
+        v_rti_fec_devuelto: Date,
+        v_rti_fec_rechazado: Date,
+        v_rti_fec_finalizado: Date,
+        v_rti_emp_elaborado: string,
+        v_rti_emp_enviado: string,
+        v_rti_emp_aprobado: string,
+        v_rti_emp_devuelto: string,
+        v_rti_emp_rechazado: string,
+        v_rti_emp_finalizado: string) {
         console.log('v_rti_caso: ', v_rti_caso);
         console.log('v_rti_codcia: ', v_rti_codcia);
         console.log('v_rti_codigo: ', v_rti_codigo);
@@ -86,53 +95,142 @@ export class TicketService {
         console.log('v_rti_codsis: ', v_rti_codsis);
         console.log('v_rti_codmsi: ', v_rti_codmsi);
         console.log('v_rti_estado: ', v_rti_estado);
-        console.log('v_rti_feccrea: ', v_rti_feccrea);
-        console.log('v_rti_fecsol: ', v_rti_fecsol);
-        console.log('v_rti_fecfin: ', v_rti_fecfin);
         console.log('v_rti_anisol: ', v_rti_anisol);
         console.log('v_rti_codsol: ', v_rti_codsol);
+        console.log('v_rti_fec_elaborado: ', v_rti_fec_elaborado);
+        console.log('v_rti_fec_enviado: ', v_rti_fec_enviado);
+        console.log('v_rti_fec_aprobado: ', v_rti_fec_aprobado);
+        console.log('v_rti_fec_devuelto: ', v_rti_fec_devuelto);
+        console.log('v_rti_fec_rechazado: ', v_rti_fec_rechazado);
+        console.log('v_rti_fec_finalizado: ', v_rti_fec_finalizado);
+        console.log('v_rti_emp_elaborado: ', v_rti_emp_elaborado);
+        console.log('v_rti_emp_enviado: ', v_rti_emp_enviado);
+        console.log('v_rti_emp_aprobado: ', v_rti_emp_aprobado);
+        console.log('v_rti_emp_devuelto: ', v_rti_emp_devuelto);
+        console.log('v_rti_emp_rechazado: ', v_rti_emp_rechazado);
+        console.log('v_rti_emp_finalizado: ', v_rti_emp_finalizado);
 
         let v_fecha_sol: Date;
         let v_where = '';
 
         if (v_rti_caso == '01') {
-            v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiPrioridad = :par_rti_prioridad';
-            //console.log('1', v_where);
+            v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiCoduniResp = :par_rti_coduniresp';
         }
         if (v_rti_caso == '02') {
-            v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiCoduniResp = :par_rti_coduniresp';
-            //console.log('1', v_where);
+            v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiPrioridad = :par_rti_prioridad';
         }
         if (v_rti_caso == '03') {
-            v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiCodemp = :par_rti_codemp';
-            //console.log('1', v_where);
-        }
+            v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiCoduniResp = :par_rti_coduniresp and Css_Rti_Entity.rtiPrioridad = :par_rti_prioridad';
+        }        
         if (v_rti_caso == '04') {
-            v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiCodsis = :par_rti_codsis';
-            //console.log('1', v_where);
+            v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiCodemp = :par_rti_codemp';
         }
         if (v_rti_caso == '05') {
-            v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiCodsis = :par_rti_codsis and Css_Rti_Entity.rtiCodmsi = :par_rti_codmsi';
-            //console.log('1', v_where);
-        }
+            v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiCoduniResp = :par_rti_coduniresp and Css_Rti_Entity.rtiCodemp = :par_rti_codemp';
+        }        
         if (v_rti_caso == '06') {
-            v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiEstado = :par_rti_estado';
-            //console.log('1', v_where);
+            v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiCodsis = :par_rti_codsis';
         }
         if (v_rti_caso == '07') {
+            v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiCoduniResp = :par_rti_coduniresp and Css_Rti_Entity.rtiCodsis = :par_rti_codsis';
+        }
+        if (v_rti_caso == '08') {
+            v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiCodsis = :par_rti_codsis and Css_Rti_Entity.rtiCodmsi = :par_rti_codmsi';
+        }
+        if (v_rti_caso == '09') {
+            v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiCoduniResp = :par_rti_coduniresp and Css_Rti_Entity.rtiCodsis = :par_rti_codsis and Css_Rti_Entity.rtiCodmsi = :par_rti_codmsi';
+        }
+        if (v_rti_caso == '10') {
+            v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiEstado = :par_rti_estado';
+        }
+        if (v_rti_caso == '11') {
+            v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiCoduniResp = :par_rti_coduniresp and Css_Rti_Entity.rtiEstado = :par_rti_estado';
+        }
+        if (v_rti_caso == '12') {
             v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiAnisol = :par_rti_anisol and Css_Rti_Entity.rtiCodsol = :par_rti_codsol';
-            //console.log('1', v_where);
+        }
+        if (v_rti_caso == '13') {
+            v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiCoduniResp = :par_rti_coduniresp and Css_Rti_Entity.rtiAnisol = :par_rti_anisol and Css_Rti_Entity.rtiCodsol = :par_rti_codsol';
         }
         /*
         console.log('v_rti_fecsol: ', v_rti_fecsol);
         v_fecha_sol = (new Date(v_rti_fecsol.getUTCFullYear(), v_rti_fecsol.getUTCMonth(), v_rti_fecsol.getUTCDate(), 0, 0, 0));
         console.log('v_fecha_sol: ', v_fecha_sol);
         */
-        if (v_rti_caso == '08') {
-            v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiFecsol = :par_rti_fecsol';
-            //console.log('1', v_where);
+       
+        if (v_rti_caso == '14') {
+            v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiFecElaborado = :par_rti_fec_elaborado';
         }
-
+        if (v_rti_caso == '15') {
+            v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiCoduniResp = :par_rti_coduniresp and Css_Rti_Entity.rtiFecElaborado = :par_rti_fec_elaborado';
+        }
+        if (v_rti_caso == '16') {
+            v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiFecEnviado = :par_rti_fec_enviado';
+        }
+        if (v_rti_caso == '17') {
+            v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiCoduniResp = :par_rti_coduniresp and Css_Rti_Entity.rtiFecEnviado = :par_rti_fec_enviado';
+        }
+        if (v_rti_caso == '18') {
+            v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiFecAprobado = :par_rti_fec_aprobado';
+        }
+        if (v_rti_caso == '19') {
+            v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiCoduniResp = :par_rti_coduniresp and Css_Rti_Entity.rtiFecAprobado = :par_rti_fec_aprobado';
+        }
+        if (v_rti_caso == '20') {
+            v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiFecDevuelto = :par_rti_fec_devuelto';
+        }
+        if (v_rti_caso == '21') {
+            v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiCoduniResp = :par_rti_coduniresp and Css_Rti_Entity.rtiFecDevuelto = :par_rti_fec_devuelto';
+        }
+        if (v_rti_caso == '22') {
+            v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiFecRechazado = :par_rti_fec_rechazado';
+        }
+        if (v_rti_caso == '23') {
+            v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiCoduniResp = :par_rti_coduniresp and Css_Rti_Entity.rtiFecRechazado = :par_rti_fec_rechazado';
+        }
+        if (v_rti_caso == '24') {
+            v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiFecFinalizado = :par_rti_fec_finalizado';
+        }
+        if (v_rti_caso == '25') {
+            v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiCoduniResp = :par_rti_coduniresp and Css_Rti_Entity.rtiFecFinalizado = :par_rti_fec_finalizado';
+        }
+        if (v_rti_caso == '26') {
+            v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiEmpElaborado = :par_rti_emp_elaborado';
+        }
+        if (v_rti_caso == '27') {
+            v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiCoduniResp = :par_rti_coduniresp and Css_Rti_Entity.rtiEmpElaborado = :par_rti_emp_elaborado';
+        }
+        if (v_rti_caso == '28') {
+            v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiEmpEnviado = :par_rti_emp_enviado';
+        }
+        if (v_rti_caso == '29') {
+            v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiCoduniResp = :par_rti_coduniresp and Css_Rti_Entity.rtiEmpEnviado = :par_rti_emp_enviado';
+        }
+        if (v_rti_caso == '30') {
+            v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiEmpAprobado = :par_rti_emp_aprobado';
+        }
+        if (v_rti_caso == '31') {
+            v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiCoduniResp = :par_rti_coduniresp and Css_Rti_Entity.rtiEmpAprobado = :par_rti_emp_aprobado';
+        }
+        if (v_rti_caso == '32') {
+            v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiEmpDevuelto = :par_rti_emp_devuelto';
+        }
+        if (v_rti_caso == '33') {
+            v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiCoduniResp = :par_rti_coduniresp and Css_Rti_Entity.rtiEmpDevuelto = :par_rti_emp_devuelto';
+        }
+        if (v_rti_caso == '34') {
+            v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiEmpRechazado = :par_rti_emp_rechazado';
+        }
+        if (v_rti_caso == '35') {
+            v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiCoduniResp = :par_rti_coduniresp and Css_Rti_Entity.rtiEmpRechazado = :par_rti_emp_rechazado';
+        }
+        if (v_rti_caso == '36') {
+            v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiEmpFinalizado = :par_rti_emp_finalizado';
+        }
+        if (v_rti_caso == '37') {
+            v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiCoduniResp = :par_rti_coduniresp and Css_Rti_Entity.rtiEmpFinalizado = :par_rti_emp_finalizado';
+        }
+        
         console.log('v_rti_caso: ', v_rti_caso);
         console.log('v_where: ', v_where);
 
@@ -151,10 +249,6 @@ export class TicketService {
             .addSelect('Css_Rti_Entity.rtiCodsis', 'rtiCodsis')
             .addSelect('Css_Rti_Entity.rtiCodmsi', 'rtiCodmsi')
             .addSelect('Css_Rti_Entity.rtiEstado', 'rtiEstado')
-            .addSelect('Css_Rti_Entity.rtiFeccrea', 'rtiFeccrea')
-            .addSelect('Css_Rti_Entity.rtiFecanula', 'rtiFecanula')
-            .addSelect('Css_Rti_Entity.rtiFecsol', 'rtiFecsol')
-            .addSelect('Css_Rti_Entity.rtiFecfin', 'rtiFecfin')
             .addSelect('Css_Rti_Entity.rtiAnisol', 'rtiAnisol')
             .addSelect('Css_Rti_Entity.rtiCoduni', 'rtiCoduni')
             .addSelect('Css_Rti_Entity.rtiCodsol', 'rtiCodsol')
@@ -180,11 +274,20 @@ export class TicketService {
                     par_rti_codsis: v_rti_codsis,
                     par_rti_codmsi: v_rti_codmsi,
                     par_rti_estado: v_rti_estado,
-                    par_rti_feccrea: v_rti_feccrea,
-                    par_rti_fecsol: v_rti_fecsol,
-                    par_rti_fecfin: v_rti_fecfin,
                     par_rti_anisol: v_rti_anisol,
-                    par_rti_codsol: v_rti_codsol
+                    par_rti_codsol: v_rti_codsol,
+                    par_rti_fec_elaborado: v_rti_fec_elaborado,
+                    par_rti_fec_enviado: v_rti_fec_enviado,
+                    par_rti_fec_aprobado: v_rti_fec_aprobado,
+                    par_rti_fec_devuelto: v_rti_fec_devuelto,
+                    par_rti_fec_rechazado: v_rti_fec_rechazado,
+                    par_rti_fec_finalizado: v_rti_fec_finalizado,
+                    par_rti_emp_elaborado: v_rti_emp_elaborado,
+                    par_rti_emp_enviado: v_rti_emp_enviado,
+                    par_rti_emp_aprobado: v_rti_emp_aprobado,
+                    par_rti_emp_devuelto: v_rti_emp_devuelto,
+                    par_rti_emp_rechazado: v_rti_emp_rechazado,
+                    par_rti_emp_finalizado: v_rti_emp_finalizado
                 })
             .leftJoin(Pla_Emp_Entity, 'Pla_Emp_Entity', 'Css_Rti_Entity.rtiCodcia = Pla_Emp_Entity.empCodcia and Css_Rti_Entity.rtiCodemp = Pla_Emp_Entity.empCodcel')
             .leftJoin(Sis_Sis_Entity, 'Sis_Sis_Entity', 'Css_Rti_Entity.rtiCodcia = Sis_Sis_Entity.sisCodcia and Css_Rti_Entity.rtiCodsis = Sis_Sis_Entity.sisCodigo')

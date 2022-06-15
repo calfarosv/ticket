@@ -79,30 +79,6 @@ export class Create_Css_Rti_Dto {
     @ApiProperty({ description: 'ESTADO DEL TICKET', type: String, })
     rtiEstado?: string;
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    @IsOptional()
-    @IsDate()
-    @ApiProperty({ description: 'FECHA DE CREACIÓN', type: Date, })
-    @Type(() => Date)
-    rtiFeccrea?: Date;
-    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    @IsOptional()
-    @IsDate()
-    @ApiProperty({ description: 'FECHA ANULACIÓN', type: Date, })
-    @Type(() => Date)
-    rtiFecanula?: Date;
-    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    @IsOptional()
-    @IsDate()
-    @ApiProperty({ description: 'FECHA SOLICITUD A LAS ÁREAS', type: Date, })
-    @Type(() => Date)
-    rtiFecsol?: Date;
-    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    @IsOptional()
-    @IsDate()
-    @ApiProperty({ description: 'FECHA FINALIZACIÓN', type: Date, })
-    @Type(() => Date)
-    rtiFecfin?: Date;
-    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     @IsNumber()
     @IsOptional()
     @ApiProperty({ description: 'AÑO DE LA SOLICITUD', type: Number, })
@@ -123,5 +99,78 @@ export class Create_Css_Rti_Dto {
     @ApiProperty({ description: 'CÓDIGO DE LA RESPUESTA', type: Number, })
     rtiCodret?: number;
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    @IsOptional()
+    @IsDate()
+    @ApiProperty({ description: 'FECHA DE ELABORACIÓN DEL TICKET', type: Date, })
+    @Type(() => Date)
+    rtiFecElaborado?: Date;
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    @IsOptional()
+    @IsDate()
+    @ApiProperty({ description: 'FECHA DE ENVÍO DEL TICKET A LAS ÁREAS TI', type: Date, })
+    @Type(() => Date)
+    rtiFecEnviado?: Date;
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    @IsOptional()
+    @IsDate()
+    @ApiProperty({ description: 'FECHA DE APROBADO POR PARTE DEL ÁREA DE TI', type: Date, })
+    @Type(() => Date)
+    rtiFecAprobado?: Date;
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    @IsOptional()
+    @IsDate()
+    @ApiProperty({ description: 'FECHA DE DEVOLUCIÓN AL HELPDESK', type: Date, })
+    @Type(() => Date)
+    rtiFecDevuelto?: Date;
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    @IsOptional()
+    @IsDate()
+    @ApiProperty({ description: 'FECHA DE TICKET RECHAZADO', type: Date, })
+    @Type(() => Date)
+    rtiFecRechazado?: Date;
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    @IsOptional()
+    @IsDate()
+    @ApiProperty({ description: 'FECHA DE CIERRE DEL TICKET', type: Date, })
+    @Type(() => Date)
+    rtiFecFinalizado?: Date;
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    @IsString()
+    @IsOptional()
+    @ApiProperty({ description: 'EMPLEADO QUE ELABORA TICKET', type: String, })
+    rtiEmpElaborado?: string;
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    @IsString()
+    @IsOptional()
+    @ApiProperty({ description: 'EMPLEADO QUE ENVÍA TICKET A LAS ÁREAS TI', type: String, })
+    rtiEmpEnviado?: string;
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    @IsString()
+    @IsOptional()
+    @ApiProperty({ description: 'EMPLEADO QUE APRUEBA POR PARTE DEL ÁREA DE TI', type: String, })
+    rtiEmpAprobado?: string;
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    @IsString()
+    @IsOptional()
+    @ApiProperty({ description: 'EMPLEADO QUE DEVUELVE AL HELPDESK', type: String, })
+    rtiEmpDevuelto?: string;
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    @IsString()
+    @IsOptional()
+    @ApiProperty({ description: 'EMPLEADO QUE RECHAZADA TICKET', type: String, })
+    rtiEmpRechazado?: string;
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    @IsString()
+    @IsOptional()
+    @ApiProperty({ description: 'EMPLEADO QUE FINALIZA/CIERRA EL TICKET', type: String, })
+    rtiEmpFinalizado?: string;
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+
+
+
 
 }

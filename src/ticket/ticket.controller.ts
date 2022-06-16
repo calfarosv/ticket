@@ -33,7 +33,7 @@ export class TicketController {
     }
 
     @Get('/by_pk/:rtiCodcia/:rtiCodigo/')
-    @ApiOperation({ summary: 'Consulta de Tickets por llave primaria - PARÁMETROS: rtiCodcia, rtiCodigo' })
+    @ApiOperation({ summary: 'Consulta de Tickets por llave primaria' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por llave primaria',
@@ -57,7 +57,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_coduniresp/:rtiCodcia/:rtiCoduniResp/')
-    @ApiOperation({ summary: 'Consulta todos los Tickets por Código de la Unidad Responsable - PARÁMETROS: rtiCodcia, rtiCoduniResp' })
+    @ApiOperation({ summary: 'Consulta todos los Tickets por Código de la Unidad Responsable'})
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta todos los Tickets por Código de la Unidad Responsable',
@@ -91,6 +91,10 @@ export class TicketController {
         let v_rti_emp_devuelto = '';
         let v_rti_emp_rechazado = '';
         let v_rti_emp_finalizado = '';
+        let v_rti_usrred = '';
+        let v_rti_correo = '';
+        let v_rti_navega = '';
+        let v_rti_sistema = '';
 
         const data: any[] = await this.ticketService.busca_ticket_dinamico(
             v_rti_caso,
@@ -115,7 +119,11 @@ export class TicketController {
             v_rti_emp_aprobado,
             v_rti_emp_devuelto,
             v_rti_emp_rechazado,
-            v_rti_emp_finalizado);
+            v_rti_emp_finalizado,
+            v_rti_usrred,
+            v_rti_correo,
+            v_rti_navega,
+            v_rti_sistema);
 
         if (Array.isArray(data)) {
             return data
@@ -133,7 +141,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_prioridad/:rtiCodcia/:rtiPrioridad/')
-    @ApiOperation({ summary: 'Consulta de Tickets por prioridad - PARÁMETROS: rtiCodcia, rtiPrioridad' })
+    @ApiOperation({ summary: 'Consulta de Tickets por prioridad'})
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por prioridad',
@@ -167,6 +175,10 @@ export class TicketController {
         let v_rti_emp_devuelto = '';
         let v_rti_emp_rechazado = '';
         let v_rti_emp_finalizado = '';
+        let v_rti_usrred = '';
+        let v_rti_correo = '';
+        let v_rti_navega = '';
+        let v_rti_sistema = '';
 
         const data: any[] = await this.ticketService.busca_ticket_dinamico(
             v_rti_caso,
@@ -191,7 +203,11 @@ export class TicketController {
             v_rti_emp_aprobado,
             v_rti_emp_devuelto,
             v_rti_emp_rechazado,
-            v_rti_emp_finalizado);
+            v_rti_emp_finalizado,
+            v_rti_usrred,
+            v_rti_correo,
+            v_rti_navega,
+            v_rti_sistema);
 
         if (Array.isArray(data)) {
             return data
@@ -209,7 +225,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_uni_prioridad/:rtiCodcia/:rtiCoduniResp/:rtiPrioridad/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y prioridad - PARÁMETROS: rtiCodcia, rtiCoduniResp, rtiPrioridad' })
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y prioridad'})
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Unidad Responsable y prioridad',
@@ -244,6 +260,10 @@ export class TicketController {
         let v_rti_emp_devuelto = '';
         let v_rti_emp_rechazado = '';
         let v_rti_emp_finalizado = '';
+        let v_rti_usrred = '';
+        let v_rti_correo = '';
+        let v_rti_navega = '';
+        let v_rti_sistema = '';
 
         const data: any[] = await this.ticketService.busca_ticket_dinamico(
             v_rti_caso,
@@ -268,7 +288,11 @@ export class TicketController {
             v_rti_emp_aprobado,
             v_rti_emp_devuelto,
             v_rti_emp_rechazado,
-            v_rti_emp_finalizado);
+            v_rti_emp_finalizado,
+            v_rti_usrred,
+            v_rti_correo,
+            v_rti_navega,
+            v_rti_sistema);
 
         if (Array.isArray(data)) {
             return data
@@ -286,7 +310,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_codemp/:rtiCodcia/:rtiCodemp/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Empleado que solicita - PARÁMETROS: rtiCodcia, rtiCodemp' })
+    @ApiOperation({ summary: 'Consulta de Tickets por Empleado que solicita'})
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Empleado que solicita',
@@ -320,6 +344,10 @@ export class TicketController {
         let v_rti_emp_devuelto = '';
         let v_rti_emp_rechazado = '';
         let v_rti_emp_finalizado = '';
+        let v_rti_usrred = '';
+        let v_rti_correo = '';
+        let v_rti_navega = '';
+        let v_rti_sistema = '';
 
         const data: any[] = await this.ticketService.busca_ticket_dinamico(
             v_rti_caso,
@@ -344,7 +372,11 @@ export class TicketController {
             v_rti_emp_aprobado,
             v_rti_emp_devuelto,
             v_rti_emp_rechazado,
-            v_rti_emp_finalizado);
+            v_rti_emp_finalizado,
+            v_rti_usrred,
+            v_rti_correo,
+            v_rti_navega,
+            v_rti_sistema);
 
         if (Array.isArray(data)) {
             return data
@@ -362,7 +394,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_uni_codemp/:rtiCodcia/:rtiCoduniResp/:rtiCodemp/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Empleado que solicita - PARÁMETROS: rtiCodcia, v_rti_coduniresp, rtiCodemp' })
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Empleado que solicita'})
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Unidad Responsable y Empleado que solicita',
@@ -397,6 +429,10 @@ export class TicketController {
         let v_rti_emp_devuelto = '';
         let v_rti_emp_rechazado = '';
         let v_rti_emp_finalizado = '';
+        let v_rti_usrred = '';
+        let v_rti_correo = '';
+        let v_rti_navega = '';
+        let v_rti_sistema = '';
 
         const data: any[] = await this.ticketService.busca_ticket_dinamico(
             v_rti_caso,
@@ -421,7 +457,11 @@ export class TicketController {
             v_rti_emp_aprobado,
             v_rti_emp_devuelto,
             v_rti_emp_rechazado,
-            v_rti_emp_finalizado);
+            v_rti_emp_finalizado,
+            v_rti_usrred,
+            v_rti_correo,
+            v_rti_navega,
+            v_rti_sistema);
 
         if (Array.isArray(data)) {
             return data
@@ -439,7 +479,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_codsis/:rtiCodcia/:rtiCodsis/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Sistema - PARÁMETROS: rtiCodcia, rtiCodsis' })
+    @ApiOperation({ summary: 'Consulta de Tickets por Sistema'})
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Sistema',
@@ -473,6 +513,10 @@ export class TicketController {
         let v_rti_emp_devuelto = '';
         let v_rti_emp_rechazado = '';
         let v_rti_emp_finalizado = '';
+        let v_rti_usrred = '';
+        let v_rti_correo = '';
+        let v_rti_navega = '';
+        let v_rti_sistema = '';
 
         const data: any[] = await this.ticketService.busca_ticket_dinamico(
             v_rti_caso,
@@ -497,7 +541,11 @@ export class TicketController {
             v_rti_emp_aprobado,
             v_rti_emp_devuelto,
             v_rti_emp_rechazado,
-            v_rti_emp_finalizado);
+            v_rti_emp_finalizado,
+            v_rti_usrred,
+            v_rti_correo,
+            v_rti_navega,
+            v_rti_sistema);
 
         if (Array.isArray(data)) {
             return data
@@ -515,7 +563,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_uni_codsis/:rtiCodcia/:rtiCoduniResp/:rtiCodsis/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Sistema - PARÁMETROS: rtiCodcia, rtiCoduniResp, rtiCodsis' })
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Sistema'})
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Unidad Responsable y Sistema',
@@ -550,6 +598,10 @@ export class TicketController {
         let v_rti_emp_devuelto = '';
         let v_rti_emp_rechazado = '';
         let v_rti_emp_finalizado = '';
+        let v_rti_usrred = '';
+        let v_rti_correo = '';
+        let v_rti_navega = '';
+        let v_rti_sistema = '';
 
         const data: any[] = await this.ticketService.busca_ticket_dinamico(
             v_rti_caso,
@@ -574,7 +626,11 @@ export class TicketController {
             v_rti_emp_aprobado,
             v_rti_emp_devuelto,
             v_rti_emp_rechazado,
-            v_rti_emp_finalizado);
+            v_rti_emp_finalizado,
+            v_rti_usrred,
+            v_rti_correo,
+            v_rti_navega,
+            v_rti_sistema);
 
         if (Array.isArray(data)) {
             return data
@@ -592,7 +648,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_sismod/:rtiCodcia/:rtiCodsis/:rtiCodmsi/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Sistema y Módulo - PARÁMETROS: rtiCodcia, rtiCodsis, rtiCodmsi' })
+    @ApiOperation({ summary: 'Consulta de Tickets por Sistema y Módulo'})
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Sistema y Módulo',
@@ -627,6 +683,10 @@ export class TicketController {
         let v_rti_emp_devuelto = '';
         let v_rti_emp_rechazado = '';
         let v_rti_emp_finalizado = '';
+        let v_rti_usrred = '';
+        let v_rti_correo = '';
+        let v_rti_navega = '';
+        let v_rti_sistema = '';
 
         const data: any[] = await this.ticketService.busca_ticket_dinamico(
             v_rti_caso,
@@ -651,7 +711,11 @@ export class TicketController {
             v_rti_emp_aprobado,
             v_rti_emp_devuelto,
             v_rti_emp_rechazado,
-            v_rti_emp_finalizado);
+            v_rti_emp_finalizado,
+            v_rti_usrred,
+            v_rti_correo,
+            v_rti_navega,
+            v_rti_sistema);
 
         if (Array.isArray(data)) {
             return data
@@ -669,7 +733,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_uni_sismod/:rtiCodcia/:rtiCoduniResp/:rtiCodsis/:rtiCodmsi/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Sistema y Módulo - PARÁMETROS: rtiCodcia, v_rti_coduniresp, rtiCodsis, rtiCodmsi' })
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Sistema y Módulo'})
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Unidad Responsable y Sistema y Módulo',
@@ -705,6 +769,10 @@ export class TicketController {
         let v_rti_emp_devuelto = '';
         let v_rti_emp_rechazado = '';
         let v_rti_emp_finalizado = '';
+        let v_rti_usrred = '';
+        let v_rti_correo = '';
+        let v_rti_navega = '';
+        let v_rti_sistema = '';
 
         const data: any[] = await this.ticketService.busca_ticket_dinamico(
             v_rti_caso,
@@ -729,7 +797,11 @@ export class TicketController {
             v_rti_emp_aprobado,
             v_rti_emp_devuelto,
             v_rti_emp_rechazado,
-            v_rti_emp_finalizado);
+            v_rti_emp_finalizado,
+            v_rti_usrred,
+            v_rti_correo,
+            v_rti_navega,
+            v_rti_sistema);
 
         if (Array.isArray(data)) {
             return data
@@ -747,7 +819,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_estado/:rtiCodcia/:rtiEstado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Estado - PARÁMETROS: rtiCodcia, rtiEstado' })
+    @ApiOperation({ summary: 'Consulta de Tickets por Estado'})
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Estado',
@@ -781,6 +853,10 @@ export class TicketController {
         let v_rti_emp_devuelto = '';
         let v_rti_emp_rechazado = '';
         let v_rti_emp_finalizado = '';
+        let v_rti_usrred = '';
+        let v_rti_correo = '';
+        let v_rti_navega = '';
+        let v_rti_sistema = '';
 
         const data: any[] = await this.ticketService.busca_ticket_dinamico(
             v_rti_caso,
@@ -805,7 +881,11 @@ export class TicketController {
             v_rti_emp_aprobado,
             v_rti_emp_devuelto,
             v_rti_emp_rechazado,
-            v_rti_emp_finalizado);
+            v_rti_emp_finalizado,
+            v_rti_usrred,
+            v_rti_correo,
+            v_rti_navega,
+            v_rti_sistema);
 
         if (Array.isArray(data)) {
             return data
@@ -823,7 +903,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_uni_estado/:rtiCodcia/:rtiCoduniResp/:rtiEstado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Estado - PARÁMETROS: rtiCodcia, rtiCoduniResp, rtiEstado' })
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Estado'})
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Unidad Responsable y Estado',
@@ -858,6 +938,10 @@ export class TicketController {
         let v_rti_emp_devuelto = '';
         let v_rti_emp_rechazado = '';
         let v_rti_emp_finalizado = '';
+        let v_rti_usrred = '';
+        let v_rti_correo = '';
+        let v_rti_navega = '';
+        let v_rti_sistema = '';
 
         const data: any[] = await this.ticketService.busca_ticket_dinamico(
             v_rti_caso,
@@ -882,7 +966,11 @@ export class TicketController {
             v_rti_emp_aprobado,
             v_rti_emp_devuelto,
             v_rti_emp_rechazado,
-            v_rti_emp_finalizado);
+            v_rti_emp_finalizado,
+            v_rti_usrred,
+            v_rti_correo,
+            v_rti_navega,
+            v_rti_sistema);
 
         if (Array.isArray(data)) {
             return data
@@ -900,7 +988,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_aniosol/:rtiCodcia/:rtiAnisol/:rtiCodsol/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Estado - PARÁMETROS: rtiCodcia, rtiAnisol, rtiCodsol' })
+    @ApiOperation({ summary: 'Consulta de Tickets por Estado'})
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Estado',
@@ -935,6 +1023,10 @@ export class TicketController {
         let v_rti_emp_devuelto = '';
         let v_rti_emp_rechazado = '';
         let v_rti_emp_finalizado = '';
+        let v_rti_usrred = '';
+        let v_rti_correo = '';
+        let v_rti_navega = '';
+        let v_rti_sistema = '';
 
         const data: any[] = await this.ticketService.busca_ticket_dinamico(
             v_rti_caso,
@@ -959,7 +1051,11 @@ export class TicketController {
             v_rti_emp_aprobado,
             v_rti_emp_devuelto,
             v_rti_emp_rechazado,
-            v_rti_emp_finalizado);
+            v_rti_emp_finalizado,
+            v_rti_usrred,
+            v_rti_correo,
+            v_rti_navega,
+            v_rti_sistema);
 
         if (Array.isArray(data)) {
             return data
@@ -977,7 +1073,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_uni_aniosol/:rtiCodcia/:rtiCoduniResp/:rtiAnisol/:rtiCodsol/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Año/Solicitud - PARÁMETROS: rtiCodcia, rtiCoduniResp, rtiAnisol, rtiCodsol' })
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Año/Solicitud'})
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Unidad Responsable y Año/Solicitud',
@@ -1013,6 +1109,10 @@ export class TicketController {
         let v_rti_emp_devuelto = '';
         let v_rti_emp_rechazado = '';
         let v_rti_emp_finalizado = '';
+        let v_rti_usrred = '';
+        let v_rti_correo = '';
+        let v_rti_navega = '';
+        let v_rti_sistema = '';
 
         const data: any[] = await this.ticketService.busca_ticket_dinamico(
             v_rti_caso,
@@ -1037,7 +1137,11 @@ export class TicketController {
             v_rti_emp_aprobado,
             v_rti_emp_devuelto,
             v_rti_emp_rechazado,
-            v_rti_emp_finalizado);
+            v_rti_emp_finalizado,
+            v_rti_usrred,
+            v_rti_correo,
+            v_rti_navega,
+            v_rti_sistema);
 
         if (Array.isArray(data)) {
             return data
@@ -1055,7 +1159,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_fecelaborado/:rtiCodcia/:/rtiFecElaborado')
-    @ApiOperation({ summary: 'Consulta de Tickets por Fecha de Elaborado - PARÁMETROS: rtiCodcia, rtiFecElaborado' })
+    @ApiOperation({ summary: 'Consulta de Tickets por Fecha de Elaborado'})
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Fecha de Elaborado',
@@ -1089,6 +1193,10 @@ export class TicketController {
         let v_rti_emp_devuelto = '';
         let v_rti_emp_rechazado = '';
         let v_rti_emp_finalizado = '';
+        let v_rti_usrred = '';
+        let v_rti_correo = '';
+        let v_rti_navega = '';
+        let v_rti_sistema = '';
 
         const data: any[] = await this.ticketService.busca_ticket_dinamico(
             v_rti_caso,
@@ -1113,7 +1221,11 @@ export class TicketController {
             v_rti_emp_aprobado,
             v_rti_emp_devuelto,
             v_rti_emp_rechazado,
-            v_rti_emp_finalizado);
+            v_rti_emp_finalizado,
+            v_rti_usrred,
+            v_rti_correo,
+            v_rti_navega,
+            v_rti_sistema);
 
         if (Array.isArray(data)) {
             return data
@@ -1131,7 +1243,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_uni_fecelaborado/:rtiCodcia/:rtiCoduniResp/:rtiFecElaborado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Fecha de Elaborado - PARÁMETROS: rtiCodcia, rtiCoduniResp, rtiFecElaborado' })
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Fecha de Elaborado'})
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Unidad Responsable y Fecha de Elaborado',
@@ -1166,6 +1278,10 @@ export class TicketController {
         let v_rti_emp_devuelto = '';
         let v_rti_emp_rechazado = '';
         let v_rti_emp_finalizado = '';
+        let v_rti_usrred = '';
+        let v_rti_correo = '';
+        let v_rti_navega = '';
+        let v_rti_sistema = '';
 
         const data: any[] = await this.ticketService.busca_ticket_dinamico(
             v_rti_caso,
@@ -1190,7 +1306,11 @@ export class TicketController {
             v_rti_emp_aprobado,
             v_rti_emp_devuelto,
             v_rti_emp_rechazado,
-            v_rti_emp_finalizado);
+            v_rti_emp_finalizado,
+            v_rti_usrred,
+            v_rti_correo,
+            v_rti_navega,
+            v_rti_sistema);
 
         if (Array.isArray(data)) {
             return data
@@ -1208,7 +1328,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_fecenviado/:rtiCodcia/:rtiFecEnviado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Fecha de Enviado - PARÁMETROS: rtiCodcia, rtiFecEnviado' })
+    @ApiOperation({ summary: 'Consulta de Tickets por Fecha de Enviado'})
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Fecha de Enviado',
@@ -1242,6 +1362,10 @@ export class TicketController {
         let v_rti_emp_devuelto = '';
         let v_rti_emp_rechazado = '';
         let v_rti_emp_finalizado = '';
+        let v_rti_usrred = '';
+        let v_rti_correo = '';
+        let v_rti_navega = '';
+        let v_rti_sistema = '';
 
         const data: any[] = await this.ticketService.busca_ticket_dinamico(
             v_rti_caso,
@@ -1266,7 +1390,11 @@ export class TicketController {
             v_rti_emp_aprobado,
             v_rti_emp_devuelto,
             v_rti_emp_rechazado,
-            v_rti_emp_finalizado);
+            v_rti_emp_finalizado,
+            v_rti_usrred,
+            v_rti_correo,
+            v_rti_navega,
+            v_rti_sistema);
 
         if (Array.isArray(data)) {
             return data
@@ -1284,7 +1412,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_uni_fecenviado/:rtiCodcia/:rtiCoduniResp/:rtiFecEnviado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Fecha de Enviado - PARÁMETROS: rtiCodcia, rtiCoduniResp, rtiFecEnviado' })
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Fecha de Enviado'})
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Unidad Responsable y Fecha de Enviado',
@@ -1319,6 +1447,10 @@ export class TicketController {
         let v_rti_emp_devuelto = '';
         let v_rti_emp_rechazado = '';
         let v_rti_emp_finalizado = '';
+        let v_rti_usrred = '';
+        let v_rti_correo = '';
+        let v_rti_navega = '';
+        let v_rti_sistema = '';
 
         const data: any[] = await this.ticketService.busca_ticket_dinamico(
             v_rti_caso,
@@ -1343,7 +1475,11 @@ export class TicketController {
             v_rti_emp_aprobado,
             v_rti_emp_devuelto,
             v_rti_emp_rechazado,
-            v_rti_emp_finalizado);
+            v_rti_emp_finalizado,
+            v_rti_usrred,
+            v_rti_correo,
+            v_rti_navega,
+            v_rti_sistema);
 
         if (Array.isArray(data)) {
             return data
@@ -1361,7 +1497,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_fecaprobado/:rtiCodcia/:rtiFecAprobado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Fecha de Enviado - PARÁMETROS: rtiCodcia, rtiFecAprobado' })
+    @ApiOperation({ summary: 'Consulta de Tickets por Fecha de Enviado'})
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Fecha de Enviado',
@@ -1395,6 +1531,10 @@ export class TicketController {
         let v_rti_emp_devuelto = '';
         let v_rti_emp_rechazado = '';
         let v_rti_emp_finalizado = '';
+        let v_rti_usrred = '';
+        let v_rti_correo = '';
+        let v_rti_navega = '';
+        let v_rti_sistema = '';
 
         const data: any[] = await this.ticketService.busca_ticket_dinamico(
             v_rti_caso,
@@ -1419,7 +1559,11 @@ export class TicketController {
             v_rti_emp_aprobado,
             v_rti_emp_devuelto,
             v_rti_emp_rechazado,
-            v_rti_emp_finalizado);
+            v_rti_emp_finalizado,
+            v_rti_usrred,
+            v_rti_correo,
+            v_rti_navega,
+            v_rti_sistema);
 
         if (Array.isArray(data)) {
             return data
@@ -1437,7 +1581,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_uni_fecaprobado/:rtiCodcia/:rtiCoduniResp/:rtiFecAprobado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Fecha de Enviado - PARÁMETROS: rtiCodcia, rtiCoduniResp, rtiFecAprobado' })
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Fecha de Enviado'})
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Unidad Responsable y Fecha de Enviado',
@@ -1472,6 +1616,10 @@ export class TicketController {
         let v_rti_emp_devuelto = '';
         let v_rti_emp_rechazado = '';
         let v_rti_emp_finalizado = '';
+        let v_rti_usrred = '';
+        let v_rti_correo = '';
+        let v_rti_navega = '';
+        let v_rti_sistema = '';
 
         const data: any[] = await this.ticketService.busca_ticket_dinamico(
             v_rti_caso,
@@ -1496,7 +1644,11 @@ export class TicketController {
             v_rti_emp_aprobado,
             v_rti_emp_devuelto,
             v_rti_emp_rechazado,
-            v_rti_emp_finalizado);
+            v_rti_emp_finalizado,
+            v_rti_usrred,
+            v_rti_correo,
+            v_rti_navega,
+            v_rti_sistema);
 
         if (Array.isArray(data)) {
             return data
@@ -1514,7 +1666,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_fecdevuelto/:rtiCodcia/:rtiFecDevuelto/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Fecha de devuelto - PARÁMETROS: rtiCodcia, rtiFecDevuelto' })
+    @ApiOperation({ summary: 'Consulta de Tickets por Fecha de devuelto'})
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Fecha de devuelto',
@@ -1548,6 +1700,10 @@ export class TicketController {
         let v_rti_emp_devuelto = '';
         let v_rti_emp_rechazado = '';
         let v_rti_emp_finalizado = '';
+        let v_rti_usrred = '';
+        let v_rti_correo = '';
+        let v_rti_navega = '';
+        let v_rti_sistema = '';
 
         const data: any[] = await this.ticketService.busca_ticket_dinamico(
             v_rti_caso,
@@ -1572,7 +1728,11 @@ export class TicketController {
             v_rti_emp_aprobado,
             v_rti_emp_devuelto,
             v_rti_emp_rechazado,
-            v_rti_emp_finalizado);
+            v_rti_emp_finalizado,
+            v_rti_usrred,
+            v_rti_correo,
+            v_rti_navega,
+            v_rti_sistema);
 
         if (Array.isArray(data)) {
             return data
@@ -1590,7 +1750,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_uni_fecdevuelto/:rtiCodcia/:rtiCoduniResp/:rtiFecDevuelto/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Fecha de devuelto - PARÁMETROS: rtiCodcia, rtiCoduniResp, rtiFecDevuelto' })
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Fecha de devuelto'})
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Unidad Responsable y Fecha de devuelto',
@@ -1625,6 +1785,10 @@ export class TicketController {
         let v_rti_emp_devuelto = '';
         let v_rti_emp_rechazado = '';
         let v_rti_emp_finalizado = '';
+        let v_rti_usrred = '';
+        let v_rti_correo = '';
+        let v_rti_navega = '';
+        let v_rti_sistema = '';
 
         const data: any[] = await this.ticketService.busca_ticket_dinamico(
             v_rti_caso,
@@ -1649,7 +1813,11 @@ export class TicketController {
             v_rti_emp_aprobado,
             v_rti_emp_devuelto,
             v_rti_emp_rechazado,
-            v_rti_emp_finalizado);
+            v_rti_emp_finalizado,
+            v_rti_usrred,
+            v_rti_correo,
+            v_rti_navega,
+            v_rti_sistema);
 
         if (Array.isArray(data)) {
             return data
@@ -1667,7 +1835,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_fecrechazado/:rtiCodcia/:rtiFecRechazado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Fecha de rechazado - PARÁMETROS: rtiCodcia, rtiFecRechazado' })
+    @ApiOperation({ summary: 'Consulta de Tickets por Fecha de rechazado'})
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Fecha de rechazado',
@@ -1701,6 +1869,10 @@ export class TicketController {
         let v_rti_emp_devuelto = '';
         let v_rti_emp_rechazado = '';
         let v_rti_emp_finalizado = '';
+        let v_rti_usrred = '';
+        let v_rti_correo = '';
+        let v_rti_navega = '';
+        let v_rti_sistema = '';
 
         const data: any[] = await this.ticketService.busca_ticket_dinamico(
             v_rti_caso,
@@ -1725,7 +1897,11 @@ export class TicketController {
             v_rti_emp_aprobado,
             v_rti_emp_devuelto,
             v_rti_emp_rechazado,
-            v_rti_emp_finalizado);
+            v_rti_emp_finalizado,
+            v_rti_usrred,
+            v_rti_correo,
+            v_rti_navega,
+            v_rti_sistema);
 
         if (Array.isArray(data)) {
             return data
@@ -1743,7 +1919,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_uni_fecrechazado/:rtiCodcia/:rtiCoduniResp/:rtiFecRechazado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Fecha de rechazado - PARÁMETROS: rtiCodcia, rtiCoduniResp, rtiFecRechazado' })
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Fecha de rechazado'})
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Unidad Responsable y Fecha de rechazado',
@@ -1778,6 +1954,10 @@ export class TicketController {
         let v_rti_emp_devuelto = '';
         let v_rti_emp_rechazado = '';
         let v_rti_emp_finalizado = '';
+        let v_rti_usrred = '';
+        let v_rti_correo = '';
+        let v_rti_navega = '';
+        let v_rti_sistema = '';
 
         const data: any[] = await this.ticketService.busca_ticket_dinamico(
             v_rti_caso,
@@ -1802,7 +1982,11 @@ export class TicketController {
             v_rti_emp_aprobado,
             v_rti_emp_devuelto,
             v_rti_emp_rechazado,
-            v_rti_emp_finalizado);
+            v_rti_emp_finalizado,
+            v_rti_usrred,
+            v_rti_correo,
+            v_rti_navega,
+            v_rti_sistema);
 
         if (Array.isArray(data)) {
             return data
@@ -1820,7 +2004,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_fecfinalizado/:rtiCodcia/:rtiFecFinalizado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Fecha de finalizado - PARÁMETROS: rtiCodcia, rtiFecFinalizado' })
+    @ApiOperation({ summary: 'Consulta de Tickets por Fecha de finalizado'})
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Fecha de finalizado',
@@ -1854,6 +2038,10 @@ export class TicketController {
         let v_rti_emp_devuelto = '';
         let v_rti_emp_rechazado = '';
         let v_rti_emp_finalizado = '';
+        let v_rti_usrred = '';
+        let v_rti_correo = '';
+        let v_rti_navega = '';
+        let v_rti_sistema = '';
 
         const data: any[] = await this.ticketService.busca_ticket_dinamico(
             v_rti_caso,
@@ -1878,7 +2066,11 @@ export class TicketController {
             v_rti_emp_aprobado,
             v_rti_emp_devuelto,
             v_rti_emp_rechazado,
-            v_rti_emp_finalizado);
+            v_rti_emp_finalizado,
+            v_rti_usrred,
+            v_rti_correo,
+            v_rti_navega,
+            v_rti_sistema);
 
         if (Array.isArray(data)) {
             return data
@@ -1896,7 +2088,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_uni_fecfinalizado/:rtiCodcia/:rtiCoduniResp/:rtiFecFinalizado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Fecha de finalizado - PARÁMETROS: rtiCodcia, rtiCoduniResp, rtiFecFinalizado' })
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Fecha de finalizado'})
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Unidad Responsable y Fecha de finalizado',
@@ -1931,6 +2123,10 @@ export class TicketController {
         let v_rti_emp_devuelto = '';
         let v_rti_emp_rechazado = '';
         let v_rti_emp_finalizado = '';
+        let v_rti_usrred = '';
+        let v_rti_correo = '';
+        let v_rti_navega = '';
+        let v_rti_sistema = '';
 
         const data: any[] = await this.ticketService.busca_ticket_dinamico(
             v_rti_caso,
@@ -1955,7 +2151,11 @@ export class TicketController {
             v_rti_emp_aprobado,
             v_rti_emp_devuelto,
             v_rti_emp_rechazado,
-            v_rti_emp_finalizado);
+            v_rti_emp_finalizado,
+            v_rti_usrred,
+            v_rti_correo,
+            v_rti_navega,
+            v_rti_sistema);
 
         if (Array.isArray(data)) {
             return data
@@ -1973,7 +2173,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_empelaborado/:rtiCodcia/:rtiEmpElaborado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Empleado que Elabora - PARÁMETROS: rtiCodcia, rtiEmpElaborado' })
+    @ApiOperation({ summary: 'Consulta de Tickets por Empleado que Elabora'})
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Empleado que Elabora',
@@ -2007,6 +2207,10 @@ export class TicketController {
         let v_rti_emp_devuelto = '';
         let v_rti_emp_rechazado = '';
         let v_rti_emp_finalizado = '';
+        let v_rti_usrred = '';
+        let v_rti_correo = '';
+        let v_rti_navega = '';
+        let v_rti_sistema = '';
 
         const data: any[] = await this.ticketService.busca_ticket_dinamico(
             v_rti_caso,
@@ -2031,7 +2235,11 @@ export class TicketController {
             v_rti_emp_aprobado,
             v_rti_emp_devuelto,
             v_rti_emp_rechazado,
-            v_rti_emp_finalizado);
+            v_rti_emp_finalizado,
+            v_rti_usrred,
+            v_rti_correo,
+            v_rti_navega,
+            v_rti_sistema);
 
         if (Array.isArray(data)) {
             return data
@@ -2049,7 +2257,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_uni_empelaborado/:rtiCodcia/:rtiCoduniResp/:rtiEmpElaborado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Empleado que Elabora - PARÁMETROS: rtiCodcia, rtiCoduniResp, rtiEmpElaborado' })
+    @ApiOperation({ summary: 'Consulta de Tickets por Empleado que Elabora'})
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Empleado que Elabora',
@@ -2084,6 +2292,10 @@ export class TicketController {
         let v_rti_emp_devuelto = '';
         let v_rti_emp_rechazado = '';
         let v_rti_emp_finalizado = '';
+        let v_rti_usrred = '';
+        let v_rti_correo = '';
+        let v_rti_navega = '';
+        let v_rti_sistema = '';
 
         const data: any[] = await this.ticketService.busca_ticket_dinamico(
             v_rti_caso,
@@ -2108,7 +2320,11 @@ export class TicketController {
             v_rti_emp_aprobado,
             v_rti_emp_devuelto,
             v_rti_emp_rechazado,
-            v_rti_emp_finalizado);
+            v_rti_emp_finalizado,
+            v_rti_usrred,
+            v_rti_correo,
+            v_rti_navega,
+            v_rti_sistema);
 
         if (Array.isArray(data)) {
             return data
@@ -2126,7 +2342,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_empenviado/:rtiCodcia/:rtiEmpEnviado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Empleado que Envia - PARÁMETROS: rtiCodcia, rtiEmpEnviado' })
+    @ApiOperation({ summary: 'Consulta de Tickets por Empleado que Envia'})
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Empleado que Envia',
@@ -2160,6 +2376,10 @@ export class TicketController {
         let v_rti_emp_devuelto = '';
         let v_rti_emp_rechazado = '';
         let v_rti_emp_finalizado = '';
+        let v_rti_usrred = '';
+        let v_rti_correo = '';
+        let v_rti_navega = '';
+        let v_rti_sistema = '';
 
         const data: any[] = await this.ticketService.busca_ticket_dinamico(
             v_rti_caso,
@@ -2184,7 +2404,11 @@ export class TicketController {
             v_rti_emp_aprobado,
             v_rti_emp_devuelto,
             v_rti_emp_rechazado,
-            v_rti_emp_finalizado);
+            v_rti_emp_finalizado,
+            v_rti_usrred,
+            v_rti_correo,
+            v_rti_navega,
+            v_rti_sistema);
 
         if (Array.isArray(data)) {
             return data
@@ -2202,7 +2426,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_uni_empenviado/:rtiCodcia/:rtiCoduniResp/:rtiEmpEnviado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Empleado que Envia - PARÁMETROS: rtiCodcia, rtiCoduniResp, rtiEmpEnviado' })
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Empleado que Envia'})
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Unidad Responsable y Empleado que Envia',
@@ -2237,6 +2461,10 @@ export class TicketController {
         let v_rti_emp_devuelto = '';
         let v_rti_emp_rechazado = '';
         let v_rti_emp_finalizado = '';
+        let v_rti_usrred = '';
+        let v_rti_correo = '';
+        let v_rti_navega = '';
+        let v_rti_sistema = '';
 
         const data: any[] = await this.ticketService.busca_ticket_dinamico(
             v_rti_caso,
@@ -2261,7 +2489,11 @@ export class TicketController {
             v_rti_emp_aprobado,
             v_rti_emp_devuelto,
             v_rti_emp_rechazado,
-            v_rti_emp_finalizado);
+            v_rti_emp_finalizado,
+            v_rti_usrred,
+            v_rti_correo,
+            v_rti_navega,
+            v_rti_sistema);
 
         if (Array.isArray(data)) {
             return data
@@ -2279,7 +2511,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_empaprobado/:rtiCodcia/:rtiEmpAprobado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Empleado que Aprueba - PARÁMETROS: rtiCodcia, rtiEmpAprobado' })
+    @ApiOperation({ summary: 'Consulta de Tickets por Empleado que Aprueba'})
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Empleado que Aprueba',
@@ -2313,6 +2545,10 @@ export class TicketController {
         let v_rti_emp_devuelto = '';
         let v_rti_emp_rechazado = '';
         let v_rti_emp_finalizado = '';
+        let v_rti_usrred = '';
+        let v_rti_correo = '';
+        let v_rti_navega = '';
+        let v_rti_sistema = '';
 
         const data: any[] = await this.ticketService.busca_ticket_dinamico(
             v_rti_caso,
@@ -2337,7 +2573,11 @@ export class TicketController {
             v_rti_emp_aprobado,
             v_rti_emp_devuelto,
             v_rti_emp_rechazado,
-            v_rti_emp_finalizado);
+            v_rti_emp_finalizado,
+            v_rti_usrred,
+            v_rti_correo,
+            v_rti_navega,
+            v_rti_sistema);
 
         if (Array.isArray(data)) {
             return data
@@ -2355,7 +2595,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_uni_empaprobado/:rtiCodcia/:rtiCoduniResp/:rtiEmpAprobado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Empleado que Aprueba - PARÁMETROS: rtiCodcia, rtiCoduniResp, rtiEmpAprobado' })
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Empleado que Aprueba'})
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Unidad Responsable y Empleado que Aprueba',
@@ -2390,6 +2630,10 @@ export class TicketController {
         let v_rti_emp_devuelto = '';
         let v_rti_emp_rechazado = '';
         let v_rti_emp_finalizado = '';
+        let v_rti_usrred = '';
+        let v_rti_correo = '';
+        let v_rti_navega = '';
+        let v_rti_sistema = '';
 
         const data: any[] = await this.ticketService.busca_ticket_dinamico(
             v_rti_caso,
@@ -2414,7 +2658,11 @@ export class TicketController {
             v_rti_emp_aprobado,
             v_rti_emp_devuelto,
             v_rti_emp_rechazado,
-            v_rti_emp_finalizado);
+            v_rti_emp_finalizado,
+            v_rti_usrred,
+            v_rti_correo,
+            v_rti_navega,
+            v_rti_sistema);
 
         if (Array.isArray(data)) {
             return data
@@ -2432,7 +2680,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_empdevuelto/:rtiCodcia/:rtiEmpDevuelto/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Empleado que Devuelve - PARÁMETROS: rtiCodcia, rtiEmpDevuelto' })
+    @ApiOperation({ summary: 'Consulta de Tickets por Empleado que Devuelve'})
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Empleado que Devuelve',
@@ -2466,6 +2714,10 @@ export class TicketController {
         //let v_rti_emp_devuelto = '';
         let v_rti_emp_rechazado = '';
         let v_rti_emp_finalizado = '';
+        let v_rti_usrred = '';
+        let v_rti_correo = '';
+        let v_rti_navega = '';
+        let v_rti_sistema = '';
 
         const data: any[] = await this.ticketService.busca_ticket_dinamico(
             v_rti_caso,
@@ -2490,7 +2742,11 @@ export class TicketController {
             v_rti_emp_aprobado,
             v_rti_emp_devuelto,
             v_rti_emp_rechazado,
-            v_rti_emp_finalizado);
+            v_rti_emp_finalizado,
+            v_rti_usrred,
+            v_rti_correo,
+            v_rti_navega,
+            v_rti_sistema);
 
         if (Array.isArray(data)) {
             return data
@@ -2508,7 +2764,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_uni_empdevuelto/:rtiCodcia/:rtiCoduniResp/:rtiEmpDevuelto/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Empleado que Devuelve - PARÁMETROS: rtiCodcia, rtiCoduniResp, rtiEmpDevuelto' })
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Empleado que Devuelve'})
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Unidad Responsable y Empleado que Devuelve',
@@ -2543,6 +2799,10 @@ export class TicketController {
         //let v_rti_emp_devuelto = '';
         let v_rti_emp_rechazado = '';
         let v_rti_emp_finalizado = '';
+        let v_rti_usrred = '';
+        let v_rti_correo = '';
+        let v_rti_navega = '';
+        let v_rti_sistema = '';
 
         const data: any[] = await this.ticketService.busca_ticket_dinamico(
             v_rti_caso,
@@ -2567,7 +2827,11 @@ export class TicketController {
             v_rti_emp_aprobado,
             v_rti_emp_devuelto,
             v_rti_emp_rechazado,
-            v_rti_emp_finalizado);
+            v_rti_emp_finalizado,
+            v_rti_usrred,
+            v_rti_correo,
+            v_rti_navega,
+            v_rti_sistema);
 
         if (Array.isArray(data)) {
             return data
@@ -2585,7 +2849,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_emprechazado/:rtiCodcia/:rtiEmpRechazado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Empleado que Rechaza - PARÁMETROS: rtiCodcia, rtiEmpRechazado' })
+    @ApiOperation({ summary: 'Consulta de Tickets por Empleado que Rechaza'})
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Empleado que Rechaza',
@@ -2619,6 +2883,10 @@ export class TicketController {
         let v_rti_emp_devuelto = '';
         //let v_rti_emp_rechazado = '';
         let v_rti_emp_finalizado = '';
+        let v_rti_usrred = '';
+        let v_rti_correo = '';
+        let v_rti_navega = '';
+        let v_rti_sistema = '';
 
         const data: any[] = await this.ticketService.busca_ticket_dinamico(
             v_rti_caso,
@@ -2643,7 +2911,11 @@ export class TicketController {
             v_rti_emp_aprobado,
             v_rti_emp_devuelto,
             v_rti_emp_rechazado,
-            v_rti_emp_finalizado);
+            v_rti_emp_finalizado,
+            v_rti_usrred,
+            v_rti_correo,
+            v_rti_navega,
+            v_rti_sistema);
 
         if (Array.isArray(data)) {
             return data
@@ -2661,7 +2933,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_uni_emprechazado/:rtiCodcia/:rtiCoduniResp/:rtiEmpRechazado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Empleado que Rechaza - PARÁMETROS: rtiCodcia, rtiCoduniResp, rtiEmpRechazado' })
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Empleado que Rechaza'})
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Unidad Responsable y Empleado que Rechaza',
@@ -2696,6 +2968,10 @@ export class TicketController {
         let v_rti_emp_devuelto = '';
         //let v_rti_emp_rechazado = '';
         let v_rti_emp_finalizado = '';
+        let v_rti_usrred = '';
+        let v_rti_correo = '';
+        let v_rti_navega = '';
+        let v_rti_sistema = '';
 
         const data: any[] = await this.ticketService.busca_ticket_dinamico(
             v_rti_caso,
@@ -2720,7 +2996,11 @@ export class TicketController {
             v_rti_emp_aprobado,
             v_rti_emp_devuelto,
             v_rti_emp_rechazado,
-            v_rti_emp_finalizado);
+            v_rti_emp_finalizado,
+            v_rti_usrred,
+            v_rti_correo,
+            v_rti_navega,
+            v_rti_sistema);
 
         if (Array.isArray(data)) {
             return data
@@ -2738,7 +3018,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_empfinalizado/:rtiCodcia/:rtiEmpFinalizado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Empleado que Finaliza - PARÁMETROS: rtiCodcia, rtiEmpFinalizado' })
+    @ApiOperation({ summary: 'Consulta de Tickets por Empleado que Finaliza'})
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Empleado que Finaliza',
@@ -2772,6 +3052,10 @@ export class TicketController {
         let v_rti_emp_devuelto = '';
         let v_rti_emp_rechazado = '';
         //let v_rti_emp_finalizado = '';
+        let v_rti_usrred = '';
+        let v_rti_correo = '';
+        let v_rti_navega = '';
+        let v_rti_sistema = '';
 
         const data: any[] = await this.ticketService.busca_ticket_dinamico(
             v_rti_caso,
@@ -2796,7 +3080,11 @@ export class TicketController {
             v_rti_emp_aprobado,
             v_rti_emp_devuelto,
             v_rti_emp_rechazado,
-            v_rti_emp_finalizado);
+            v_rti_emp_finalizado,
+            v_rti_usrred,
+            v_rti_correo,
+            v_rti_navega,
+            v_rti_sistema);
 
         if (Array.isArray(data)) {
             return data
@@ -2814,7 +3102,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_uni_empfinalizado/:rtiCodcia/:rtiCoduniResp/:rtiEmpFinalizado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Empleado que Finaliza - PARÁMETROS: rtiCodcia, rtiCoduniResp, rtiEmpFinalizado' })
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Empleado que Finaliza'})
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Unidad Responsable y Empleado que Finaliza',
@@ -2849,6 +3137,10 @@ export class TicketController {
         let v_rti_emp_devuelto = '';
         let v_rti_emp_rechazado = '';
         //let v_rti_emp_finalizado = '';
+        let v_rti_usrred = '';
+        let v_rti_correo = '';
+        let v_rti_navega = '';
+        let v_rti_sistema = '';
 
         const data: any[] = await this.ticketService.busca_ticket_dinamico(
             v_rti_caso,
@@ -2873,7 +3165,11 @@ export class TicketController {
             v_rti_emp_aprobado,
             v_rti_emp_devuelto,
             v_rti_emp_rechazado,
-            v_rti_emp_finalizado);
+            v_rti_emp_finalizado,
+            v_rti_usrred,
+            v_rti_correo,
+            v_rti_navega,
+            v_rti_sistema);
 
         if (Array.isArray(data)) {
             return data
@@ -2889,9 +3185,8 @@ export class TicketController {
     }
 
     //-------------------------------------------------------------------------------------------------------------
-/*
-    @Get('/by_uni_usrred_sn/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Usuario de red SI o NO - PARÁMETROS: rtiCodcia, rtiCoduniResp, rtiPrioridad' })
+    @Get('/by_uni_usrred_sn/:rtiCodcia/:rtiCoduniResp/:rtiUsrred/')
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Usuario de red SI o NO'})
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Unidad Responsable y Usuario de red SI o NO',
@@ -2906,7 +3201,7 @@ export class TicketController {
         let v_rti_caso = '38';
         //++++++++++++++++++++++++//
         let v_rti_codigo: number = null;
-        //let v_rti_prioridad = '';
+        let v_rti_prioridad = '';
         //let v_rti_coduniresp: number = null;
         let v_rti_codemp = '';
         let v_rti_codsis: number = null;
@@ -2926,6 +3221,10 @@ export class TicketController {
         let v_rti_emp_devuelto = '';
         let v_rti_emp_rechazado = '';
         let v_rti_emp_finalizado = '';
+        //let v_rti_usrred = '';
+        let v_rti_correo = '';
+        let v_rti_navega = '';
+        let v_rti_sistema = '';
 
         const data: any[] = await this.ticketService.busca_ticket_dinamico(
             v_rti_caso,
@@ -2950,7 +3249,11 @@ export class TicketController {
             v_rti_emp_aprobado,
             v_rti_emp_devuelto,
             v_rti_emp_rechazado,
-            v_rti_emp_finalizado);
+            v_rti_emp_finalizado,
+            v_rti_usrred,
+            v_rti_correo,
+            v_rti_navega,
+            v_rti_sistema);
 
         if (Array.isArray(data)) {
             return data
@@ -2964,7 +3267,259 @@ export class TicketController {
             }
         }
     }
-*/
+
+    //-------------------------------------------------------------------------------------------------------------
+    @Get('/by_uni_correo_sn/:rtiCodcia/:rtiCoduniResp/:rtiCorreo/')
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Correo SI o NO'})
+    @ApiResponse({
+        status: HttpStatus.OK,
+        description: 'Consulta de Tickets por Unidad Responsable y Correo SI o NO',
+        type: [Css_Rti_Entity],
+    })
+    async obtiene_ticket_por_uni_correo(
+        @Param('rtiCodcia') v_rti_codcia: string,
+        @Param('rtiCoduniResp') v_rti_coduniresp: number,
+        @Param('rtiCorreo') v_rti_correo: string,
+    ) {
+        //++++++++++++++++++++++++//
+        let v_rti_caso = '39';
+        //++++++++++++++++++++++++//
+        let v_rti_codigo: number = null;
+        let v_rti_prioridad = '';
+        //let v_rti_coduniresp: number = null;
+        let v_rti_codemp = '';
+        let v_rti_codsis: number = null;
+        let v_rti_codmsi: number = null;
+        let v_rti_estado = '';
+        let v_rti_anisol: number = null;
+        let v_rti_codsol: number = null;
+        let v_rti_fec_elaborado: Date;
+        let v_rti_fec_enviado: Date;
+        let v_rti_fec_aprobado: Date;
+        let v_rti_fec_devuelto: Date;
+        let v_rti_fec_rechazado: Date;
+        let v_rti_fec_finalizado: Date;
+        let v_rti_emp_elaborado = '';
+        let v_rti_emp_enviado = '';
+        let v_rti_emp_aprobado = '';
+        let v_rti_emp_devuelto = '';
+        let v_rti_emp_rechazado = '';
+        let v_rti_emp_finalizado = '';
+        let v_rti_usrred = '';
+        //let v_rti_correo = '';
+        let v_rti_navega = '';
+        let v_rti_sistema = '';
+
+        const data: any[] = await this.ticketService.busca_ticket_dinamico(
+            v_rti_caso,
+            v_rti_codcia,
+            v_rti_codigo,
+            v_rti_prioridad,
+            v_rti_coduniresp,
+            v_rti_codemp,
+            v_rti_codsis,
+            v_rti_codmsi,
+            v_rti_estado,
+            v_rti_anisol,
+            v_rti_codsol,
+            v_rti_fec_elaborado,
+            v_rti_fec_enviado,
+            v_rti_fec_aprobado,
+            v_rti_fec_devuelto,
+            v_rti_fec_rechazado,
+            v_rti_fec_finalizado,
+            v_rti_emp_elaborado,
+            v_rti_emp_enviado,
+            v_rti_emp_aprobado,
+            v_rti_emp_devuelto,
+            v_rti_emp_rechazado,
+            v_rti_emp_finalizado,
+            v_rti_usrred,
+            v_rti_correo,
+            v_rti_navega,
+            v_rti_sistema);
+
+        if (Array.isArray(data)) {
+            return data
+        }
+        else {
+            if (!data) {
+                return []
+            }
+            else {
+                return [data];
+            }
+        }
+    }
+
+    //-------------------------------------------------------------------------------------------------------------
+    @Get('/by_uni_navega_sn/:rtiCodcia/:rtiCoduniResp/:rtiNavega/')
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Navegación SI o NO'})
+    @ApiResponse({
+        status: HttpStatus.OK,
+        description: 'Consulta de Tickets por Unidad Responsable y Navegación SI o NO',
+        type: [Css_Rti_Entity],
+    })
+    async obtiene_ticket_por_uni_navega(
+        @Param('rtiCodcia') v_rti_codcia: string,
+        @Param('rtiCoduniResp') v_rti_coduniresp: number,
+        @Param('rtiNavega') v_rti_navega: string,
+    ) {
+        //++++++++++++++++++++++++//
+        let v_rti_caso = '40';
+        //++++++++++++++++++++++++//
+        let v_rti_codigo: number = null;
+        let v_rti_prioridad = '';
+        //let v_rti_coduniresp: number = null;
+        let v_rti_codemp = '';
+        let v_rti_codsis: number = null;
+        let v_rti_codmsi: number = null;
+        let v_rti_estado = '';
+        let v_rti_anisol: number = null;
+        let v_rti_codsol: number = null;
+        let v_rti_fec_elaborado: Date;
+        let v_rti_fec_enviado: Date;
+        let v_rti_fec_aprobado: Date;
+        let v_rti_fec_devuelto: Date;
+        let v_rti_fec_rechazado: Date;
+        let v_rti_fec_finalizado: Date;
+        let v_rti_emp_elaborado = '';
+        let v_rti_emp_enviado = '';
+        let v_rti_emp_aprobado = '';
+        let v_rti_emp_devuelto = '';
+        let v_rti_emp_rechazado = '';
+        let v_rti_emp_finalizado = '';
+        let v_rti_usrred = '';
+        let v_rti_correo = '';
+        //let v_rti_navega = '';
+        let v_rti_sistema = '';
+
+        const data: any[] = await this.ticketService.busca_ticket_dinamico(
+            v_rti_caso,
+            v_rti_codcia,
+            v_rti_codigo,
+            v_rti_prioridad,
+            v_rti_coduniresp,
+            v_rti_codemp,
+            v_rti_codsis,
+            v_rti_codmsi,
+            v_rti_estado,
+            v_rti_anisol,
+            v_rti_codsol,
+            v_rti_fec_elaborado,
+            v_rti_fec_enviado,
+            v_rti_fec_aprobado,
+            v_rti_fec_devuelto,
+            v_rti_fec_rechazado,
+            v_rti_fec_finalizado,
+            v_rti_emp_elaborado,
+            v_rti_emp_enviado,
+            v_rti_emp_aprobado,
+            v_rti_emp_devuelto,
+            v_rti_emp_rechazado,
+            v_rti_emp_finalizado,
+            v_rti_usrred,
+            v_rti_correo,
+            v_rti_navega,
+            v_rti_sistema);
+
+        if (Array.isArray(data)) {
+            return data
+        }
+        else {
+            if (!data) {
+                return []
+            }
+            else {
+                return [data];
+            }
+        }
+    }
+
+    //-------------------------------------------------------------------------------------------------------------
+    @Get('/by_uni_sistema_sn/:rtiCodcia/:rtiCoduniResp/:rtiSistema/')
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Sistema SI o NO'})
+    @ApiResponse({
+        status: HttpStatus.OK,
+        description: 'Consulta de Tickets por Unidad Responsable y Sistema SI o NO',
+        type: [Css_Rti_Entity],
+    })
+    async obtiene_ticket_por_uni_sistemasn(
+        @Param('rtiCodcia') v_rti_codcia: string,
+        @Param('rtiCoduniResp') v_rti_coduniresp: number,
+        @Param('rtiSistema') v_rti_sistema: string,
+    ) {
+        //++++++++++++++++++++++++//
+        let v_rti_caso = '41';
+        //++++++++++++++++++++++++//
+        let v_rti_codigo: number = null;
+        let v_rti_prioridad = '';
+        //let v_rti_coduniresp: number = null;
+        let v_rti_codemp = '';
+        let v_rti_codsis: number = null;
+        let v_rti_codmsi: number = null;
+        let v_rti_estado = '';
+        let v_rti_anisol: number = null;
+        let v_rti_codsol: number = null;
+        let v_rti_fec_elaborado: Date;
+        let v_rti_fec_enviado: Date;
+        let v_rti_fec_aprobado: Date;
+        let v_rti_fec_devuelto: Date;
+        let v_rti_fec_rechazado: Date;
+        let v_rti_fec_finalizado: Date;
+        let v_rti_emp_elaborado = '';
+        let v_rti_emp_enviado = '';
+        let v_rti_emp_aprobado = '';
+        let v_rti_emp_devuelto = '';
+        let v_rti_emp_rechazado = '';
+        let v_rti_emp_finalizado = '';
+        let v_rti_usrred = '';
+        let v_rti_correo = '';
+        let v_rti_navega = '';
+        //let v_rti_sistema = '';
+
+        const data: any[] = await this.ticketService.busca_ticket_dinamico(
+            v_rti_caso,
+            v_rti_codcia,
+            v_rti_codigo,
+            v_rti_prioridad,
+            v_rti_coduniresp,
+            v_rti_codemp,
+            v_rti_codsis,
+            v_rti_codmsi,
+            v_rti_estado,
+            v_rti_anisol,
+            v_rti_codsol,
+            v_rti_fec_elaborado,
+            v_rti_fec_enviado,
+            v_rti_fec_aprobado,
+            v_rti_fec_devuelto,
+            v_rti_fec_rechazado,
+            v_rti_fec_finalizado,
+            v_rti_emp_elaborado,
+            v_rti_emp_enviado,
+            v_rti_emp_aprobado,
+            v_rti_emp_devuelto,
+            v_rti_emp_rechazado,
+            v_rti_emp_finalizado,
+            v_rti_usrred,
+            v_rti_correo,
+            v_rti_navega,
+            v_rti_sistema);
+
+        if (Array.isArray(data)) {
+            return data
+        }
+        else {
+            if (!data) {
+                return []
+            }
+            else {
+                return [data];
+            }
+        }
+    }
+
     //-------------------------------------------------------------------------------------------------------------
 
 
@@ -2990,7 +3545,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Put('/update/:rtiCodcia/:rtiCodigo/')
-    @ApiOperation({ summary: 'Actualiza un registro - PARÁMETROS LLAVE: rtiCodcia, rtiCodigo - IMPORTANTE: Los campos a actualizar deben ir en el BODY' })
+    @ApiOperation({ summary: 'Actualiza un registro - IMPORTANTE: Los campos a actualizar deben ir en el BODY' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Actualiza un registro',
@@ -3014,7 +3569,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Delete('/delete/:rtiCodcia/:rtiCodigo/')
-    @ApiOperation({ summary: 'Borra un registro a partir del BODY - PARÁMETROS LLAVE: rtiCodcia, rtiCodigo' })
+    @ApiOperation({ summary: 'Borra un registro - PARÁMETROS LLAVE: rtiCodcia, rtiCodigo' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Crea registro a partir del BODY',
@@ -3045,7 +3600,7 @@ export class TicketController {
     }
 
     @Get('/respuestas/by_pk/:retCodcia/:retCoduniResp/:retCodigo/')
-    @ApiOperation({ summary: 'Consulta de Respuestas por llave primaria - PARÁMETROS: retCodcia, retCoduniResp, retCodigo' })
+    @ApiOperation({ summary: 'Consulta de Respuestas por llave primaria'})
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Respuestas por llave primaria',
@@ -3075,7 +3630,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/respuestas/by_coduniresp/:retCodcia/:retCoduniResp/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable - PARÁMETROS: retCodcia, retCoduniResp' })
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable'})
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Unidad Responsable',
@@ -3125,7 +3680,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/respuestas/by_tipo/:retCodcia/:retCoduniResp/:retTipo/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Tipo - PARÁMETROS: retCodcia, retCoduniResp, retTipo' })
+    @ApiOperation({ summary: 'Consulta de Tickets por Tipo'})
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Tipo',
@@ -3176,7 +3731,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/respuestas/by_estado/:retCodcia/:retCoduniResp/:retEstado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Estado - PARÁMETROS: retCodcia, retCoduniResp, retEstado' })
+    @ApiOperation({ summary: 'Consulta de Tickets por Estado'})
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Estado',
@@ -3248,7 +3803,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Put('/respuestas/update/:retCodcia/:retCoduniResp/:retCodigo/')
-    @ApiOperation({ summary: 'Actualiza un registro - PARÁMETROS LLAVE: retCodcia, retCoduniResp, retCodigo - IMPORTANTE: Los campos a actualizar deben ir en el BODY' })
+    @ApiOperation({ summary: 'Actualiza un registro - IMPORTANTE: Los campos a actualizar deben ir en el BODY' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Actualiza un registro',
@@ -3273,7 +3828,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Delete('/respuestas/delete/:retCodcia/:retCoduniResp/:retCodigo/')
-    @ApiOperation({ summary: 'Borra un registro a partir del BODY - PARÁMETROS LLAVE: retCodcia, retCoduniResp, retCodigo' })
+    @ApiOperation({ summary: 'Borra un registro - PARÁMETROS LLAVE: retCodcia, retCoduniResp, retCodigo' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Crea registro a partir del BODY',

@@ -85,7 +85,11 @@ export class TicketService {
         v_rti_emp_aprobado: string,
         v_rti_emp_devuelto: string,
         v_rti_emp_rechazado: string,
-        v_rti_emp_finalizado: string) {
+        v_rti_emp_finalizado: string,
+        v_rti_usrred: string,
+        v_rti_correo: string,
+        v_rti_navega: string,
+        v_rti_sistema: string) {
         console.log('v_rti_caso: ', v_rti_caso);
         console.log('v_rti_codcia: ', v_rti_codcia);
         console.log('v_rti_codigo: ', v_rti_codigo);
@@ -109,6 +113,10 @@ export class TicketService {
         console.log('v_rti_emp_devuelto: ', v_rti_emp_devuelto);
         console.log('v_rti_emp_rechazado: ', v_rti_emp_rechazado);
         console.log('v_rti_emp_finalizado: ', v_rti_emp_finalizado);
+        console.log('v_rti_usrred: ', v_rti_usrred);
+        console.log('v_rti_correo: ', v_rti_correo);
+        console.log('v_rti_navega: ', v_rti_navega);
+        console.log('v_rti_sistema: ', v_rti_sistema);
 
         let v_fecha_sol: Date;
         let v_where = '';
@@ -121,13 +129,13 @@ export class TicketService {
         }
         if (v_rti_caso == '03') {
             v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiCoduniResp = :par_rti_coduniresp and Css_Rti_Entity.rtiPrioridad = :par_rti_prioridad';
-        }        
+        }
         if (v_rti_caso == '04') {
             v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiCodemp = :par_rti_codemp';
         }
         if (v_rti_caso == '05') {
             v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiCoduniResp = :par_rti_coduniresp and Css_Rti_Entity.rtiCodemp = :par_rti_codemp';
-        }        
+        }
         if (v_rti_caso == '06') {
             v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiCodsis = :par_rti_codsis';
         }
@@ -157,7 +165,7 @@ export class TicketService {
         v_fecha_sol = (new Date(v_rti_fecsol.getUTCFullYear(), v_rti_fecsol.getUTCMonth(), v_rti_fecsol.getUTCDate(), 0, 0, 0));
         console.log('v_fecha_sol: ', v_fecha_sol);
         */
-       
+
         if (v_rti_caso == '14') {
             v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiFecElaborado = :par_rti_fec_elaborado';
         }
@@ -230,7 +238,18 @@ export class TicketService {
         if (v_rti_caso == '37') {
             v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiCoduniResp = :par_rti_coduniresp and Css_Rti_Entity.rtiEmpFinalizado = :par_rti_emp_finalizado';
         }
-        
+        if (v_rti_caso == '38') {
+            v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiCoduniResp = :par_rti_coduniresp and Css_Rti_Entity.rtiUsrred = :par_rti_usrred';
+        }
+        if (v_rti_caso == '39') {
+            v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiCoduniResp = :par_rti_coduniresp and Css_Rti_Entity.rtiCorreo = :par_rti_correo';
+        }
+        if (v_rti_caso == '40') {
+            v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiCoduniResp = :par_rti_coduniresp and Css_Rti_Entity.rtiNavega = :par_rti_navega';
+        }
+        if (v_rti_caso == '41') {
+            v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiCoduniResp = :par_rti_coduniresp and Css_Rti_Entity.rtiSistema = :par_rti_sistema';
+        }
         console.log('v_rti_caso: ', v_rti_caso);
         console.log('v_where: ', v_where);
 
@@ -287,7 +306,11 @@ export class TicketService {
                     par_rti_emp_aprobado: v_rti_emp_aprobado,
                     par_rti_emp_devuelto: v_rti_emp_devuelto,
                     par_rti_emp_rechazado: v_rti_emp_rechazado,
-                    par_rti_emp_finalizado: v_rti_emp_finalizado
+                    par_rti_emp_finalizado: v_rti_emp_finalizado,
+                    par_rti_usrred: v_rti_usrred,
+                    par_rti_correo: v_rti_correo,
+                    par_rti_navega: v_rti_navega,
+                    par_rti_sistema: v_rti_sistema                    
                 })
             .leftJoin(Pla_Emp_Entity, 'Pla_Emp_Entity', 'Css_Rti_Entity.rtiCodcia = Pla_Emp_Entity.empCodcia and Css_Rti_Entity.rtiCodemp = Pla_Emp_Entity.empCodcel')
             .leftJoin(Sis_Sis_Entity, 'Sis_Sis_Entity', 'Css_Rti_Entity.rtiCodcia = Sis_Sis_Entity.sisCodcia and Css_Rti_Entity.rtiCodsis = Sis_Sis_Entity.sisCodigo')

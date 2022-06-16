@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ApiHeader } from '@nestjs/swagger';
 import { Repository } from 'typeorm/repository/Repository';
@@ -7,11 +7,16 @@ import { Pla_Uni_Entity } from './entities/pla_uni_entity';
 import { Css_Uni_Entity } from './entities/css_uni_entity';
 import { Sis_Sis_Entity } from './entities/sis_sis_entity';
 import { Sis_Msi_Entity } from './entities/sis_msi_entity';
+import { Edit_Css_Rti_Dto } from 'src/ticket/dto/edit_css_rti_dto';
+import { Css_Rti_Entity } from 'src/ticket/entities/css_rti_entity';
 
 
 @Injectable()
 export class ApoyoService {
+
+  
     constructor(
+        @InjectRepository(Css_Rti_Entity) private regticketsRepository: Repository<Css_Rti_Entity>,
         @InjectRepository(Pla_Emp_Entity) private empleadosRepository: Repository<Pla_Emp_Entity>,
         @InjectRepository(Pla_Uni_Entity) private unidadesRepository: Repository<Pla_Uni_Entity>,
         @InjectRepository(Css_Uni_Entity) private unidadesCssRepository: Repository<Css_Uni_Entity>,
@@ -118,6 +123,74 @@ export class ApoyoService {
     );
     return register;
   }  
+
+  @ApiHeader({
+    name: '@Put()',
+    description: 'Actualiza evaluaciones',
+    })   
+    async ModificaCssRti(v_cia: string, v_cod: number, v_ret: number, v_est: string,v_emp: string ,dto: Edit_Css_Rti_Dto): Promise<Css_Rti_Entity> {
+      const toUpdate = await this.regticketsRepository.findOne({
+        where : "RTI_CODCIA = "+ v_cia + " AND RTI_CODIGO = " + v_cod,
+      })
+      if (!toUpdate)
+           throw new HttpException('NO SE PUEDE ACTUALIZAR - No existe el registro - (CSS_RTI_ENTITY)', HttpStatus.FORBIDDEN);
+        
+        //Definición de infomación previo al UPDATE
+        dto.rtiEstado = v_est
+        if (v_est == 'A'){
+          dto.rtiFecAprobado = new Date(),
+          dto.rtiEmpAprobado = v_emp
+        }           
+        if (v_est == 'R'){
+          dto.rtiFecRechazado = new Date(),
+          dto.rtiEmpRechazado = v_emp
+        }           
+        if (v_est == 'D'){
+          dto.rtiFecDevuelto = new Date(),
+          dto.rtiEmpDevuelto = v_emp,
+          dto.rtiCoduniResp = null
+        } 
+
+       const modelToEdit = Object.assign(toUpdate, dto);
+       await this.regticketsRepository.save(modelToEdit); 
+       return modelToEdit;  
+  }
+
+
+  @ApiHeader({
+    name: 'Notifica sobre Ticket emitida',
+    description: 'Notifica sobre Ticket emitida',
+    })   
+    async notificarCssRti(v_cia: string, v_cod: number, v_emp: string ): Promise<any> {
+      const oracledb = require('oracledb')
+      const config = {
+        user: 'WSISCSS',
+        password: '4pl1c4c10n3sw3b',
+        connectString: '192.168.1.9:1521/OBELIX'
+      }
+      try {      
+         const conn = await oracledb.getConnection(config)
+
+
+         const result = await conn.execute (
+        `BEGIN
+           siscss.css_ict_inf_creaticket_pr(:p1, :p2, :p3);
+         END;`,
+        {
+          p1:  v_cia.toString(), 
+          p2:  v_cod,
+          p3:  v_emp.toString()
+        });
+  
+        await conn.close()
+      
+      } catch (err) {
+        console.log('Ouch!', err)
+        
+      }
+      console.log('Procedimiento realizado con Éxito') 
+      
+  }
 
 }
 

@@ -78,28 +78,41 @@ export class Create_Css_Rti_Dto {
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     @IsOptional()
     @IsDate()
-    @ApiProperty({ description: 'FECHA DE CREACIÓN', type: Date, })
+    @ApiProperty({ description: 'FECHA ELABORADO', type: Date, })
     @Type(() => Date)
-    rtiFeccrea?: Date;
+    rtiFecElaborado?: Date;
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     @IsOptional()
     @IsDate()
-    @ApiProperty({ description: 'FECHA ANULACIÓN', type: Date, })
+    @ApiProperty({ description: 'FECHA ENVIADO', type: Date, })
     @Type(() => Date)
-    rtiFecanula?: Date;
+    rtiFecEnviado?: Date;
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     @IsOptional()
     @IsDate()
-    @ApiProperty({ description: 'FECHA SOLICITUD A LAS ÁREAS', type: Date, })
+    @ApiProperty({ description: 'FECHA APROBADO', type: Date, })
     @Type(() => Date)
-    rtiFecsol?: Date;
+    rtiFecAprobado?: Date;
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    @IsOptional()
+    @IsDate()
+    @ApiProperty({ description: 'FECHA DEVOLLUCIÓN', type: Date, })
+    @Type(() => Date)
+    rtiFecDevuelto?: Date;
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    @IsOptional()
+    @IsDate()
+    @ApiProperty({ description: 'FECHA RECHAZADO', type: Date, })
+    @Type(() => Date)
+    rtiFecRechazado?: Date;
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     @IsOptional()
     @IsDate()
     @ApiProperty({ description: 'FECHA FINALIZACIÓN', type: Date, })
     @Type(() => Date)
-    rtiFecfin?: Date;
+    rtiFecFinalizado?: Date;
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    
     @IsNumber()
     @IsOptional()
     @ApiProperty({ description: 'AÑO DE LA SOLICITUD', type: Number, })
@@ -115,5 +128,35 @@ export class Create_Css_Rti_Dto {
     @ApiProperty({ description: 'CODIGO DE LA SOLICITUD', type: Number, })
     rtiCodsol?: number;
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
+    @IsString()
+    @IsOptional()
+    @ApiProperty({ description: 'EMPLEADO ELABORA', type: String, })
+    rtiEmpElaborado?: string;
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    @IsString()
+    @IsOptional()
+    @ApiProperty({ description: 'EMPLEADO ENVÍA', type: String, })
+    rtiEmpEnviado?: string;
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    @IsString()
+    @IsOptional()
+    @ApiProperty({ description: 'EMPLEADO APRUEBA', type: String, })
+    rtiEmpAprobado?: string;
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    @IsString()
+    @IsOptional()
+    @ApiProperty({ description: 'EMPLEADO DEVUELVE', type: String, })
+    rtiEmpDevuelto?: string;
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    @IsString()
+    @IsOptional()
+    @ApiProperty({ description: 'EMPLEADO RECHAZA', type: String, })
+    rtiEmpRechazado?: string;
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  
+    @IsString()
+    @IsOptional()
+    @ApiProperty({ description: 'EMPLEADO FINALIZA', type: String, })
+    rtiEmpFinalizado?: string;
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++                      
 }
+

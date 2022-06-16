@@ -28,6 +28,7 @@ async function bootstrap() {
 
   app.enableCors();
   await app.listen(3022);
+  console.log(`La aplicación esta corriendo en: ${await app.getUrl()}`);
 
 }
 bootstrap();

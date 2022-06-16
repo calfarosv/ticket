@@ -27,21 +27,22 @@ import { ApoyoModule } from './apoyo/apoyo.module';
 import { Css_Uni_Entity } from './apoyo/entities/css_uni_entity';
 import { Sis_Sis_Entity } from './apoyo/entities/sis_sis_entity';
 import { Sis_Msi_Entity } from './apoyo/entities/sis_msi_entity';
+import { Css_Ret_Entity } from './ticket/entities/css_ret_entity';
 
 
 @Module({
-  imports: [AuthModule,UsersModule,TicketModule,ApoyoModule,
-  TypeOrmModule.forRoot({
-    type: 'oracle',
-    connectString: '192.168.1.9:1521/OBELIX',
-    port: 1521,
-    username: 'WSISCSS',
-    password: '4pl1c4c10n3sw3b',
-    database: 'desa',
-    schema: '',
-    entities: [Css_Rti_Entity, Pla_Emp_Entity, Pla_Uni_Entity, Css_Uni_Entity, Sis_Sis_Entity, Sis_Msi_Entity],
-    logging: true,
-  }),
+  imports: [AuthModule, UsersModule, TicketModule, ApoyoModule,
+    TypeOrmModule.forRoot({
+      type: 'oracle',
+      connectString: '192.168.1.9:1521/OBELIX',
+      port: 1521,
+      username: 'WSISCSS',
+      password: '4pl1c4c10n3sw3b',
+      database: 'desa',
+      schema: '',
+      entities: [Css_Rti_Entity, Css_Ret_Entity, Pla_Emp_Entity, Pla_Uni_Entity, Css_Uni_Entity, Sis_Sis_Entity, Sis_Msi_Entity],
+      logging: true,
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],

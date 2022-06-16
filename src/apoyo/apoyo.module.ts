@@ -16,4 +16,3 @@ import { Sis_Sis_Entity } from './entities/sis_sis_entity';
   exports: [ApoyoService]
 })
 export class ApoyoModule {}
-

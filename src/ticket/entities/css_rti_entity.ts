@@ -1,5 +1,5 @@
 import { Type } from "class-transformer";
-import { Column, Entity, Index, OneToMany, PrimaryColumn } from "typeorm";
+import { Column, Entity, Index, PrimaryColumn } from "typeorm";
 
 @Index("CSS_RTI_PK", ["rtiCodcia", "rtiCodigo"], { unique: true })
 @Entity("CSS_RTI_REG_TICKETSTI")
@@ -55,6 +55,19 @@ export class Css_Rti_Entity {
     @Column("varchar2", { name: "RTI_ESTADO", length: 1 })
     rtiEstado?: string;
     //-----------------------------------------------------------------------------------------
+    @Column("number", { name: "RTI_ANISOL", precision: 4, scale: 0, })
+    rtiAnisol?: number;
+    //-----------------------------------------------------------------------------------------
+    @Column("number", { name: "RTI_CODUNI", precision: 5, scale: 0, })
+    rtiCoduni?: number;
+    //-----------------------------------------------------------------------------------------
+    @Column("number", { name: "RTI_CODSOL", precision: 9, scale: 0, })
+    rtiCodsol?: number;
+    //-----------------------------------------------------------------------------------------
+    @Column("number", { name: "RTI_CODRET", precision: 5, scale: 0, })
+    rtiCodret?: number;
+    //-----------------------------------------------------------------------------------------
+    //-----------------------------------------------------------------------------------------
     @Column("timestamp", { name: "RTI_FEC_ELABORADO" })
     @Type(() => Date)
     rtiFecElaborado?: Date;
@@ -78,32 +91,24 @@ export class Css_Rti_Entity {
     @Column("timestamp", { name: "RTI_FEC_FINALIZADO" })
     @Type(() => Date)
     rtiFecFinalizado?: Date;
-    //-----------------------------------------------------------------------------------------    
-    @Column("number", { name: "RTI_ANISOL", precision: 4, scale: 0, })
-    rtiAnisol?: number;
     //-----------------------------------------------------------------------------------------
-    @Column("number", { name: "RTI_CODUNI", precision: 5, scale: 0, })
-    rtiCoduni?: number;
     //-----------------------------------------------------------------------------------------
-    @Column("number", { name: "RTI_CODSOL", precision: 9, scale: 0, })
-    rtiCodsol?: number;
-    //-----------------------------------------------------------------------------------------
-    @Column("varchar2", { name: "RTI_EMP_ELABORADO" , length: 8})
+    @Column("varchar2", { name: "RTI_EMP_ELABORADO", length: 8 })
     rtiEmpElaborado?: string;
     //-----------------------------------------------------------------------------------------
-    @Column("varchar2", { name: "RTI_EMP_ENVIADO" , length: 8})
+    @Column("varchar2", { name: "RTI_EMP_ENVIADO", length: 8 })
     rtiEmpEnviado?: string;
     //-----------------------------------------------------------------------------------------
-    @Column("varchar2", { name: "RTI_EMP_APROBADO" , length: 8})
+    @Column("varchar2", { name: "RTI_EMP_APROBADO", length: 8 })
     rtiEmpAprobado?: string;
     //-----------------------------------------------------------------------------------------
     @Column("varchar2", { name: "RTI_EMP_DEVUELTO", length: 8 })
     rtiEmpDevuelto?: string;
     //-----------------------------------------------------------------------------------------
-    @Column("varchar2", { name: "RTI_EMP_RECHAZADO" , length: 8})
+    @Column("varchar2", { name: "RTI_EMP_RECHAZADO", length: 8 })
     rtiEmpRechazado?: string;
     //-----------------------------------------------------------------------------------------
     @Column("varchar2", { name: "RTI_EMP_FINALIZADO", length: 8 })
     rtiEmpFinalizado?: string;
-
+    //-----------------------------------------------------------------------------------------
 }

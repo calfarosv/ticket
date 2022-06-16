@@ -16,7 +16,7 @@ export class Create_Css_Rti_Dto {
     @IsNotEmpty()
     @ApiProperty({ description: 'CÓDIGO CORRELATIVO', type: Number, })
     rtiCodigo?: number;
-        ////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////
     // CAMPOS QUE NO FORMAN LA LLAVE PRIMARIA
     ////////////////////////////////////////////////////////////////////////////////////
     @IsString()
@@ -74,6 +74,9 @@ export class Create_Css_Rti_Dto {
     @ApiProperty({ description: 'CÓDIGO DE MÓDULO DEL SISTEMA', type: Number, })
     rtiCodmsi?: number;
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    @IsString()
+    @IsOptional()
+    @ApiProperty({ description: 'ESTADO DEL TICKET', type: String, })
     rtiEstado?: string;
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     @IsOptional()
@@ -128,24 +131,29 @@ export class Create_Css_Rti_Dto {
     @ApiProperty({ description: 'CODIGO DE LA SOLICITUD', type: Number, })
     rtiCodsol?: number;
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    @IsNumber()
+    @IsOptional()
+    @ApiProperty({ description: 'CÓDIGO DE LA RESPUESTA', type: Number, })
+    rtiCodret?: number;
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     @IsString()
     @IsOptional()
-    @ApiProperty({ description: 'EMPLEADO ELABORA', type: String, })
+    @ApiProperty({ description: 'EMPLEADO QUE ELABORA TICKET', type: String, })
     rtiEmpElaborado?: string;
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     @IsString()
     @IsOptional()
-    @ApiProperty({ description: 'EMPLEADO ENVÍA', type: String, })
+    @ApiProperty({ description: 'EMPLEADO QUE ENVÍA TICKET A LAS ÁREAS TI', type: String, })
     rtiEmpEnviado?: string;
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     @IsString()
     @IsOptional()
-    @ApiProperty({ description: 'EMPLEADO APRUEBA', type: String, })
+    @ApiProperty({ description: 'EMPLEADO QUE APRUEBA POR PARTE DEL ÁREA DE TI', type: String, })
     rtiEmpAprobado?: string;
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     @IsString()
     @IsOptional()
-    @ApiProperty({ description: 'EMPLEADO DEVUELVE', type: String, })
+    @ApiProperty({ description: 'EMPLEADO QUE DEVUELVE AL HELPDESK', type: String, })
     rtiEmpDevuelto?: string;
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     @IsString()
@@ -159,4 +167,9 @@ export class Create_Css_Rti_Dto {
     rtiEmpFinalizado?: string;
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++                      
 }
+
+
+
+
+
 

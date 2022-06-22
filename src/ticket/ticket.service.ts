@@ -310,7 +310,7 @@ export class TicketService {
                     par_rti_usrred: v_rti_usrred,
                     par_rti_correo: v_rti_correo,
                     par_rti_navega: v_rti_navega,
-                    par_rti_sistema: v_rti_sistema                    
+                    par_rti_sistema: v_rti_sistema
                 })
             .leftJoin(Pla_Emp_Entity, 'Pla_Emp_Entity', 'Css_Rti_Entity.rtiCodcia = Pla_Emp_Entity.empCodcia and Css_Rti_Entity.rtiCodemp = Pla_Emp_Entity.empCodcel')
             .leftJoin(Sis_Sis_Entity, 'Sis_Sis_Entity', 'Css_Rti_Entity.rtiCodcia = Sis_Sis_Entity.sisCodcia and Css_Rti_Entity.rtiCodsis = Sis_Sis_Entity.sisCodigo')

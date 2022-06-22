@@ -57,7 +57,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_coduniresp/:rtiCodcia/:rtiCoduniResp/')
-    @ApiOperation({ summary: 'Consulta todos los Tickets por Código de la Unidad Responsable'})
+    @ApiOperation({ summary: 'Consulta todos los Tickets por Código de la Unidad Responsable' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta todos los Tickets por Código de la Unidad Responsable',
@@ -141,7 +141,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_prioridad/:rtiCodcia/:rtiPrioridad/')
-    @ApiOperation({ summary: 'Consulta de Tickets por prioridad'})
+    @ApiOperation({ summary: 'Consulta de Tickets por prioridad' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por prioridad',
@@ -225,7 +225,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_uni_prioridad/:rtiCodcia/:rtiCoduniResp/:rtiPrioridad/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y prioridad'})
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y prioridad' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Unidad Responsable y prioridad',
@@ -310,7 +310,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_codemp/:rtiCodcia/:rtiCodemp/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Empleado que solicita'})
+    @ApiOperation({ summary: 'Consulta de Tickets por Empleado que solicita' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Empleado que solicita',
@@ -394,7 +394,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_uni_codemp/:rtiCodcia/:rtiCoduniResp/:rtiCodemp/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Empleado que solicita'})
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Empleado que solicita' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Unidad Responsable y Empleado que solicita',
@@ -479,7 +479,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_codsis/:rtiCodcia/:rtiCodsis/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Sistema'})
+    @ApiOperation({ summary: 'Consulta de Tickets por Sistema' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Sistema',
@@ -563,7 +563,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_uni_codsis/:rtiCodcia/:rtiCoduniResp/:rtiCodsis/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Sistema'})
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Sistema' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Unidad Responsable y Sistema',
@@ -648,7 +648,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_sismod/:rtiCodcia/:rtiCodsis/:rtiCodmsi/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Sistema y Módulo'})
+    @ApiOperation({ summary: 'Consulta de Tickets por Sistema y Módulo' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Sistema y Módulo',
@@ -733,7 +733,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_uni_sismod/:rtiCodcia/:rtiCoduniResp/:rtiCodsis/:rtiCodmsi/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Sistema y Módulo'})
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Sistema y Módulo' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Unidad Responsable y Sistema y Módulo',
@@ -819,7 +819,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_estado/:rtiCodcia/:rtiEstado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Estado'})
+    @ApiOperation({ summary: 'Consulta de Tickets por Estado' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Estado',
@@ -903,7 +903,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_uni_estado/:rtiCodcia/:rtiCoduniResp/:rtiEstado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Estado'})
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Estado' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Unidad Responsable y Estado',
@@ -988,7 +988,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_aniosol/:rtiCodcia/:rtiAnisol/:rtiCodsol/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Estado'})
+    @ApiOperation({ summary: 'Consulta de Tickets por Estado' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Estado',
@@ -1073,7 +1073,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_uni_aniosol/:rtiCodcia/:rtiCoduniResp/:rtiAnisol/:rtiCodsol/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Año/Solicitud'})
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Año/Solicitud' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Unidad Responsable y Año/Solicitud',
@@ -1159,7 +1159,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_fecelaborado/:rtiCodcia/:/rtiFecElaborado')
-    @ApiOperation({ summary: 'Consulta de Tickets por Fecha de Elaborado'})
+    @ApiOperation({ summary: 'Consulta de Tickets por Fecha de Elaborado' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Fecha de Elaborado',
@@ -1243,7 +1243,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_uni_fecelaborado/:rtiCodcia/:rtiCoduniResp/:rtiFecElaborado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Fecha de Elaborado'})
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Fecha de Elaborado' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Unidad Responsable y Fecha de Elaborado',
@@ -1328,7 +1328,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_fecenviado/:rtiCodcia/:rtiFecEnviado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Fecha de Enviado'})
+    @ApiOperation({ summary: 'Consulta de Tickets por Fecha de Enviado' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Fecha de Enviado',
@@ -1412,7 +1412,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_uni_fecenviado/:rtiCodcia/:rtiCoduniResp/:rtiFecEnviado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Fecha de Enviado'})
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Fecha de Enviado' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Unidad Responsable y Fecha de Enviado',
@@ -1497,7 +1497,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_fecaprobado/:rtiCodcia/:rtiFecAprobado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Fecha de Enviado'})
+    @ApiOperation({ summary: 'Consulta de Tickets por Fecha de Enviado' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Fecha de Enviado',
@@ -1581,7 +1581,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_uni_fecaprobado/:rtiCodcia/:rtiCoduniResp/:rtiFecAprobado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Fecha de Enviado'})
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Fecha de Enviado' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Unidad Responsable y Fecha de Enviado',
@@ -1666,7 +1666,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_fecdevuelto/:rtiCodcia/:rtiFecDevuelto/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Fecha de devuelto'})
+    @ApiOperation({ summary: 'Consulta de Tickets por Fecha de devuelto' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Fecha de devuelto',
@@ -1750,7 +1750,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_uni_fecdevuelto/:rtiCodcia/:rtiCoduniResp/:rtiFecDevuelto/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Fecha de devuelto'})
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Fecha de devuelto' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Unidad Responsable y Fecha de devuelto',
@@ -1835,7 +1835,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_fecrechazado/:rtiCodcia/:rtiFecRechazado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Fecha de rechazado'})
+    @ApiOperation({ summary: 'Consulta de Tickets por Fecha de rechazado' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Fecha de rechazado',
@@ -1919,7 +1919,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_uni_fecrechazado/:rtiCodcia/:rtiCoduniResp/:rtiFecRechazado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Fecha de rechazado'})
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Fecha de rechazado' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Unidad Responsable y Fecha de rechazado',
@@ -2004,7 +2004,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_fecfinalizado/:rtiCodcia/:rtiFecFinalizado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Fecha de finalizado'})
+    @ApiOperation({ summary: 'Consulta de Tickets por Fecha de finalizado' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Fecha de finalizado',
@@ -2088,7 +2088,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_uni_fecfinalizado/:rtiCodcia/:rtiCoduniResp/:rtiFecFinalizado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Fecha de finalizado'})
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Fecha de finalizado' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Unidad Responsable y Fecha de finalizado',
@@ -2173,7 +2173,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_empelaborado/:rtiCodcia/:rtiEmpElaborado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Empleado que Elabora'})
+    @ApiOperation({ summary: 'Consulta de Tickets por Empleado que Elabora' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Empleado que Elabora',
@@ -2257,7 +2257,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_uni_empelaborado/:rtiCodcia/:rtiCoduniResp/:rtiEmpElaborado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Empleado que Elabora'})
+    @ApiOperation({ summary: 'Consulta de Tickets por Empleado que Elabora' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Empleado que Elabora',
@@ -2342,7 +2342,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_empenviado/:rtiCodcia/:rtiEmpEnviado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Empleado que Envia'})
+    @ApiOperation({ summary: 'Consulta de Tickets por Empleado que Envia' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Empleado que Envia',
@@ -2426,7 +2426,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_uni_empenviado/:rtiCodcia/:rtiCoduniResp/:rtiEmpEnviado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Empleado que Envia'})
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Empleado que Envia' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Unidad Responsable y Empleado que Envia',
@@ -2511,7 +2511,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_empaprobado/:rtiCodcia/:rtiEmpAprobado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Empleado que Aprueba'})
+    @ApiOperation({ summary: 'Consulta de Tickets por Empleado que Aprueba' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Empleado que Aprueba',
@@ -2595,7 +2595,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_uni_empaprobado/:rtiCodcia/:rtiCoduniResp/:rtiEmpAprobado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Empleado que Aprueba'})
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Empleado que Aprueba' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Unidad Responsable y Empleado que Aprueba',
@@ -2680,7 +2680,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_empdevuelto/:rtiCodcia/:rtiEmpDevuelto/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Empleado que Devuelve'})
+    @ApiOperation({ summary: 'Consulta de Tickets por Empleado que Devuelve' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Empleado que Devuelve',
@@ -2764,7 +2764,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_uni_empdevuelto/:rtiCodcia/:rtiCoduniResp/:rtiEmpDevuelto/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Empleado que Devuelve'})
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Empleado que Devuelve' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Unidad Responsable y Empleado que Devuelve',
@@ -2849,7 +2849,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_emprechazado/:rtiCodcia/:rtiEmpRechazado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Empleado que Rechaza'})
+    @ApiOperation({ summary: 'Consulta de Tickets por Empleado que Rechaza' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Empleado que Rechaza',
@@ -2933,7 +2933,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_uni_emprechazado/:rtiCodcia/:rtiCoduniResp/:rtiEmpRechazado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Empleado que Rechaza'})
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Empleado que Rechaza' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Unidad Responsable y Empleado que Rechaza',
@@ -3018,7 +3018,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_empfinalizado/:rtiCodcia/:rtiEmpFinalizado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Empleado que Finaliza'})
+    @ApiOperation({ summary: 'Consulta de Tickets por Empleado que Finaliza' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Empleado que Finaliza',
@@ -3102,7 +3102,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/by_uni_empfinalizado/:rtiCodcia/:rtiCoduniResp/:rtiEmpFinalizado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Empleado que Finaliza'})
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Empleado que Finaliza' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Unidad Responsable y Empleado que Finaliza',
@@ -3186,7 +3186,7 @@ export class TicketController {
 
     //-------------------------------------------------------------------------------------------------------------
     @Get('/by_uni_usrred_sn/:rtiCodcia/:rtiCoduniResp/:rtiUsrred/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Usuario de red SI o NO'})
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Usuario de red SI o NO' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Unidad Responsable y Usuario de red SI o NO',
@@ -3270,7 +3270,7 @@ export class TicketController {
 
     //-------------------------------------------------------------------------------------------------------------
     @Get('/by_uni_correo_sn/:rtiCodcia/:rtiCoduniResp/:rtiCorreo/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Correo SI o NO'})
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Correo SI o NO' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Unidad Responsable y Correo SI o NO',
@@ -3354,7 +3354,7 @@ export class TicketController {
 
     //-------------------------------------------------------------------------------------------------------------
     @Get('/by_uni_navega_sn/:rtiCodcia/:rtiCoduniResp/:rtiNavega/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Navegación SI o NO'})
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Navegación SI o NO' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Unidad Responsable y Navegación SI o NO',
@@ -3438,7 +3438,7 @@ export class TicketController {
 
     //-------------------------------------------------------------------------------------------------------------
     @Get('/by_uni_sistema_sn/:rtiCodcia/:rtiCoduniResp/:rtiSistema/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Sistema SI o NO'})
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Sistema SI o NO' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Unidad Responsable y Sistema SI o NO',
@@ -3600,7 +3600,7 @@ export class TicketController {
     }
 
     @Get('/respuestas/by_pk/:retCodcia/:retCoduniResp/:retCodigo/')
-    @ApiOperation({ summary: 'Consulta de Respuestas por llave primaria'})
+    @ApiOperation({ summary: 'Consulta de Respuestas por llave primaria' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Respuestas por llave primaria',
@@ -3630,7 +3630,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/respuestas/by_coduniresp/:retCodcia/:retCoduniResp/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable'})
+    @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Unidad Responsable',
@@ -3680,7 +3680,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/respuestas/by_tipo/:retCodcia/:retCoduniResp/:retTipo/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Tipo'})
+    @ApiOperation({ summary: 'Consulta de Tickets por Tipo' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Tipo',
@@ -3731,7 +3731,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
 
     @Get('/respuestas/by_estado/:retCodcia/:retCoduniResp/:retEstado/')
-    @ApiOperation({ summary: 'Consulta de Tickets por Estado'})
+    @ApiOperation({ summary: 'Consulta de Tickets por Estado' })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Consulta de Tickets por Estado',

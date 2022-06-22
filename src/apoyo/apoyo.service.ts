@@ -126,9 +126,17 @@ export class ApoyoService {
 
   @ApiHeader({
     name: '@Put()',
-    description: 'Actualiza evaluaciones',
+    description: 'Actualiza estado de los Tickets por medio de acción en correo CSS_ICT_INF_CREATICKET_PR',
     })   
-    async ModificaCssRti(v_cia: string, v_cod: number, v_ret: number, v_est: string,v_emp: string ,dto: Edit_Css_Rti_Dto): Promise<Css_Rti_Entity> {
+    async ModificaCssRti(
+          v_cia: string, 
+          v_cod: number, 
+          v_ret: number, 
+          v_est: string,
+          v_emp: string ,
+          dto: Edit_Css_Rti_Dto): 
+          Promise<Css_Rti_Entity> 
+          {
       const toUpdate = await this.regticketsRepository.findOne({
         where : "RTI_CODCIA = "+ v_cia + " AND RTI_CODIGO = " + v_cod,
       })
@@ -137,6 +145,7 @@ export class ApoyoService {
         
         //Definición de infomación previo al UPDATE
         dto.rtiEstado = v_est
+
         if (v_est == 'A'){
           dto.rtiFecAprobado = new Date(),
           dto.rtiEmpAprobado = v_emp
@@ -161,7 +170,7 @@ export class ApoyoService {
     name: 'Notifica sobre Ticket emitida',
     description: 'Notifica sobre Ticket emitida',
     })   
-    async notificarCssRti(v_cia: string, v_cod: number, v_emp: string ): Promise<any> {
+    async notificarCssRti(v_cia: string, v_cod: number ): Promise<any> {
       const oracledb = require('oracledb')
       const config = {
         user: 'WSISCSS',
@@ -170,20 +179,15 @@ export class ApoyoService {
       }
       try {      
          const conn = await oracledb.getConnection(config)
-
-
          const result = await conn.execute (
         `BEGIN
-           siscss.css_ict_inf_creaticket_pr(:p1, :p2, :p3);
+           siscss.css_ict_inf_creaticket_pr(:p1, :p2);
          END;`,
         {
           p1:  v_cia.toString(), 
-          p2:  v_cod,
-          p3:  v_emp.toString()
+          p2:  v_cod
         });
-  
         await conn.close()
-      
       } catch (err) {
         console.log('Ouch!', err)
         

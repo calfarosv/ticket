@@ -41,6 +41,7 @@ constructor(private ticketService: ApoyoService){}
             {const data = await this.ticketService.buscaEmpCodigo(v_emp);
         return data;
     }
+    
     //@UseGuards(JwtAuthGuard)
     @Get('/unidades/')
     @ApiOperation({ summary: 'Lista de Unidades'})
@@ -109,26 +110,6 @@ constructor(private ticketService: ApoyoService){}
         {const data = await this.ticketService.buscaModulos(v_sis);
         return data;
     } 
-
-    //@UseGuards(JwtAuthGuard)
-    @Put('/updateRti/:cia/:cod/:ret/:est/:emp')
-       @ApiOperation({ summary: 'Permite ACTUALIZAR registros en GSI_FAV' })
-      @ApiResponse({
-          status: HttpStatus.OK,
-          description: 'Permite ACTUALIZAR registros en GSI_FAV',
-          type: [Css_Rti_Entity],
-        })     
-      async ModificaCssRti(
-          @Param('cia') v_cia: string, 
-          @Param('cod') v_cod: number, 
-          @Param('ret') v_ret: number, 
-          @Param('est') v_est: string,
-          @Param('emp') v_emp: string,
-          @Param() dto: Edit_Css_Rti_Dto) {
-          const data = await this.ticketService.ModificaCssRti(v_cia, v_cod, v_ret, v_est,v_emp, dto);
-          return { message: 'Registro actualizado', data };
-      }    
-
     //@UseGuards(JwtAuthGuard)
     @Get('/notifica/:cia/:cod')
        @ApiOperation({ summary: 'Permite ACTUALIZAR registros' })
@@ -140,15 +121,29 @@ constructor(private ticketService: ApoyoService){}
       async notificarCssRti(
           @Param('cia') v_cia: string, 
           @Param('cod') v_cod: number, 
-          @Param('emp') v_emp: string,
           @Param() dto: Edit_Css_Rti_Dto) {
-          //Ejemplo de bucle for
-          var arr = [ '7105011','7309011' ];
-          for (var i = 0; i <= arr.length - 1; i++) {
-            v_emp = arr[i];
-            console.log(arr[i],v_emp.toString());
-            const data = await this.ticketService.notificarCssRti(v_cia, v_cod, v_emp);
-          }
+          const data = await this.ticketService.notificarCssRti(v_cia, v_cod);
           return { message: 'Correo enviado desde el Controller' };            
       }        
+
+
+    //@UseGuards(JwtAuthGuard)
+    @Put('/updateRti/:cia/:cod/:ret/:est/:emp')
+       @ApiOperation({ summary: 'Permite ACTUALIZAR registros en CSS_RTI' })
+      @ApiResponse({
+          status: HttpStatus.OK,
+          description: 'Permite ACTUALIZAR registros en CSS_RTI',
+          type: [Css_Rti_Entity],
+        })     
+      async ModificaCssRti(
+          @Param('cia') v_cia: string, 
+          @Param('cod') v_cod: number, 
+          @Param('ret') v_ret: number, 
+          @Param('est') v_est: string,
+          @Param('emp') v_emp: string,
+          @Param() dto: Edit_Css_Rti_Dto) {
+          const data = await this.ticketService.ModificaCssRti(v_cia, v_cod, v_ret, v_est,v_emp, dto);
+          return { message: 'Registro actualizado', data };
+      } 
+
 }

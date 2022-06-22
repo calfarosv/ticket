@@ -90,33 +90,33 @@ export class TicketService {
         v_rti_correo: string,
         v_rti_navega: string,
         v_rti_sistema: string) {
-        console.log('v_rti_caso: ', v_rti_caso);
-        console.log('v_rti_codcia: ', v_rti_codcia);
-        console.log('v_rti_codigo: ', v_rti_codigo);
-        console.log('v_rti_prioridad: ', v_rti_prioridad);
-        console.log('v_rti_coduniresp: ', v_rti_coduniresp);
-        console.log('v_rti_codemp: ', v_rti_codemp);
-        console.log('v_rti_codsis: ', v_rti_codsis);
-        console.log('v_rti_codmsi: ', v_rti_codmsi);
-        console.log('v_rti_estado: ', v_rti_estado);
-        console.log('v_rti_anisol: ', v_rti_anisol);
-        console.log('v_rti_codsol: ', v_rti_codsol);
-        console.log('v_rti_fec_elaborado: ', v_rti_fec_elaborado);
-        console.log('v_rti_fec_enviado: ', v_rti_fec_enviado);
-        console.log('v_rti_fec_aprobado: ', v_rti_fec_aprobado);
-        console.log('v_rti_fec_devuelto: ', v_rti_fec_devuelto);
-        console.log('v_rti_fec_rechazado: ', v_rti_fec_rechazado);
-        console.log('v_rti_fec_finalizado: ', v_rti_fec_finalizado);
-        console.log('v_rti_emp_elaborado: ', v_rti_emp_elaborado);
-        console.log('v_rti_emp_enviado: ', v_rti_emp_enviado);
-        console.log('v_rti_emp_aprobado: ', v_rti_emp_aprobado);
-        console.log('v_rti_emp_devuelto: ', v_rti_emp_devuelto);
-        console.log('v_rti_emp_rechazado: ', v_rti_emp_rechazado);
-        console.log('v_rti_emp_finalizado: ', v_rti_emp_finalizado);
-        console.log('v_rti_usrred: ', v_rti_usrred);
-        console.log('v_rti_correo: ', v_rti_correo);
-        console.log('v_rti_navega: ', v_rti_navega);
-        console.log('v_rti_sistema: ', v_rti_sistema);
+        // console.log('v_rti_caso: ', v_rti_caso);
+        // console.log('v_rti_codcia: ', v_rti_codcia);
+        // console.log('v_rti_codigo: ', v_rti_codigo);
+        // console.log('v_rti_prioridad: ', v_rti_prioridad);
+        // console.log('v_rti_coduniresp: ', v_rti_coduniresp);
+        // console.log('v_rti_codemp: ', v_rti_codemp);
+        // console.log('v_rti_codsis: ', v_rti_codsis);
+        // console.log('v_rti_codmsi: ', v_rti_codmsi);
+        // console.log('v_rti_estado: ', v_rti_estado);
+        // console.log('v_rti_anisol: ', v_rti_anisol);
+        // console.log('v_rti_codsol: ', v_rti_codsol);
+        // console.log('v_rti_fec_elaborado: ', v_rti_fec_elaborado);
+        // console.log('v_rti_fec_enviado: ', v_rti_fec_enviado);
+        // console.log('v_rti_fec_aprobado: ', v_rti_fec_aprobado);
+        // console.log('v_rti_fec_devuelto: ', v_rti_fec_devuelto);
+        // console.log('v_rti_fec_rechazado: ', v_rti_fec_rechazado);
+        // console.log('v_rti_fec_finalizado: ', v_rti_fec_finalizado);
+        // console.log('v_rti_emp_elaborado: ', v_rti_emp_elaborado);
+        // console.log('v_rti_emp_enviado: ', v_rti_emp_enviado);
+        // console.log('v_rti_emp_aprobado: ', v_rti_emp_aprobado);
+        // console.log('v_rti_emp_devuelto: ', v_rti_emp_devuelto);
+        // console.log('v_rti_emp_rechazado: ', v_rti_emp_rechazado);
+        // console.log('v_rti_emp_finalizado: ', v_rti_emp_finalizado);
+        // console.log('v_rti_usrred: ', v_rti_usrred);
+        // console.log('v_rti_correo: ', v_rti_correo);
+        // console.log('v_rti_navega: ', v_rti_navega);
+        // console.log('v_rti_sistema: ', v_rti_sistema);
 
         let v_fecha_sol: Date;
         let v_where = '';
@@ -250,8 +250,8 @@ export class TicketService {
         if (v_rti_caso == '41') {
             v_where = 'Css_Rti_Entity.rtiCodcia = :par_rti_codcia and Css_Rti_Entity.rtiCoduniResp = :par_rti_coduniresp and Css_Rti_Entity.rtiSistema = :par_rti_sistema';
         }
-        console.log('v_rti_caso: ', v_rti_caso);
-        console.log('v_where: ', v_where);
+        // console.log('v_rti_caso: ', v_rti_caso);
+        // console.log('v_where: ', v_where);
 
         const register = await this.ticketRepository.createQueryBuilder()
             .select('Css_Rti_Entity.rtiCodcia', 'rtiCodcia')
@@ -317,14 +317,6 @@ export class TicketService {
             .leftJoin(Sis_Msi_Entity, 'Sis_Msi_Entity', 'Css_Rti_Entity.rtiCodcia = Sis_Msi_Entity.msiCodcia and Css_Rti_Entity.rtiCodsis = Sis_Msi_Entity.msiCodsis and Css_Rti_Entity.rtiCodmsi = Sis_Msi_Entity.msiCodigo')
             .orderBy('Css_Rti_Entity.rtiCodigo', 'ASC')
             .getRawMany();
-        //console.log('register: ', register);            
-        /*
-        if (!register || register.length === 0) {
-            throw new HttpException('No se encontraron datos - (busca_fichas_dinamica)', HttpStatus.FORBIDDEN);
-        }
-        else
-            return register;
-        */
         return register;
     }
 
@@ -376,8 +368,6 @@ export class TicketService {
     })
     async modificaTicket(v_rti_codcia: string, v_rti_codigo: number, dto: Edit_Css_Rti_Dto): Promise<Css_Rti_Entity> {
         const toUpdate = await this.obtiene_Tickets_byPk(v_rti_codcia, v_rti_codigo);
-        //console.log('Continua');
-        //console.log('toUpdate_editCat: ', toUpdate);        
         if (!toUpdate)
             throw new HttpException('NO SE PUEDE ACTUALIZAR - No existe el registro - (modificaTicket)', HttpStatus.FORBIDDEN);
         const modelToEdit = Object.assign(toUpdate, dto);
@@ -454,31 +444,28 @@ export class TicketService {
         v_ret_codigo: number,
         v_ret_tipo: string,
         v_ret_estado: string) {
-        console.log('v_ret_caso: ', v_ret_caso);
-        console.log('v_ret_codcia: ', v_ret_codcia);
-        console.log('v_ret_coduniresp: ', v_ret_coduni_resp);
-        console.log('v_ret_codigo: ', v_ret_codigo);
-        console.log('v_ret_tipo: ', v_ret_tipo);
-        console.log('v_ret_estado: ', v_ret_estado);
+        // console.log('v_ret_caso: ', v_ret_caso);
+        // console.log('v_ret_codcia: ', v_ret_codcia);
+        // console.log('v_ret_coduniresp: ', v_ret_coduni_resp);
+        // console.log('v_ret_codigo: ', v_ret_codigo);
+        // console.log('v_ret_tipo: ', v_ret_tipo);
+        // console.log('v_ret_estado: ', v_ret_estado);
 
         let v_fecha_sol: Date;
         let v_where = '';
 
         if (v_ret_caso == '01') {
             v_where = 'Css_Ret_Entity.retCodcia = :par_ret_codcia and Css_Ret_Entity.retCoduniResp = :par_ret_coduni_resp';
-            //console.log('1', v_where);
         }
         if (v_ret_caso == '02') {
             v_where = 'Css_Ret_Entity.retCodcia = :par_ret_codcia and Css_Ret_Entity.retCoduniResp = :par_ret_coduni_resp and Css_Ret_Entity.retTipo = :par_ret_tipo';
-            //console.log('1', v_where);
         }
         if (v_ret_caso == '03') {
             v_where = 'Css_Ret_Entity.retCodcia = :par_ret_codcia and Css_Ret_Entity.retCoduniResp = :par_ret_coduni_resp and Css_Ret_Entity.retEstado = :par_ret_estado';
-            //console.log('1', v_where);
         }
 
-        console.log('v_rti_caso: ', v_ret_caso);
-        console.log('v_where: ', v_where);
+        // console.log('v_rti_caso: ', v_ret_caso);
+        // console.log('v_where: ', v_where);
 
         const register = await this.respuestasRepository.createQueryBuilder()
             .select('Css_Ret_Entity.retCodcia', 'retCodcia')
@@ -500,14 +487,6 @@ export class TicketService {
             .leftJoin(Css_Uni_Entity, 'Css_Uni_Entity', 'Css_Ret_Entity.retCodcia = Css_Uni_Entity.uniCodcia and Css_Ret_Entity.retCoduniResp = Css_Uni_Entity.uniCodigo')
             .orderBy('Css_Ret_Entity.retCodigo', 'ASC')
             .getRawMany();
-        //console.log('register: ', register);            
-        /*
-        if (!register || register.length === 0) {
-            throw new HttpException('No se encontraron datos - (busca_fichas_dinamica)', HttpStatus.FORBIDDEN);
-        }
-        else
-            return register;
-        */
         return register;
     }
 
@@ -547,8 +526,6 @@ export class TicketService {
     })
     async modificaRespuesta(v_ret_codcia: string, v_ret_coduni_resp: number, v_ret_codigo: number, dto: Edit_Css_Ret_Dto): Promise<Css_Ret_Entity> {
         const toUpdate = await this.obtiene_Respuestas_byPk(v_ret_codcia, v_ret_coduni_resp, v_ret_codigo);
-        //console.log('Continua');
-        //console.log('toUpdate_editCat: ', toUpdate);        
         if (!toUpdate)
             throw new HttpException('NO SE PUEDE ACTUALIZAR - No existe el registro - (modificaRespuesta)', HttpStatus.FORBIDDEN);
         const modelToEdit = Object.assign(toUpdate, dto);

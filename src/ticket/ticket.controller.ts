@@ -3555,12 +3555,7 @@ export class TicketController {
         @Param('rtiCodcia') v_rti_codcia: string,
         @Param('rtiCodigo') v_rti_codigo: number,
         @Body() dto: Edit_Css_Rti_Dto) {
-        //console.log('v_codcia_@Put: ', v_codcia);
-        //console.log('v_coduni_@Put: ', v_coduni);
-        //console.log('v_codigo_@Put: ', v_codigo);
-        //console.log('dto_@Put: ', dto);
         const data = await this.ticketService.modificaTicket(v_rti_codcia, v_rti_codigo, dto);
-        //console.log('data_controller: ', register);
         return { message: 'Registro actualizado', data };
     }
 
@@ -3654,24 +3649,14 @@ export class TicketController {
             v_ret_codigo,
             v_ret_tipo,
             v_ret_estado);
-        //console.log('data: ', data);
-        // VERIFICO SI LOS DATOS OBTENIDOS SON VARIOS REGISTROS, SOLO UNO O NINGUNO
-        // PRIMERO SE DEFINE SI LOS DATOS SON UN ARREGLO O NO
         if (Array.isArray(data)) {
-            //console.log('Es un arreglo');
-            //SI ES UN ARREGLO, SE DEVUELVE CADA REGISTRO COMO JASON (LOS CORCHETES SON AUTOMATICOS POR SER ARREGLO)
             return data
         }
         else {
-            //console.log('NO es un arreglo');
-            //SI NO ES UN ARREGLO, VERIFICO SI LOS DATOS VIENEN VACIOS O NO
             if (!data) {
-                //SI LOS DATOS VIENEN VACIOS, SE DEVUELVEN CORCHETES
                 return []
             }
             else {
-                // SI LOS DATOS NO VIENEN VACIOS, ENTONCES ES SOLO 1 REGISTRO
-                // SE DEVUELVE ENTRE CORCHETES
                 return [data];
             }
         }
@@ -3705,24 +3690,14 @@ export class TicketController {
             v_ret_codigo,
             v_ret_tipo,
             v_ret_estado);
-        //console.log('data: ', data);
-        // VERIFICO SI LOS DATOS OBTENIDOS SON VARIOS REGISTROS, SOLO UNO O NINGUNO
-        // PRIMERO SE DEFINE SI LOS DATOS SON UN ARREGLO O NO
         if (Array.isArray(data)) {
-            //console.log('Es un arreglo');
-            //SI ES UN ARREGLO, SE DEVUELVE CADA REGISTRO COMO JASON (LOS CORCHETES SON AUTOMATICOS POR SER ARREGLO)
             return data
         }
         else {
-            //console.log('NO es un arreglo');
-            //SI NO ES UN ARREGLO, VERIFICO SI LOS DATOS VIENEN VACIOS O NO
             if (!data) {
-                //SI LOS DATOS VIENEN VACIOS, SE DEVUELVEN CORCHETES
                 return []
             }
             else {
-                // SI LOS DATOS NO VIENEN VACIOS, ENTONCES ES SOLO 1 REGISTRO
-                // SE DEVUELVE ENTRE CORCHETES
                 return [data];
             }
         }
@@ -3756,24 +3731,14 @@ export class TicketController {
             v_ret_codigo,
             v_ret_tipo,
             v_ret_estado);
-        //console.log('data: ', data);
-        // VERIFICO SI LOS DATOS OBTENIDOS SON VARIOS REGISTROS, SOLO UNO O NINGUNO
-        // PRIMERO SE DEFINE SI LOS DATOS SON UN ARREGLO O NO
         if (Array.isArray(data)) {
-            //console.log('Es un arreglo');
-            //SI ES UN ARREGLO, SE DEVUELVE CADA REGISTRO COMO JASON (LOS CORCHETES SON AUTOMATICOS POR SER ARREGLO)
             return data
         }
         else {
-            //console.log('NO es un arreglo');
-            //SI NO ES UN ARREGLO, VERIFICO SI LOS DATOS VIENEN VACIOS O NO
             if (!data) {
-                //SI LOS DATOS VIENEN VACIOS, SE DEVUELVEN CORCHETES
                 return []
             }
             else {
-                // SI LOS DATOS NO VIENEN VACIOS, ENTONCES ES SOLO 1 REGISTRO
-                // SE DEVUELVE ENTRE CORCHETES
                 return [data];
             }
         }
@@ -3814,12 +3779,7 @@ export class TicketController {
         @Param('retCoduniResp') v_ret_coduni_resp: number,
         @Param('retCodigo') v_ret_codigo: number,
         @Body() dto: Edit_Css_Ret_Dto) {
-        //console.log('v_codcia_@Put: ', v_codcia);
-        //console.log('v_coduni_@Put: ', v_coduni);
-        //console.log('v_codigo_@Put: ', v_codigo);
-        //console.log('dto_@Put: ', dto);
         const data = await this.ticketService.modificaRespuesta(v_ret_codcia, v_ret_coduni_resp, v_ret_codigo, dto);
-        //console.log('data_controller: ', register);
         return { message: 'Registro actualizado', data };
     }
 

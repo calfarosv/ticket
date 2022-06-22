@@ -8,7 +8,7 @@ export class Create_Css_Ret_Dto {
     // CAMPOS QUE FORMAN LA LLAVE PRIMARIA
     //////////////////////////////////////////////////////////////////////////////////// 
     @IsString()
-    @IsNotEmpty()
+    @IsOptional()
     @ApiProperty({ description: 'CODIGO DE LA COMPANIA', type: String, })
     retCodcia?: string;
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -18,7 +18,7 @@ export class Create_Css_Ret_Dto {
     retCoduniResp?: number;
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     @IsNumber()
-    @IsNotEmpty()
+    @IsOptional()
     @ApiProperty({ description: 'CÓDIGO CORRELATIVO', type: Number, })
     retCodigo?: number;
     ////////////////////////////////////////////////////////////////////////////////////

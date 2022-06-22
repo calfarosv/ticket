@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Body, HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { ApiHeader } from '@nestjs/swagger';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Css_Uni_Entity } from 'src/apoyo/entities/css_uni_entity';
@@ -340,10 +340,11 @@ export class TicketService {
         name: 'Servicio: Crea un registro',
         description: 'Crea un registro',
     })
-    async creaTicket(dto: Create_Css_Rti_Dto)//: Promise<Pri_Fic_Ficha_Entity> 
+    async creaTicket(@Body() dto: Create_Css_Rti_Dto)//: Promise<Pri_Fic_Ficha_Entity> 
     {
         // CREACIÓN DE NUEVO CODIGO
         //if ((dto.ficCodigo == 99999 && dto.ficVersion == 1) || (dto.ficCodigo == 99999 && dto.ficVersion == 99999))
+        console.log(dto.rtiCodigo);
         if (dto.rtiCodigo == 99999) {
             // Obtengo el código máximo
             const register = await this.ticketRepository

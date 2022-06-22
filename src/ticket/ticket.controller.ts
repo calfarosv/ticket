@@ -3534,7 +3534,7 @@ export class TicketController {
         description: 'Crea registro a partir del BODY',
         type: [Css_Rti_Entity],
     })
-    async creaTicket(@Param() datos: Create_Css_Rti_Dto) {
+    async creaTicket(@Body() datos: Create_Css_Rti_Dto) {
         const data = await this.ticketService.creaTicket(datos);
         //return { message: 'Registro creado', data };
         return data;
@@ -3792,7 +3792,7 @@ export class TicketController {
         description: 'Crea registro a partir del BODY',
         type: [Css_Ret_Entity],
     })
-    async creaRespuesta(@Param() datos: Create_Css_Ret_Dto) {
+    async creaRespuesta(@Body() datos: Create_Css_Ret_Dto) {
         const data = await this.ticketService.creaRespuesta(datos);
         //return { message: 'Registro creado', data };
         return data;

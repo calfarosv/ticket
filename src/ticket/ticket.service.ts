@@ -1,3 +1,4 @@
+import { MailerService } from '@nestjs-modules/mailer';
 import { Body, HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { ApiHeader } from '@nestjs/swagger';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -19,6 +20,8 @@ export class TicketService {
     constructor(
         @InjectRepository(Css_Rti_Entity) private ticketRepository: Repository<Css_Rti_Entity>,
         @InjectRepository(Css_Ret_Entity) private respuestasRepository: Repository<Css_Ret_Entity>,
+        @InjectRepository(Pla_Emp_Entity) private empleadosRepository: Repository<Pla_Emp_Entity>,
+        private readonly mailerService: MailerService,
 
     ) { }
 
@@ -336,7 +339,7 @@ export class TicketService {
     {
         // CREACIÓN DE NUEVO CODIGO
         //if ((dto.ficCodigo == 99999 && dto.ficVersion == 1) || (dto.ficCodigo == 99999 && dto.ficVersion == 99999))
-        console.log(dto.rtiCodigo);
+        //console.log(dto.rtiCodigo);
         if (dto.rtiCodigo == 99999) {
             // Obtengo el código máximo
             const register = await this.ticketRepository
@@ -351,6 +354,7 @@ export class TicketService {
             const model = this.ticketRepository.create(dto);
             const newRegister = await this.ticketRepository.save(model);
             //return newRegister;
+            await this.sendMailRespuesta(dto.rtiCodcia, dto.rtiCodigo, dto.rtiDescripcion, dto.rtiCodemp);
             return { message: 'Registro creado', newRegister };
         }
         // CREACIÓN DE NUEVA VERSIÓN
@@ -556,7 +560,69 @@ export class TicketService {
     }
 
 
+  //Busca por la llave
+  //Con findOne recuperas un registro entre llaves
+  //Con find puedes recuperar un conjunto de regitros anteponiendo [] en la entity
+  @ApiHeader({
+    name: 'Datos del Empleado',
+    description: 'Datos del Empleado',
+    })
+    async buscaEmpCodigo(v_emp: string): Promise<Pla_Emp_Entity> {
+    const register = await this.empleadosRepository.findOne(
+        {empCodcel: v_emp}
+    );
+    return register;
+  }  
 
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    // Envia correo electronico al empleado
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    //await this.sendMailRespuesta(dto.rtiCodcia, dto.rtiCodigo, dto.rtiDescripcion, dto.rtiCodemp);
+    public async sendMailRespuesta(
+        //email: string,
+        v_rtiCodcia: string,
+        v_rtiCodigo: number,
+        v_rtiDescripcion: string,
+        v_rtiCodemp: string,
+    ): Promise<void> {
+        // Si está lleno el correo, mandarlo al usuario, sino al correo de apoyo
+        const asuntoCorreo = 'Creación de Ticket de Servicio - Informática Institucional';
+        const obtiene_empleado = await this.buscaEmpCodigo(v_rtiCodemp);
+        //console.log('obtiene_correo: ', obtiene_correo);
+        if (!obtiene_empleado) {
+            throw new HttpException(
+                'NO SE PUEDE ENVIAR EL CORREO - No existe el correo',
+                HttpStatus.FORBIDDEN,
+            );
+        }
+        this.mailerService
+            .sendMail({
+                //to: obtiene_empleado.empCorreo ? obtiene_empleado.empCorreo + '@cel.gob.sv' : process.env.CORREO_APOYO,
+                to: 'alpineda@cel.gob.sv',
+                //to: 'calfaro@cel.gob.sv',
+                from: 'SISCSS@cel.gob.sv',
+                subject: 'Creación de Ticket de Servicio - Informática Institucional',
+                text: 'Bienvenido', // plaintext body
+                template: 'template',
+                context: {
+                    ticketNombreEmpleado: obtiene_empleado.empNombreCip.toUpperCase(),
+                    ticketDescripcion: v_rtiDescripcion,
+                    ticketCodigo: v_rtiCodigo,
+                },
+            })
+
+            // eslint-disable-next-line @typescript-eslint/no-empty-function
+            .then(() => {
+                console.log('Correo Enviado');
+            })
+            // eslint-disable-next-line @typescript-eslint/no-empty-function
+            .catch((error) => {
+                console.log(error);
+            });
+
+        }
 
 
 } // export class

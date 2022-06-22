@@ -1,18 +1,3 @@
-/*
-import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { TicketModule } from './ticket/ticket.module';
-import { Empleados } from 'src/entities/empleado.entity';
-
-@Module({
-  imports: [TicketModule],
-  controllers: [AppController],
-  providers: [AppService],
-})
-export class AppModule {}
-*/
-
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
@@ -28,21 +13,54 @@ import { Css_Uni_Entity } from './apoyo/entities/css_uni_entity';
 import { Sis_Sis_Entity } from './apoyo/entities/sis_sis_entity';
 import { Sis_Msi_Entity } from './apoyo/entities/sis_msi_entity';
 import { Css_Ret_Entity } from './ticket/entities/css_ret_entity';
-
+import { ConfigModule } from '@nestjs/config';
+import { MailerModule } from '@nestjs-modules/mailer';
+import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 
 @Module({
   imports: [AuthModule, UsersModule, TicketModule, ApoyoModule,
+    ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'oracle',
-      connectString: '192.168.1.9:1521/OBELIX',
-      port: 1521,
-      username: 'WSISCSS',
-      password: '4pl1c4c10n3sw3b',
-      database: 'desa',
+      connectString: process.env.ORA_CONECTION,
+      port: parseInt(process.env.ORA_PORT),
+      username: process.env.ORA_USERNAME,
+      password: process.env.ORA_PASSWORD,
+      database: process.env.ORA_DATABASE,
+      logging: true,
       schema: '',
       entities: [Css_Rti_Entity, Css_Ret_Entity, Pla_Emp_Entity, Pla_Uni_Entity, Css_Uni_Entity, Sis_Sis_Entity, Sis_Msi_Entity],
-      logging: true,
     }),
+    MailerModule.forRootAsync({
+      useFactory: () => ({
+        transport: {
+          host: process.env.HOST_MAIL,
+          port: parseInt(process.env.PORT_MAIL),
+          secure: Boolean(JSON.parse(process.env.SECURE_MAIL)),
+        },
+        defaults: {
+          from: '"nest-modules" <modules@nestjs.com>',
+        },
+        /*
+        files: [
+          {
+            filename:     'image.jpg',          
+            contentType:  'image/jpeg',
+            cid:          'myimagecid'
+          }
+        ],
+  */
+
+        template: {
+          dir: process.cwd() + '/templates/', // __dirname + '/templates', //dir: process.cwd() + 'src/templates',
+          adapter: new HandlebarsAdapter(),
+          options: {
+            strict: true,
+          },
+        },
+
+      }),
+    }),    
   ],
   controllers: [AppController],
   providers: [AppService],

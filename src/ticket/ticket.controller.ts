@@ -3537,7 +3537,7 @@ export class TicketController {
     async creaTicket(@Body() datos: Create_Css_Rti_Dto) {
         const data = await this.ticketService.creaTicket(datos);
         //return { message: 'Registro creado', data };
-        return data;
+        return { message: 'Registro creado', data };
     }
 
     //-------------------------------------------------------------------------------------------------------------
@@ -3760,7 +3760,7 @@ export class TicketController {
     async creaRespuesta(@Body() datos: Create_Css_Ret_Dto) {
         const data = await this.ticketService.creaRespuesta(datos);
         //return { message: 'Registro creado', data };
-        return data;
+        return { message: 'Registro creado', data };
     }
 
     //-------------------------------------------------------------------------------------------------------------

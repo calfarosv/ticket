@@ -9,7 +9,13 @@ import { Sis_Sis_Entity } from './entities/sis_sis_entity';
 import { Sis_Msi_Entity } from './entities/sis_msi_entity';
 import { Edit_Css_Rti_Dto } from 'src/ticket/dto/edit_css_rti_dto';
 import { Css_Rti_Entity } from 'src/ticket/entities/css_rti_entity';
-
+import { Css_Sol_Entity } from './entities/css_sol_entity';
+import { Css_Sdt_Entity } from './entities/css_sdt_entity';
+import { Css_Cnt_Entity } from './entities/css_cnt_entity';
+import { Create_Css_Sol_Dto } from './dto/create_css_sol_dto';
+import { Create_Css_Sdt_Dto } from './dto/create_css_sdt_dto';
+import { Create_Css_Cnt_Dto } from './dto/create_css_cnt_dto';
+import {getConnection} from "typeorm";
 
 @Injectable()
 export class ApoyoService {
@@ -22,7 +28,9 @@ export class ApoyoService {
         @InjectRepository(Css_Uni_Entity) private unidadesCssRepository: Repository<Css_Uni_Entity>,
         @InjectRepository(Sis_Sis_Entity) private sistemasRepository: Repository<Sis_Sis_Entity>,
         @InjectRepository(Sis_Msi_Entity) private modulosRepository: Repository<Sis_Msi_Entity>,
-        //private readonly mailerService: MailerService,
+        @InjectRepository(Css_Sol_Entity) private solicitudesRepository: Repository<Css_Sol_Entity>,
+        @InjectRepository(Css_Sdt_Entity) private detallesolRepository: Repository<Css_Sdt_Entity>,
+        @InjectRepository(Css_Cnt_Entity) private contadoresRepository: Repository<Css_Cnt_Entity>,
     ){}
 
 @ApiHeader({
@@ -125,7 +133,7 @@ export class ApoyoService {
   }  
 
   @ApiHeader({
-    name: '@Put()',
+    name: '@Get() - //Esta API es llamada desde correo de Lotus notes con URL <CSS_ICT_INF_CREATICKET_PR>',
     description: 'Actualiza estado de los Tickets por medio de acción en correo CSS_ICT_INF_CREATICKET_PR',
     })   
     async ModificaCssRti(
@@ -134,37 +142,179 @@ export class ApoyoService {
           v_ret: number, 
           v_est: string,
           v_emp: string ,
-          dto: Edit_Css_Rti_Dto): 
-          Promise<Css_Rti_Entity> 
+          dto: Edit_Css_Rti_Dto,
+          dto1: Create_Css_Sol_Dto,
+          dto2: Create_Css_Sdt_Dto,
+          dto3: Create_Css_Cnt_Dto)
+          :Promise<Css_Rti_Entity> 
           {
       const toUpdate = await this.regticketsRepository.findOne({
         where : "RTI_CODCIA = "+ v_cia + " AND RTI_CODIGO = " + v_cod,
       })
       if (!toUpdate)
            throw new HttpException('NO SE PUEDE ACTUALIZAR - No existe el registro - (CSS_RTI_ENTITY)', HttpStatus.FORBIDDEN);
-        
         //Definición de infomación previo al UPDATE
-        dto.rtiEstado = v_est
-
+        const rti = await this.buscaPorRti(v_cod);
         if (v_est == 'A'){
+          if (rti.rtiCodsol == null){
           dto.rtiFecAprobado = new Date(),
           dto.rtiEmpAprobado = v_emp
-        }           
+          dto.rtiEstado = v_est
+        } else {
+          console.log('---------------------------------------------------------------------------------------------');
+          console.log('No es posible APROBARLA nuevamente debido a que ya posee una solicitud de servicio infomático');
+          console.log('---------------------------------------------------------------------------------------------');
+          throw new HttpException('No es posible APROBARLA nuevamente debido a que ya posee una solicitud de servicio infomático', HttpStatus.FORBIDDEN);
+        } 
+      }          
+
         if (v_est == 'R'){
+          if (rti.rtiCodsol == null){
           dto.rtiFecRechazado = new Date(),
           dto.rtiEmpRechazado = v_emp
-        }           
+          dto.rtiEstado = v_est
+        } else {
+          console.log('-----------------------------------------------------------------------------------');
+          console.log('No es posible RECHAZARLA debido a que ya posee una solicitud de servicio infomático');
+          console.log('-----------------------------------------------------------------------------------');
+          throw new HttpException('No es posible RECHAZARLA debido a que ya posee una solicitud de servicio infomático', HttpStatus.FORBIDDEN);
+        } 
+      }     
+        
         if (v_est == 'D'){
+          if (rti.rtiCodsol == null){
           dto.rtiFecDevuelto = new Date(),
           dto.rtiEmpDevuelto = v_emp,
           dto.rtiCoduniResp = null
+          dto.rtiEstado = v_est
+        } else {
+          console.log('-----------------------------------------------------------------------------------');
+          console.log('No es posible DEVOLVERLA debido a que ya posee una solicitud de servicio infomático');
+          console.log('-----------------------------------------------------------------------------------');
+          throw new HttpException('No es posible DEVOLVERLA debido a que ya posee una solicitud de servicio infomático', HttpStatus.FORBIDDEN);
         } 
+      
+      }
 
        const modelToEdit = Object.assign(toUpdate, dto);
        await this.regticketsRepository.save(modelToEdit); 
+       //////////////////////////////////////////////////// 
+
+       
+       if (modelToEdit.rtiEstado === 'A' && 
+           modelToEdit.rtiCoduniResp === 900 && 
+           modelToEdit.rtiCodsis  != null && 
+           modelToEdit.rtiCodmsi!= null &&
+           modelToEdit.rtiCodcia == '001' && 
+           modelToEdit.rtiCodsol == null)
+        {
+          const v_fecha = new Date();    
+          const v_anio = v_fecha.getFullYear();
+          const cnt = await this.contadoresRepository
+          .createQueryBuilder('cnt')
+          .select('MAX(cnt.cntContador2)', 'CntContador2')
+          .where("cnt.cntCodcia = :cia",{cia: v_cia})
+          .andWhere("cnt.cntCoduni = :uni",{uni: 149})
+          .andWhere("cnt.cntAnio   = :ani",{ani: v_anio})
+          .getRawOne();   
+
+          dto1 = {solCodcia: '001'}   //Importante inicializar el DTO, sino dá error de Undefined
+          dto2 = {sdtCodcia: '001'}   //Importante inicializar el DTO, sino dá error de Undefined
+          dto3 = {cntCodcia: '001'}   //Importante inicializar el DTO, sino dá error de Undefined
+          dto1 = new Css_Sol_Entity()
+          //NO ME FUNCIONÓ JUSTO EL INSERT  
+          dto1.solCodcia      = modelToEdit.rtiCodcia;
+          dto1.solCoduni      = 149;
+          dto1.solAnio        = v_anio;
+          dto1.solCodigo      = cnt.CntContador2 + 1;
+          dto1.solCodSolicita = modelToEdit.rtiCodemp;
+          dto1.solFecha       = v_fecha;
+          dto1.solUsuario     = modelToEdit.rtiCodemp;
+          dto1.solDesctraSol  = modelToEdit.rtiDescripcion;
+          dto1.solEstado      = 'E';
+          dto1.solPorcentaje  = 0;
+          dto1.solCodser      = 9;
+          dto1.solCoduniResp  = modelToEdit.rtiCoduniResp;
+          dto1.solOrigen      = 'T';
+          dto1.solPrioridad   = modelToEdit.rtiPrioridad;
+          console.log(dto1);  
+          // const model1 = this.solicitudesRepository.create(dto1);
+          // const newRegister1 = await this.solicitudesRepository.save(model1);           
+
+          //INSERT into CSS_SOL_SOLICITUDES  
+          await getConnection()
+          .createQueryBuilder()
+          .insert()
+          .into(Css_Sol_Entity)
+          .values([
+              { solCodcia: modelToEdit.rtiCodcia,
+                solCoduni: 149,
+                solAnio: v_anio,
+                solCodigo: cnt.CntContador2 + 1,
+                solCodSolicita: modelToEdit.rtiCodemp,
+                solFecha: v_fecha,
+                solUsuario: modelToEdit.rtiCodemp,
+                solDesctraSol: modelToEdit.rtiDescripcion,
+                solEstado: 'E',
+                solPorcentaje: 0,
+                solCodser: 9,
+                solCoduniResp: modelToEdit.rtiCoduniResp,
+                solOrigen: 'T',
+                solPrioridad: modelToEdit.rtiPrioridad,
+                solFecCrea: v_fecha,
+                solUsuarioCrea: modelToEdit.rtiEmpElaborado
+              }, 
+           ])
+          .execute();
+
+          dto.rtiAnisol = v_anio;
+          dto.rtiCoduni = 149;
+          dto.rtiCodsol = dto1.solCodigo;
+          const modelToEdit4 = Object.assign(toUpdate, dto);
+          await this.regticketsRepository.save(modelToEdit4); 
+
+          if (modelToEdit.rtiCoduniResp == 900){
+            //INSERT en CSS_SDT_SOLDETALLE
+            dto2.sdtCodcia = modelToEdit.rtiCodcia;
+            dto2.sdtCoduni = 149;
+            dto2.sdtAnio   = v_anio;
+            dto2.sdtCodsol = dto1.solCodigo;
+            dto2.sdtCodigo = 1;
+            dto2.sdtCodsis = modelToEdit.rtiCodsis;
+            dto2.sdtCodmsi = modelToEdit.rtiCodmsi;
+            console.log('INSERT Detalle Solicitud No ', cnt.CntContador2 + 1, ' en ',dto2);          
+            const model2 = this.detallesolRepository.create(dto2);
+            const newRegister2 = await this.detallesolRepository.save(model2); 
+          }
+          //UPDATE en  CSS_CNT_CONTADORES 
+          dto3.cntCodcia    = dto1.solCodcia;
+          dto3.cntCoduni    = 149;
+          dto3.cntAnio      = v_anio;
+          dto3.cntContador2 = dto1.solCodigo;
+          console.log('UPDATE Contador No ', cnt.CntContador2 + 1, ' en ',dto3);             
+          const modelToEdit3 = Object.assign(toUpdate, dto3);
+          await this.contadoresRepository.save(modelToEdit3);             
+
+      }
+      
        return modelToEdit;  
   }
 
+
+
+
+
+
+  @ApiHeader({
+    name: 'Servicio: buscaTodos los Empleados',
+    description: 'Maestro de empleados',
+  })          
+  async buscaPorRti(v_cod :number) {
+    const rti = await this.regticketsRepository.findOne({
+      where : "RTI_CODIGO = "+ v_cod + " AND RTI_CODSOL IS NOT NULL" 
+    });
+    return rti;
+  }
 
   @ApiHeader({
     name: 'Notifica sobre Ticket emitida',

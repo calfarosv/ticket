@@ -3,6 +3,12 @@ import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Edit_Css_Rti_Dto } from 'src/ticket/dto/edit_css_rti_dto';
 import { Css_Rti_Entity } from 'src/ticket/entities/css_rti_entity';
 import { ApoyoService } from './apoyo.service';
+import { Create_Css_Cnt_Dto } from './dto/create_css_cnt_dto';
+import { Create_Css_Sdt_Dto } from './dto/create_css_sdt_dto';
+import { Create_Css_Sol_Dto } from './dto/create_css_sol_dto';
+import { Edit_Css_Cnt_Dto } from './dto/edit_css_cnt_dto';
+import { Edit_Css_Sdt_Dto } from './dto/edit_css_sdt_dto';
+import { Edit_Css_Sol_Dto } from './dto/edit_css_sol_dto';
 import { Css_Uni_Entity } from './entities/css_uni_entity';
 import { Pla_Emp_Entity } from './entities/pla_emp_entity';
 import { Pla_Uni_Entity } from './entities/pla_uni_entity';
@@ -128,7 +134,8 @@ constructor(private ticketService: ApoyoService){}
 
 
     //@UseGuards(JwtAuthGuard)
-    @Put('/updateRti/:cia/:cod/:ret/:est/:emp')
+    //Esta API es llamada desde correo de Lotus notes con URL <CSS_ICT_INF_CREATICKET_PR>
+    @Get('/updateRti/:cia/:cod/:ret/:est/:emp')
        @ApiOperation({ summary: 'Permite ACTUALIZAR registros en CSS_RTI' })
       @ApiResponse({
           status: HttpStatus.OK,
@@ -141,8 +148,12 @@ constructor(private ticketService: ApoyoService){}
           @Param('ret') v_ret: number, 
           @Param('est') v_est: string,
           @Param('emp') v_emp: string,
-          @Param() dto: Edit_Css_Rti_Dto) {
-          const data = await this.ticketService.ModificaCssRti(v_cia, v_cod, v_ret, v_est,v_emp, dto);
+          @Body() 
+          dto:  Edit_Css_Rti_Dto,
+          dto1: Create_Css_Sol_Dto,
+          dto2: Create_Css_Sdt_Dto,
+          dto3: Create_Css_Cnt_Dto) {
+          const data = await this.ticketService.ModificaCssRti(v_cia, v_cod, v_ret, v_est,v_emp, dto, dto1,dto2,dto3);
           return { message: 'Registro actualizado', data };
       } 
 

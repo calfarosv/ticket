@@ -8,7 +8,7 @@ export class Css_Cnt_Entity {
   cntCodcia: string;
   @PrimaryColumn('number',{ name: 'CNT_ANIO', precision: 9 })
   cntAnio: number;
-  @Column('number',{ name: 'CNT_CODUNI', precision: 9 })
+  @PrimaryColumn('number',{ name: 'CNT_CODUNI', precision: 9 })
   cntCoduni: number;
   @Column('number',{ name: 'CNT_CONTADOR1', precision: 9 })
   cntContador1: number;

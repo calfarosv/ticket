@@ -28,6 +28,9 @@ import { Css_Uni_Entity } from './apoyo/entities/css_uni_entity';
 import { Sis_Sis_Entity } from './apoyo/entities/sis_sis_entity';
 import { Sis_Msi_Entity } from './apoyo/entities/sis_msi_entity';
 import { Css_Ret_Entity } from './ticket/entities/css_ret_entity';
+import { Css_Sol_Entity } from './apoyo/entities/css_sol_entity';
+import { Css_Sdt_Entity } from './apoyo/entities/css_sdt_entity';
+import { Css_Cnt_Entity } from './apoyo/entities/css_cnt_entity';
 
 
 @Module({
@@ -40,7 +43,17 @@ import { Css_Ret_Entity } from './ticket/entities/css_ret_entity';
       password: '4pl1c4c10n3sw3b',
       database: 'desa',
       schema: '',
-      entities: [Css_Rti_Entity, Css_Ret_Entity, Pla_Emp_Entity, Pla_Uni_Entity, Css_Uni_Entity, Sis_Sis_Entity, Sis_Msi_Entity],
+      entities: [    
+        Css_Rti_Entity, 
+        Css_Ret_Entity,
+        Pla_Emp_Entity, 
+        Pla_Uni_Entity, 
+        Css_Uni_Entity, 
+        Sis_Sis_Entity, 
+        Sis_Msi_Entity,
+        Css_Cnt_Entity,
+        Css_Sdt_Entity,
+        Css_Sol_Entity],
       logging: true,
     }),
   ],

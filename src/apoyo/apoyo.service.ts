@@ -156,7 +156,7 @@ export class ApoyoService {
         //Definición de infomación previo al UPDATE
         const rti = await this.buscaPorRti(v_cod);
         if (v_est == 'A'){
-          if (rti.rtiCodsol == null){
+          if (toUpdate.rtiCodsol == null){
           dto.rtiFecAprobado = new Date(),
           dto.rtiEmpAprobado = v_emp
           dto.rtiEstado = v_est
@@ -169,7 +169,7 @@ export class ApoyoService {
       }          
 
         if (v_est == 'R'){
-          if (rti.rtiCodsol == null){
+          if (toUpdate.rtiCodsol == null){
           dto.rtiFecRechazado = new Date(),
           dto.rtiEmpRechazado = v_emp
           dto.rtiEstado = v_est
@@ -181,8 +181,8 @@ export class ApoyoService {
         } 
       }     
         
-        if (v_est == 'D'){
-          if (rti.rtiCodsol == null){
+        if (v_est === 'D'){
+           if (toUpdate.rtiCodsol == null){
           dto.rtiFecDevuelto = new Date(),
           dto.rtiEmpDevuelto = v_emp,
           dto.rtiCoduniResp = null

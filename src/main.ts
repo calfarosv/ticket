@@ -4,10 +4,10 @@ import * as fs from 'fs';
 import { AppModule } from './app.module';
 import { initSwagger } from './app.swagger';
 
-//const crPath = '/opt/nodejscert/server.cert';
-//const pkPath = '/opt/nodejscert/server.key';
-const crPath = 'server.cert';
-const pkPath = 'server.key';
+const crPath = '/opt/nodejscert/server.cert';
+const pkPath = '/opt/nodejscert/server.key';
+// const crPath = 'server.cert';
+// const pkPath = 'server.key';
 
 let httpsOptions: any = {};
 

@@ -146,14 +146,17 @@ export class ApoyoService {
           dto1: Create_Css_Sol_Dto,
           dto2: Create_Css_Sdt_Dto,
           dto3: Create_Css_Cnt_Dto)
-          :Promise<Css_Rti_Entity> 
+          :Promise<any>
+          //:Promise<Css_Rti_Entity> 
           {
       const toUpdate = await this.regticketsRepository.findOne({
         where : "RTI_CODCIA = "+ v_cia + " AND RTI_CODIGO = " + v_cod,
       })
       if (!toUpdate)
            throw new HttpException('NO SE PUEDE ACTUALIZAR - No existe el registro - (CSS_RTI_ENTITY)', HttpStatus.FORBIDDEN);
-        //Definición de infomación previo al UPDATE
+        
+        if (toUpdate.rtiEstado =='N') {
+           //Definición de infomación previo al UPDATE
         const rti = await this.buscaPorRti(v_cod);
         if (v_est == 'A'){
           if (toUpdate.rtiCodsol == null){
@@ -296,13 +299,15 @@ export class ApoyoService {
           await this.contadoresRepository.save(modelToEdit3);             
 
       }
-      
-       return modelToEdit;  
+    
+       return {message: 'El ESTADO del Ticket ha sido actualizado satisfactoriamente'};  
+    }else{
+      console.log('-----------------------------------------------------------------------------------');
+      console.log('No es posible ACTUALIZAR ESTADO al Ticket debido a que solo se permite cuando se encuentre en ENVIADO');
+      console.log('-----------------------------------------------------------------------------------');
+      throw new HttpException('No es posible CAMBIO DE ESTADO. Para poder actualizar el ESTADO del Ticket debe ser ENVIADO', HttpStatus.FORBIDDEN);
+    }
   }
-
-
-
-
 
 
   @ApiHeader({

@@ -154,7 +154,7 @@ constructor(private ticketService: ApoyoService){}
           dto2: Create_Css_Sdt_Dto,
           dto3: Create_Css_Cnt_Dto) {
           const data = await this.ticketService.ModificaCssRti(v_cia, v_cod, v_ret, v_est,v_emp, dto, dto1,dto2,dto3);
-          return { message: 'Registro actualizado', data };
+          return data;
       } 
 
-}
+    }

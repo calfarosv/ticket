@@ -1,5 +1,8 @@
+import { HttpException, Injectable, UnauthorizedException, UseGuards } from '@nestjs/common';
 import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put } from '@nestjs/common';
 import { ApiHeader, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Pla_Emp_Entity } from 'src/apoyo/pla_emp_entity';
+import { AuthService } from 'src/auth/auth.service';
 import { Create_Css_Ret_Dto } from './dto/create_css_ret_dto';
 import { Create_Css_Rti_Dto } from './dto/create_css_rti_dto';
 import { Edit_Css_Ret_Dto } from './dto/edit_css_ret_dto';
@@ -7,19 +10,31 @@ import { Edit_Css_Rti_Dto } from './dto/edit_css_rti_dto';
 import { Css_Ret_Entity } from './entities/css_ret_entity';
 import { Css_Rti_Entity } from './entities/css_rti_entity';
 import { TicketService } from './ticket.service';
-
-@ApiTags('Tickets')
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+@ApiTags('APIs para la administración de Tickets')
 @Controller('tickets')
 export class TicketController {
+    constructor(private ticketService: TicketService,private authService: AuthService) { }
+    
+    @Post('/login')
+    @ApiOperation({ summary: 'Valida el usuario que ingresa al Ticket-API' })
+    @ApiResponse({
+        status: HttpStatus.OK,
+        description: 'Valida el usuario que ingresa al SisGSI-API',
+        type: [Pla_Emp_Entity],
+      }) 
+      async login(
+          @Body('user') v_usr: string,
+          @Body('pwd') v_pwd: string,
+          @Body('codsis') v_sis: number,
+          @Body('codmsi') v_msi: number 
+          ): Promise<any>{
+        const data = await this.ticketService.token(v_usr, v_pwd, v_sis, v_msi);
+         if (!data) {return []}
+         else {return data;}
+      }
 
-    constructor(private ticketService: TicketService) { }
-
-    //@UseGuards(JwtAuthGuard)
-
-    //*************************************************************************** */
-    //********** TICKET */
-    //*************************************************************************** */
-
+    @UseGuards(JwtAuthGuard)
     @Get('')
     @ApiOperation({ summary: 'Lista de todos los Tickets' })
     @ApiResponse({
@@ -31,7 +46,8 @@ export class TicketController {
         const data = await this.ticketService.buscaTodosTickets();
         return data;
     }
-
+    
+    @UseGuards(JwtAuthGuard)
     @Get('/by_pk/:rtiCodcia/:rtiCodigo/')
     @ApiOperation({ summary: 'Consulta de Tickets por llave primaria' })
     @ApiResponse({
@@ -54,8 +70,7 @@ export class TicketController {
         }
     }
 
-    //-------------------------------------------------------------------------------------------------------------
-
+    @UseGuards(JwtAuthGuard)
     @Get('/by_coduniresp/:rtiCodcia/:rtiCoduniResp/')
     @ApiOperation({ summary: 'Consulta todos los Tickets por Código de la Unidad Responsable' })
     @ApiResponse({
@@ -138,8 +153,7 @@ export class TicketController {
         }
     }
 
-    //-------------------------------------------------------------------------------------------------------------
-
+    @UseGuards(JwtAuthGuard)
     @Get('/by_prioridad/:rtiCodcia/:rtiPrioridad/')
     @ApiOperation({ summary: 'Consulta de Tickets por prioridad' })
     @ApiResponse({
@@ -223,7 +237,7 @@ export class TicketController {
     }
 
     //-------------------------------------------------------------------------------------------------------------
-
+    @UseGuards(JwtAuthGuard)
     @Get('/by_uni_prioridad/:rtiCodcia/:rtiCoduniResp/:rtiPrioridad/')
     @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y prioridad' })
     @ApiResponse({
@@ -240,8 +254,6 @@ export class TicketController {
         let v_rti_caso = '03';
         //++++++++++++++++++++++++//
         let v_rti_codigo: number = null;
-        //let v_rti_prioridad = '';
-        //let v_rti_coduniresp: number = null;
         let v_rti_codemp = '';
         let v_rti_codsis: number = null;
         let v_rti_codmsi: number = null;
@@ -307,8 +319,8 @@ export class TicketController {
         }
     }
 
-    //-------------------------------------------------------------------------------------------------------------
-
+    
+    @UseGuards(JwtAuthGuard)
     @Get('/by_codemp/:rtiCodcia/:rtiCodemp/')
     @ApiOperation({ summary: 'Consulta de Tickets por Empleado que solicita' })
     @ApiResponse({
@@ -391,8 +403,7 @@ export class TicketController {
         }
     }
 
-    //-------------------------------------------------------------------------------------------------------------
-
+    @UseGuards(JwtAuthGuard)
     @Get('/by_uni_codemp/:rtiCodcia/:rtiCoduniResp/:rtiCodemp/')
     @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Empleado que solicita' })
     @ApiResponse({
@@ -476,8 +487,7 @@ export class TicketController {
         }
     }
 
-    //-------------------------------------------------------------------------------------------------------------
-
+    @UseGuards(JwtAuthGuard)
     @Get('/by_codsis/:rtiCodcia/:rtiCodsis/')
     @ApiOperation({ summary: 'Consulta de Tickets por Sistema' })
     @ApiResponse({
@@ -561,7 +571,7 @@ export class TicketController {
     }
 
     //-------------------------------------------------------------------------------------------------------------
-
+    @UseGuards(JwtAuthGuard)
     @Get('/by_uni_codsis/:rtiCodcia/:rtiCoduniResp/:rtiCodsis/')
     @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Sistema' })
     @ApiResponse({
@@ -646,7 +656,7 @@ export class TicketController {
     }
 
     //-------------------------------------------------------------------------------------------------------------
-
+    @UseGuards(JwtAuthGuard)
     @Get('/by_sismod/:rtiCodcia/:rtiCodsis/:rtiCodmsi/')
     @ApiOperation({ summary: 'Consulta de Tickets por Sistema y Módulo' })
     @ApiResponse({
@@ -731,7 +741,7 @@ export class TicketController {
     }
 
     //-------------------------------------------------------------------------------------------------------------
-
+    @UseGuards(JwtAuthGuard)
     @Get('/by_uni_sismod/:rtiCodcia/:rtiCoduniResp/:rtiCodsis/:rtiCodmsi/')
     @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Sistema y Módulo' })
     @ApiResponse({
@@ -817,7 +827,7 @@ export class TicketController {
     }
 
     //-------------------------------------------------------------------------------------------------------------
-
+    @UseGuards(JwtAuthGuard)
     @Get('/by_estado/:rtiCodcia/:rtiEstado/')
     @ApiOperation({ summary: 'Consulta de Tickets por Estado' })
     @ApiResponse({
@@ -900,8 +910,7 @@ export class TicketController {
         }
     }
 
-    //-------------------------------------------------------------------------------------------------------------
-
+    @UseGuards(JwtAuthGuard)
     @Get('/by_uni_estado/:rtiCodcia/:rtiCoduniResp/:rtiEstado/')
     @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Estado' })
     @ApiResponse({
@@ -985,8 +994,7 @@ export class TicketController {
         }
     }
 
-    //-------------------------------------------------------------------------------------------------------------
-
+    @UseGuards(JwtAuthGuard)
     @Get('/by_aniosol/:rtiCodcia/:rtiAnisol/:rtiCodsol/')
     @ApiOperation({ summary: 'Consulta de Tickets por Estado' })
     @ApiResponse({
@@ -1070,8 +1078,7 @@ export class TicketController {
         }
     }
 
-    //-------------------------------------------------------------------------------------------------------------
-
+    @UseGuards(JwtAuthGuard)
     @Get('/by_uni_aniosol/:rtiCodcia/:rtiCoduniResp/:rtiAnisol/:rtiCodsol/')
     @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Año/Solicitud' })
     @ApiResponse({
@@ -1157,7 +1164,7 @@ export class TicketController {
     }
 
     //-------------------------------------------------------------------------------------------------------------
-
+    @UseGuards(JwtAuthGuard)
     @Get('/by_fecelaborado/:rtiCodcia/:/rtiFecElaborado')
     @ApiOperation({ summary: 'Consulta de Tickets por Fecha de Elaborado' })
     @ApiResponse({
@@ -1241,7 +1248,7 @@ export class TicketController {
     }
 
     //-------------------------------------------------------------------------------------------------------------
-
+    @UseGuards(JwtAuthGuard)
     @Get('/by_uni_fecelaborado/:rtiCodcia/:rtiCoduniResp/:rtiFecElaborado/')
     @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Fecha de Elaborado' })
     @ApiResponse({
@@ -1326,7 +1333,7 @@ export class TicketController {
     }
 
     //-------------------------------------------------------------------------------------------------------------
-
+    @UseGuards(JwtAuthGuard)
     @Get('/by_fecenviado/:rtiCodcia/:rtiFecEnviado/')
     @ApiOperation({ summary: 'Consulta de Tickets por Fecha de Enviado' })
     @ApiResponse({
@@ -1410,7 +1417,7 @@ export class TicketController {
     }
 
     //-------------------------------------------------------------------------------------------------------------
-
+    @UseGuards(JwtAuthGuard)
     @Get('/by_uni_fecenviado/:rtiCodcia/:rtiCoduniResp/:rtiFecEnviado/')
     @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Fecha de Enviado' })
     @ApiResponse({
@@ -1579,7 +1586,7 @@ export class TicketController {
     }
 
     //-------------------------------------------------------------------------------------------------------------
-
+    @UseGuards(JwtAuthGuard)
     @Get('/by_uni_fecaprobado/:rtiCodcia/:rtiCoduniResp/:rtiFecAprobado/')
     @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Fecha de Enviado' })
     @ApiResponse({
@@ -1664,7 +1671,7 @@ export class TicketController {
     }
 
     //-------------------------------------------------------------------------------------------------------------
-
+    @UseGuards(JwtAuthGuard)
     @Get('/by_fecdevuelto/:rtiCodcia/:rtiFecDevuelto/')
     @ApiOperation({ summary: 'Consulta de Tickets por Fecha de devuelto' })
     @ApiResponse({
@@ -1748,7 +1755,7 @@ export class TicketController {
     }
 
     //-------------------------------------------------------------------------------------------------------------
-
+    @UseGuards(JwtAuthGuard)
     @Get('/by_uni_fecdevuelto/:rtiCodcia/:rtiCoduniResp/:rtiFecDevuelto/')
     @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Fecha de devuelto' })
     @ApiResponse({
@@ -1833,7 +1840,7 @@ export class TicketController {
     }
 
     //-------------------------------------------------------------------------------------------------------------
-
+    @UseGuards(JwtAuthGuard)
     @Get('/by_fecrechazado/:rtiCodcia/:rtiFecRechazado/')
     @ApiOperation({ summary: 'Consulta de Tickets por Fecha de rechazado' })
     @ApiResponse({
@@ -1917,7 +1924,7 @@ export class TicketController {
     }
 
     //-------------------------------------------------------------------------------------------------------------
-
+    @UseGuards(JwtAuthGuard)
     @Get('/by_uni_fecrechazado/:rtiCodcia/:rtiCoduniResp/:rtiFecRechazado/')
     @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Fecha de rechazado' })
     @ApiResponse({
@@ -2002,7 +2009,7 @@ export class TicketController {
     }
 
     //-------------------------------------------------------------------------------------------------------------
-
+    @UseGuards(JwtAuthGuard)
     @Get('/by_fecfinalizado/:rtiCodcia/:rtiFecFinalizado/')
     @ApiOperation({ summary: 'Consulta de Tickets por Fecha de finalizado' })
     @ApiResponse({
@@ -2086,7 +2093,7 @@ export class TicketController {
     }
 
     //-------------------------------------------------------------------------------------------------------------
-
+    @UseGuards(JwtAuthGuard)
     @Get('/by_uni_fecfinalizado/:rtiCodcia/:rtiCoduniResp/:rtiFecFinalizado/')
     @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Fecha de finalizado' })
     @ApiResponse({
@@ -2171,7 +2178,7 @@ export class TicketController {
     }
 
     //-------------------------------------------------------------------------------------------------------------
-
+    @UseGuards(JwtAuthGuard)
     @Get('/by_empelaborado/:rtiCodcia/:rtiEmpElaborado/')
     @ApiOperation({ summary: 'Consulta de Tickets por Empleado que Elabora' })
     @ApiResponse({
@@ -2255,7 +2262,7 @@ export class TicketController {
     }
 
     //-------------------------------------------------------------------------------------------------------------
-
+    @UseGuards(JwtAuthGuard)
     @Get('/by_uni_empelaborado/:rtiCodcia/:rtiCoduniResp/:rtiEmpElaborado/')
     @ApiOperation({ summary: 'Consulta de Tickets por Empleado que Elabora' })
     @ApiResponse({
@@ -2340,7 +2347,7 @@ export class TicketController {
     }
 
     //-------------------------------------------------------------------------------------------------------------
-
+    @UseGuards(JwtAuthGuard)
     @Get('/by_empenviado/:rtiCodcia/:rtiEmpEnviado/')
     @ApiOperation({ summary: 'Consulta de Tickets por Empleado que Envia' })
     @ApiResponse({
@@ -2424,7 +2431,7 @@ export class TicketController {
     }
 
     //-------------------------------------------------------------------------------------------------------------
-
+    @UseGuards(JwtAuthGuard)
     @Get('/by_uni_empenviado/:rtiCodcia/:rtiCoduniResp/:rtiEmpEnviado/')
     @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Empleado que Envia' })
     @ApiResponse({
@@ -2509,7 +2516,7 @@ export class TicketController {
     }
 
     //-------------------------------------------------------------------------------------------------------------
-
+    @UseGuards(JwtAuthGuard)
     @Get('/by_empaprobado/:rtiCodcia/:rtiEmpAprobado/')
     @ApiOperation({ summary: 'Consulta de Tickets por Empleado que Aprueba' })
     @ApiResponse({
@@ -2593,7 +2600,7 @@ export class TicketController {
     }
 
     //-------------------------------------------------------------------------------------------------------------
-
+    @UseGuards(JwtAuthGuard)
     @Get('/by_uni_empaprobado/:rtiCodcia/:rtiCoduniResp/:rtiEmpAprobado/')
     @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Empleado que Aprueba' })
     @ApiResponse({
@@ -2678,7 +2685,7 @@ export class TicketController {
     }
 
     //-------------------------------------------------------------------------------------------------------------
-
+    @UseGuards(JwtAuthGuard)
     @Get('/by_empdevuelto/:rtiCodcia/:rtiEmpDevuelto/')
     @ApiOperation({ summary: 'Consulta de Tickets por Empleado que Devuelve' })
     @ApiResponse({
@@ -2762,7 +2769,7 @@ export class TicketController {
     }
 
     //-------------------------------------------------------------------------------------------------------------
-
+    @UseGuards(JwtAuthGuard)
     @Get('/by_uni_empdevuelto/:rtiCodcia/:rtiCoduniResp/:rtiEmpDevuelto/')
     @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Empleado que Devuelve' })
     @ApiResponse({
@@ -2847,7 +2854,7 @@ export class TicketController {
     }
 
     //-------------------------------------------------------------------------------------------------------------
-
+    @UseGuards(JwtAuthGuard)
     @Get('/by_emprechazado/:rtiCodcia/:rtiEmpRechazado/')
     @ApiOperation({ summary: 'Consulta de Tickets por Empleado que Rechaza' })
     @ApiResponse({
@@ -2931,7 +2938,7 @@ export class TicketController {
     }
 
     //-------------------------------------------------------------------------------------------------------------
-
+    @UseGuards(JwtAuthGuard)
     @Get('/by_uni_emprechazado/:rtiCodcia/:rtiCoduniResp/:rtiEmpRechazado/')
     @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Empleado que Rechaza' })
     @ApiResponse({
@@ -3016,7 +3023,7 @@ export class TicketController {
     }
 
     //-------------------------------------------------------------------------------------------------------------
-
+    @UseGuards(JwtAuthGuard)
     @Get('/by_empfinalizado/:rtiCodcia/:rtiEmpFinalizado/')
     @ApiOperation({ summary: 'Consulta de Tickets por Empleado que Finaliza' })
     @ApiResponse({
@@ -3100,7 +3107,7 @@ export class TicketController {
     }
 
     //-------------------------------------------------------------------------------------------------------------
-
+    @UseGuards(JwtAuthGuard)
     @Get('/by_uni_empfinalizado/:rtiCodcia/:rtiCoduniResp/:rtiEmpFinalizado/')
     @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Empleado que Finaliza' })
     @ApiResponse({
@@ -3185,6 +3192,7 @@ export class TicketController {
     }
 
     //-------------------------------------------------------------------------------------------------------------
+    @UseGuards(JwtAuthGuard)
     @Get('/by_uni_usrred_sn/:rtiCodcia/:rtiCoduniResp/:rtiUsrred/')
     @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Usuario de red SI o NO' })
     @ApiResponse({
@@ -3269,6 +3277,7 @@ export class TicketController {
     }
 
     //-------------------------------------------------------------------------------------------------------------
+    @UseGuards(JwtAuthGuard)
     @Get('/by_uni_correo_sn/:rtiCodcia/:rtiCoduniResp/:rtiCorreo/')
     @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Correo SI o NO' })
     @ApiResponse({
@@ -3353,6 +3362,7 @@ export class TicketController {
     }
 
     //-------------------------------------------------------------------------------------------------------------
+    @UseGuards(JwtAuthGuard)
     @Get('/by_uni_navega_sn/:rtiCodcia/:rtiCoduniResp/:rtiNavega/')
     @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Navegación SI o NO' })
     @ApiResponse({
@@ -3437,6 +3447,7 @@ export class TicketController {
     }
 
     //-------------------------------------------------------------------------------------------------------------
+    @UseGuards(JwtAuthGuard)
     @Get('/by_uni_sistema_sn/:rtiCodcia/:rtiCoduniResp/:rtiSistema/')
     @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable y Sistema SI o NO' })
     @ApiResponse({
@@ -3526,7 +3537,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
     //------------ POST - Crea registro
     //-------------------------------------------------------------------------------------------------------------
-
+    @UseGuards(JwtAuthGuard)
     @Post('/insert/')
     @ApiOperation({ summary: 'Crea registro a partir del BODY - IMPORTANTE: Se debe enviar rtiCodcia: "001" y rtiCodigo: 99999, para que inserte un nuevo registro con código CORRELATIVO' })
     @ApiResponse({
@@ -3543,7 +3554,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
     //------------ PUT - Actualiza registro
     //-------------------------------------------------------------------------------------------------------------
-
+    @UseGuards(JwtAuthGuard)
     @Put('/update/:rtiCodcia/:rtiCodigo/')
     @ApiOperation({ summary: 'Actualiza un registro - IMPORTANTE: Los campos a actualizar deben ir en el BODY' })
     @ApiResponse({
@@ -3562,7 +3573,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
     //------------ DELETE - Borra registro
     //-------------------------------------------------------------------------------------------------------------
-
+    @UseGuards(JwtAuthGuard)
     @Delete('/delete/:rtiCodcia/:rtiCodigo/')
     @ApiOperation({ summary: 'Borra un registro - PARÁMETROS LLAVE: rtiCodcia, rtiCodigo' })
     @ApiResponse({
@@ -3581,7 +3592,7 @@ export class TicketController {
     //*************************************************************************** */
     //********** RESPUESTAS */
     //*************************************************************************** */
-
+    @UseGuards(JwtAuthGuard)
     @Get('/respuestas/')
     @ApiOperation({ summary: 'Lista de todas las Respuestas' })
     @ApiResponse({
@@ -3623,7 +3634,7 @@ export class TicketController {
     }
 
     //-------------------------------------------------------------------------------------------------------------
-
+    @UseGuards(JwtAuthGuard)
     @Get('/respuestas/by_coduniresp/:retCodcia/:retCoduniResp/')
     @ApiOperation({ summary: 'Consulta de Tickets por Unidad Responsable' })
     @ApiResponse({
@@ -3663,7 +3674,7 @@ export class TicketController {
     }
 
     //-------------------------------------------------------------------------------------------------------------
-
+    @UseGuards(JwtAuthGuard)
     @Get('/respuestas/by_tipo/:retCodcia/:retCoduniResp/:retTipo/')
     @ApiOperation({ summary: 'Consulta de Tickets por Tipo' })
     @ApiResponse({
@@ -3704,7 +3715,7 @@ export class TicketController {
     }
 
     //-------------------------------------------------------------------------------------------------------------
-
+    @UseGuards(JwtAuthGuard)
     @Get('/respuestas/by_estado/:retCodcia/:retCoduniResp/:retEstado/')
     @ApiOperation({ summary: 'Consulta de Tickets por Estado' })
     @ApiResponse({
@@ -3749,7 +3760,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
     //------------ POST - Crea RESPUESTA
     //-------------------------------------------------------------------------------------------------------------
-
+    @UseGuards(JwtAuthGuard)
     @Post('/respuestas/insert/')
     @ApiOperation({ summary: 'Crea registro a partir del BODY - LLAVE: retCodcia, retCoduniResp, retCodigo' })
     @ApiResponse({
@@ -3766,7 +3777,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
     //------------ PUT - Actualiza RESPUESTA
     //-------------------------------------------------------------------------------------------------------------
-
+    @UseGuards(JwtAuthGuard)
     @Put('/respuestas/update/:retCodcia/:retCoduniResp/:retCodigo/')
     @ApiOperation({ summary: 'Actualiza un registro - IMPORTANTE: Los campos a actualizar deben ir en el BODY' })
     @ApiResponse({
@@ -3786,7 +3797,7 @@ export class TicketController {
     //-------------------------------------------------------------------------------------------------------------
     //------------ DELETE - Borra RESPUESTA
     //-------------------------------------------------------------------------------------------------------------
-
+    @UseGuards(JwtAuthGuard)
     @Delete('/respuestas/delete/:retCodcia/:retCoduniResp/:retCodigo/')
     @ApiOperation({ summary: 'Borra un registro - PARÁMETROS LLAVE: retCodcia, retCoduniResp, retCodigo' })
     @ApiResponse({
@@ -3802,10 +3813,5 @@ export class TicketController {
         const data = await this.ticketService.EliminaRespuesta(v_ret_codcia, v_ret_coduni_resp, v_ret_codigo);
         return { message: 'Registro eliminado', data };
     }
-
-
-
-
-
 
 } // export class

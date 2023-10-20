@@ -1,11 +1,16 @@
 import { MailerService } from '@nestjs-modules/mailer';
-import { Body, HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Body, HttpException, HttpStatus, Injectable, UnauthorizedException } from '@nestjs/common';
 import { ApiHeader } from '@nestjs/swagger';
 import { InjectRepository } from '@nestjs/typeorm';
+import axios from 'axios';
 import { Css_Uni_Entity } from 'src/apoyo/entities/css_uni_entity';
 import { Pla_Emp_Entity } from 'src/apoyo/entities/pla_emp_entity';
 import { Sis_Msi_Entity } from 'src/apoyo/entities/sis_msi_entity';
 import { Sis_Sis_Entity } from 'src/apoyo/entities/sis_sis_entity';
+import { Sis_Rol_Entity } from 'src/apoyo/gsi_rol_entity';
+import { Sis_Usr_Entity } from 'src/apoyo/gsi_usr_entity';
+import { Pla_Uni_Entity } from 'src/apoyo/pla_uni_entity';
+import { AuthService } from 'src/auth/auth.service';
 import { Repository } from 'typeorm';
 import { Create_Css_Ret_Dto } from './dto/create_css_ret_dto';
 import { Create_Css_Rti_Dto } from './dto/create_css_rti_dto';
@@ -21,6 +26,10 @@ export class TicketService {
         @InjectRepository(Css_Rti_Entity) private ticketRepository: Repository<Css_Rti_Entity>,
         @InjectRepository(Css_Ret_Entity) private respuestasRepository: Repository<Css_Ret_Entity>,
         @InjectRepository(Pla_Emp_Entity) private empleadosRepository: Repository<Pla_Emp_Entity>,
+        @InjectRepository(Sis_Rol_Entity) private sisrolRepository: Repository<Sis_Rol_Entity>,
+        @InjectRepository(Sis_Usr_Entity) private sisusrRepository: Repository<Sis_Usr_Entity>,
+        @InjectRepository(Pla_Uni_Entity) private unidadesRepository: Repository<Pla_Uni_Entity>,
+        private authService: AuthService ,       
         private readonly mailerService: MailerService,
 
     ) { }
@@ -93,33 +102,7 @@ export class TicketService {
         v_rti_correo: string,
         v_rti_navega: string,
         v_rti_sistema: string) {
-        // console.log('v_rti_caso: ', v_rti_caso);
-        // console.log('v_rti_codcia: ', v_rti_codcia);
-        // console.log('v_rti_codigo: ', v_rti_codigo);
-        // console.log('v_rti_prioridad: ', v_rti_prioridad);
-        // console.log('v_rti_coduniresp: ', v_rti_coduniresp);
-        // console.log('v_rti_codemp: ', v_rti_codemp);
-        // console.log('v_rti_codsis: ', v_rti_codsis);
-        // console.log('v_rti_codmsi: ', v_rti_codmsi);
-        // console.log('v_rti_estado: ', v_rti_estado);
-        // console.log('v_rti_anisol: ', v_rti_anisol);
-        // console.log('v_rti_codsol: ', v_rti_codsol);
-        // console.log('v_rti_fec_elaborado: ', v_rti_fec_elaborado);
-        // console.log('v_rti_fec_enviado: ', v_rti_fec_enviado);
-        // console.log('v_rti_fec_aprobado: ', v_rti_fec_aprobado);
-        // console.log('v_rti_fec_devuelto: ', v_rti_fec_devuelto);
-        // console.log('v_rti_fec_rechazado: ', v_rti_fec_rechazado);
-        // console.log('v_rti_fec_finalizado: ', v_rti_fec_finalizado);
-        // console.log('v_rti_emp_elaborado: ', v_rti_emp_elaborado);
-        // console.log('v_rti_emp_enviado: ', v_rti_emp_enviado);
-        // console.log('v_rti_emp_aprobado: ', v_rti_emp_aprobado);
-        // console.log('v_rti_emp_devuelto: ', v_rti_emp_devuelto);
-        // console.log('v_rti_emp_rechazado: ', v_rti_emp_rechazado);
-        // console.log('v_rti_emp_finalizado: ', v_rti_emp_finalizado);
-        // console.log('v_rti_usrred: ', v_rti_usrred);
-        // console.log('v_rti_correo: ', v_rti_correo);
-        // console.log('v_rti_navega: ', v_rti_navega);
-        // console.log('v_rti_sistema: ', v_rti_sistema);
+     
 
         let v_fecha_sol: Date;
         let v_where = '';
@@ -602,8 +585,8 @@ export class TicketService {
                 //to: obtiene_empleado.empCorreo ? obtiene_empleado.empCorreo + '@cel.gob.sv' : process.env.CORREO_APOYO,
                 to: 'alpineda@cel.gob.sv',
                 //to: 'calfaro@cel.gob.sv',
-                from: 'SISCSS@cel.gob.sv',
-                subject: 'Creación de Ticket de Servicio - Informática Institucional',
+                from: 'Ticket-TI sistemas@cel.gob.sv',
+                subject: 'Elaboración de Ticket de Servicio No. '+ v_rtiCodigo.toString() + ' - Informática Institucional',
                 text: 'Bienvenido', // plaintext body
                 template: 'template',
                 context: {
@@ -624,5 +607,49 @@ export class TicketService {
 
         }
 
+        @ApiHeader({
+            name: 'Servicio: valida_usuario(v_user: string): Promise<Gsi_Ucl_Entity[]>',
+            description: 'Valida Usuario',
+          })
+          
+          async token(v_usr: string, v_pwd: string, v_sis: number, v_msi: number)  {
+            const parametros = {
+                user: v_usr,
+                pwd: v_pwd,
+                codsis: v_sis,
+                codmsi: v_msi
+               }
 
-} // export class
+            const v_user = v_usr.toUpperCase();
+              const datos = await this.sisusrRepository.findOne({where :"UPPER(USR_USUARIO) = '"+ v_user + "' AND USR_CODROL in (76)"});  
+              if(!datos)
+              throw new HttpException('El Usuario no posee permisos para ingresar al Sistema', HttpStatus.FORBIDDEN);      
+              
+              const roles = await this.sisrolRepository.findOne({where :"ROL_CODIGO = "+ datos.usrCodrol});      
+              const v_rol = datos.usrCodrol
+              const v_nrol = roles.rolRole
+
+              //console.log(parametros);
+              const register = await axios.post('http://movil.cel.gob.sv:8080/cel-rest/service/login', parametros)
+              
+              if(!register || register.data.coduni == 0)
+                throw new HttpException('Ha ocurrido un error al tratar de iniciar sesión en la aplicación', HttpStatus.FORBIDDEN);
+              else{
+                const v_ccel = register.data.codcel;  
+                const user = await this.authService.login({v_usr,v_ccel});
+                if (!user) {
+                  throw new UnauthorizedException();
+                }
+                
+                 register.data.username = v_user.toUpperCase();
+                 register.data.unidad = register.data.dependencia;
+                 register.data.rolusr = {rolCodigo: v_rol, rolRole: v_nrol };
+                register.data.tokenFirst = user;
+        
+                 console.log(register.data);
+                 return register.data;
+              }
+           
+          }        
+
+} 

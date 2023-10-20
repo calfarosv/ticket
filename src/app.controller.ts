@@ -5,7 +5,6 @@ import { AppService } from './app.service';
 //+++ agregando oauth y jwt ++++
 import { LocalAuthGuard } from './auth/local-auth.guard';
 import { AuthService } from './auth/auth.service';
-import { JwtAuthGuard } from './auth/jwt-auth.guard'
 
 //+++
 

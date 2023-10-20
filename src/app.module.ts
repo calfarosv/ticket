@@ -20,6 +20,8 @@ import { Css_Cnt_Entity } from './apoyo/entities/css_cnt_entity';
  import { ConfigModule } from '@nestjs/config';
  import { MailerModule } from '@nestjs-modules/mailer';
  import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
+import { Sis_Rol_Entity } from './apoyo/gsi_rol_entity';
+import { Sis_Usr_Entity } from 'src/apoyo/gsi_usr_entity';
 
 @Module({
   imports: [AuthModule, UsersModule, TicketModule, ApoyoModule,
@@ -39,18 +41,21 @@ import { Css_Cnt_Entity } from './apoyo/entities/css_cnt_entity';
         Pla_Emp_Entity, 
         Pla_Uni_Entity, 
         Css_Uni_Entity, 
+        Sis_Rol_Entity,
         Sis_Sis_Entity, 
         Sis_Msi_Entity,
         Css_Cnt_Entity,
         Css_Sdt_Entity,
-        Css_Sol_Entity],
+        Css_Sol_Entity,
+        Sis_Usr_Entity],
     }),
     MailerModule.forRootAsync({
       useFactory: () => ({
         transport: {
           host: process.env.HOST_MAIL,
           port: parseInt(process.env.PORT_MAIL),
-          secure: Boolean(JSON.parse(process.env.SECURE_MAIL)),
+          secure: false,
+          tls: { rejectUnauthorized: false },
         },
         defaults: {
           from: '"nest-modules" <modules@nestjs.com>',

@@ -11,9 +11,14 @@ const pkPath = '/opt/nodejscert/server.key';
 
 let httpsOptions: any = {};
 
+
+//process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';//Esta línea hace que no se validen los certificados
+
+
 async function bootstrap() {
   if (fs.existsSync(crPath) && fs.existsSync(pkPath)) {
     httpsOptions = {
+      
       cert: fs.readFileSync(crPath),
       key: fs.readFileSync(pkPath)
     }
@@ -26,10 +31,8 @@ async function bootstrap() {
       whitelist: true,
     })
   );
-
   app.enableCors();
   await app.listen(3022);
   console.log(`La aplicación esta corriendo en: ${await app.getUrl()}`);
-
 }
 bootstrap();
